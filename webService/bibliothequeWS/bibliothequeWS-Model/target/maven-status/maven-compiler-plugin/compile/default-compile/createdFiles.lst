@@ -1,0 +1,7 @@
+OC\webService\nicolas\model\entites\Genre.class
+OC\webService\nicolas\model\entites\Utilisateur.class
+OC\webService\nicolas\model\entites\Auteur.class
+OC\webService\nicolas\model\entites\LivreEmprunt.class
+OC\webService\nicolas\model\entites\Editeur.class
+OC\webService\nicolas\model\entites\Livre.class
+OC\webService\nicolas\model\entites\CoordonneeUtilisateur.class

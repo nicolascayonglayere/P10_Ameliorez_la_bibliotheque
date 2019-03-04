@@ -1,0 +1,15 @@
+I:\Documents\openclassrooms formation\P7\P7-webService-bibliotheque\webService\bibliothequeWS\bibliothequeWS-Business\src\main\java\OC\webService\nicolas\business\impl\AbstractManager.java
+I:\Documents\openclassrooms formation\P7\P7-webService-bibliotheque\webService\bibliothequeWS\bibliothequeWS-Business\src\main\java\OC\webService\nicolas\business\mapper\MapperLivreEmprunt.java
+I:\Documents\openclassrooms formation\P7\P7-webService-bibliotheque\webService\bibliothequeWS\bibliothequeWS-Business\src\main\java\OC\webService\nicolas\business\mapper\MapperAuteur.java
+I:\Documents\openclassrooms formation\P7\P7-webService-bibliotheque\webService\bibliothequeWS\bibliothequeWS-Business\src\main\java\OC\webService\nicolas\business\impl\LivreEmpruntManagerImpl.java
+I:\Documents\openclassrooms formation\P7\P7-webService-bibliotheque\webService\bibliothequeWS\bibliothequeWS-Business\src\main\java\OC\webService\nicolas\business\mapper\MapperLivre.java
+I:\Documents\openclassrooms formation\P7\P7-webService-bibliotheque\webService\bibliothequeWS\bibliothequeWS-Business\src\main\java\OC\webService\nicolas\business\mapper\MapperUtilisateur.java
+I:\Documents\openclassrooms formation\P7\P7-webService-bibliotheque\webService\bibliothequeWS\bibliothequeWS-Business\src\main\java\OC\webService\nicolas\business\ManagerFactory.java
+I:\Documents\openclassrooms formation\P7\P7-webService-bibliotheque\webService\bibliothequeWS\bibliothequeWS-Business\src\main\java\OC\webService\nicolas\business\impl\UtilisateurManagerImpl.java
+I:\Documents\openclassrooms formation\P7\P7-webService-bibliotheque\webService\bibliothequeWS\bibliothequeWS-Business\src\main\java\OC\webService\nicolas\business\ManagerFactoryImpl.java
+I:\Documents\openclassrooms formation\P7\P7-webService-bibliotheque\webService\bibliothequeWS\bibliothequeWS-Business\src\main\java\OC\webService\nicolas\business\mapper\MapperCoordonneeUtilisateur.java
+I:\Documents\openclassrooms formation\P7\P7-webService-bibliotheque\webService\bibliothequeWS\bibliothequeWS-Business\src\main\java\OC\webService\nicolas\business\contract\LivreEmpruntManager.java
+I:\Documents\openclassrooms formation\P7\P7-webService-bibliotheque\webService\bibliothequeWS\bibliothequeWS-Business\src\main\java\OC\webService\nicolas\business\contract\LivreManager.java
+I:\Documents\openclassrooms formation\P7\P7-webService-bibliotheque\webService\bibliothequeWS\bibliothequeWS-Business\src\main\java\OC\webService\nicolas\business\mapper\ConversionDate.java
+I:\Documents\openclassrooms formation\P7\P7-webService-bibliotheque\webService\bibliothequeWS\bibliothequeWS-Business\src\main\java\OC\webService\nicolas\business\contract\UtilisateurManager.java
+I:\Documents\openclassrooms formation\P7\P7-webService-bibliotheque\webService\bibliothequeWS\bibliothequeWS-Business\src\main\java\OC\webService\nicolas\business\impl\LivreManagerImpl.java

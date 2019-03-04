@@ -1,0 +1,15 @@
+OC\webService\nicolas\business\mapper\MapperCoordonneeUtilisateur.class
+OC\webService\nicolas\business\contract\LivreEmpruntManager.class
+OC\webService\nicolas\business\ManagerFactoryImpl.class
+OC\webService\nicolas\business\mapper\ConversionDate.class
+OC\webService\nicolas\business\mapper\MapperAuteur.class
+OC\webService\nicolas\business\contract\LivreManager.class
+OC\webService\nicolas\business\mapper\MapperUtilisateur.class
+OC\webService\nicolas\business\contract\UtilisateurManager.class
+OC\webService\nicolas\business\mapper\MapperLivreEmprunt.class
+OC\webService\nicolas\business\impl\AbstractManager.class
+OC\webService\nicolas\business\impl\LivreManagerImpl.class
+OC\webService\nicolas\business\mapper\MapperLivre.class
+OC\webService\nicolas\business\impl\LivreEmpruntManagerImpl.class
+OC\webService\nicolas\business\impl\UtilisateurManagerImpl.class
+OC\webService\nicolas\business\ManagerFactory.class

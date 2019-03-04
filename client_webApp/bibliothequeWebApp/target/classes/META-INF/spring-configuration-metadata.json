@@ -1,0 +1,17 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "oc.webApp.nicolas.configurations.BiblioWebAppConfiguration",
+      "name": "cxf",
+      "type": "oc.webApp.nicolas.configurations.BiblioWebAppConfiguration"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "oc.webApp.nicolas.configurations.BiblioWebAppConfiguration",
+      "name": "cxf.url",
+      "type": "java.lang.String"
+    }
+  ]
+}

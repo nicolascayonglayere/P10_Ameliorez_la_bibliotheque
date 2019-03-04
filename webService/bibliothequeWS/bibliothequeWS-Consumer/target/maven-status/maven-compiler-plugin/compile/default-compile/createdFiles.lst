@@ -1,0 +1,5 @@
+OC\webService\nicolas\consumer\contract\ILivreEmpruntDao.class
+OC\webService\nicolas\consumer\contract\IUtilisateurDao.class
+OC\webService\nicolas\consumer\DaoFactoryImpl.class
+OC\webService\nicolas\consumer\DaoFactory.class
+OC\webService\nicolas\consumer\contract\ILivreDao.class

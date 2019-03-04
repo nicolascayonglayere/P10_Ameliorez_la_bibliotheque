@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>oc.batch.nicolas</groupId>
+  <artifactId>bibliothequeBatch</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>bibliothequeBatch</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.5.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+
+  <properties>
+  	<package.directory>${project.build.directory}/${project.name}</package.directory>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	<java.version>1.8</java.version>    
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <main.class>oc.batch.nicolas.App</main.class>
+  </properties>
+
+  <dependencies>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-batch</artifactId>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-test</artifactId>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.batch</groupId>
+		<artifactId>spring-batch-test</artifactId>
+		<scope>test</scope>
+	</dependency>
+    <dependency>
+    	<groupId>com.sun.mail</groupId>
+    	<artifactId>javax.mail</artifactId>
+    </dependency>		  
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>org.apache.cxf</groupId>
+    	<artifactId>cxf-rt-rs-client</artifactId>
+    	<version>3.2.5</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-frontend-jaxws</artifactId>
+        <version>3.2.5</version>
+    </dependency>
+    
+	<dependency>
+	    <groupId>javax.xml.bind</groupId>
+	    <artifactId>jaxb-api</artifactId>
+	    <scope>runtime</scope>
+	</dependency>
+  </dependencies>
+
+  <build>
+		<plugins>
+
+	        <plugin>
+	            <groupId>org.apache.cxf</groupId>
+	            <artifactId>cxf-codegen-plugin</artifactId>
+	            <version>3.2.5</version>
+	            <executions>
+	                <execution>
+	                    <id>generate-sources</id>
+	                    <phase>generate-sources</phase>
+	                    <configuration>
+	                        <wsdlRoot>${basedir}/src/main/resources</wsdlRoot>
+	                        <wsdlOptions>
+	                            <wsdlOption>
+	                                <wsdl>${basedir}/src/main/resources/biblioWS.wsdl</wsdl>
+	                                <wsdlLocation>classpath:biblioWS.wsdl</wsdlLocation>
+						            <extraargs>
+						                <extraarg>-client</extraarg>
+						            </extraargs>                                
+	                            </wsdlOption>
+	                        </wsdlOptions>
+	                    </configuration>
+	                    <goals>
+	                        <goal>wsdl2java</goal>
+	                    </goals>
+	                </execution>
+	            </executions>
+	        </plugin>
+	        <plugin>
+	          <groupId>org.apache.maven.plugins</groupId>	
+	          <artifactId>maven-jar-plugin</artifactId>
+			  <executions>
+			    <execution>
+			      <id>jar-package</id>
+			      <phase>package</phase>
+			      <!--  <goals>
+			        <goal>jar</goal>
+			      </goals>-->
+			      <configuration>
+			        <finalName>${project.artifactId}-${project.version}</finalName>
+			        <outputDirectory>${package.directory}/</outputDirectory>
+			        <excludes>
+			          <!-- les fichiers .properties ne seront pas dans le jar -->
+			          <!--  <exclude>*.properties</exclude>-->
+			        </excludes>
+			        <archive>
+			          <manifest>
+			            <addClasspath>true</addClasspath>
+			            <classpathPrefix>dependencies/</classpathPrefix>
+			            <mainClass>${main.class}</mainClass>
+			          </manifest>
+			          <manifestEntries>
+			            <Class-Path>.</Class-Path>
+			          </manifestEntries>
+			        </archive>
+			      </configuration>
+			    </execution>
+			  </executions>          
+	        </plugin>
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-dependency-plugin</artifactId>
+			  <!--  <executions>
+			    <execution>
+			      <id>copy-dependencies</id>
+			      <phase>package</phase>
+			      <goals>
+			        <goal>copy-dependencies</goal>
+			      </goals>
+			      <configuration>
+			        <outputDirectory>${package.directory}/dependencies/</outputDirectory>
+			      </configuration>
+			    </execution>
+			  </executions>-->
+			</plugin>
+			<plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-resources-plugin</artifactId>
+			  <!--  <executions>
+			    <execution>
+			      <id>copy-resources</id>
+			      <phase>package</phase>
+			      <goals>
+			        <goal>copy-resources</goal>
+			      </goals>
+			      <configuration>
+			        <outputDirectory>${package.directory}</outputDirectory>
+			        <resources>
+			          <resource>
+			            <directory>src/main/resources/</directory>
+			          </resource>
+			        </resources>
+			      </configuration>
+			    </execution>
+			  </executions>-->
+			</plugin>
+	        
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>				
+			</plugin>	        	        			
+		</plugins>
+		  
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.0.0</version>
+        </plugin>
+        <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.7.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.20.1</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>
