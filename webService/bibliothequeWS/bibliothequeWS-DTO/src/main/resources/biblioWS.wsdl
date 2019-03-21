@@ -243,6 +243,32 @@
       		</xsd:sequence>
       	</xsd:complexType>
       </xsd:element>
+      <xsd:element name="ObtenirReservationUtilisateur">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="idUtilisateur" type="xsd:int" minOccurs="1" maxOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ObtenirReservationUtilisateurResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="reservations" type="Q1:ReservationType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ObtenirReservationUtilisateurFault">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="idUtilisateur"
+      				type="xsd:int" minOccurs="1" maxOccurs="1">
+      			</xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="loginRequest">
@@ -338,6 +364,15 @@
   <wsdl:message name="obtenirEmpruntUtilisateurFault">
   	<wsdl:part name="parameters" element="ybs:obtenirEmpruntUtilisateurFault"></wsdl:part>
   </wsdl:message>
+  <wsdl:message name="ObtenirReservationUtilisateurRequest">
+  	<wsdl:part name="parameters" element="ybs:ObtenirReservationUtilisateur"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ObtenirReservationUtilisateurResponse">
+  	<wsdl:part name="parameters" element="ybs:ObtenirReservationUtilisateurResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ObtenirReservationUtilisateurFault">
+  	<wsdl:part name="parameters" element="ybs:ObtenirReservationUtilisateurFault"></wsdl:part>
+  </wsdl:message>
   <wsdl:portType name="biblioWS">
     <wsdl:operation name="login">
       <wsdl:input message="ybs:loginRequest"/>
@@ -382,6 +417,11 @@
     	<wsdl:input message="ybs:obtenirEmpruntUtilisateurRequest"></wsdl:input>
     	<wsdl:output message="ybs:obtenirEmpruntUtilisateurResponse"></wsdl:output>
             <wsdl:fault name="UtilisateurNotFoundFault" message="ybs:obtenirEmpruntUtilisateurFault"></wsdl:fault>
+        </wsdl:operation>
+    <wsdl:operation name="ObtenirReservationUtilisateur">
+    	<wsdl:input message="ybs:ObtenirReservationUtilisateurRequest"></wsdl:input>
+    	<wsdl:output message="ybs:ObtenirReservationUtilisateurResponse"></wsdl:output>
+            <wsdl:fault name="UtilisateurNotFoundfault" message="ybs:ObtenirReservationUtilisateurFault"></wsdl:fault>
         </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="biblioWSSOAP" type="ybs:biblioWS">
