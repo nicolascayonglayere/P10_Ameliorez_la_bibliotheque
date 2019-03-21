@@ -6,7 +6,7 @@
 
   <groupId>oc.webApp.nicolas</groupId>
   <artifactId>bibliothequeWebApp</artifactId>
-  <version>1.0-RELEASE</version>
+  <version>1.1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
   <name>bibliothequeWebApp</name>
@@ -68,6 +68,16 @@
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-spring-plugin</artifactId>
             <scope>provided</scope>
+		    <exclusions>
+		        <exclusion>
+		            <groupId>org.apache.struts</groupId>
+		            <artifactId>struts-core</artifactId>
+		        </exclusion>
+		        <exclusion>
+		            <groupId>org.apache.struts.xwork</groupId>
+		            <artifactId>xwork-core</artifactId>
+		        </exclusion>
+		    </exclusions>            
         </dependency>
         <dependency>
             <groupId>org.apache.struts</groupId>

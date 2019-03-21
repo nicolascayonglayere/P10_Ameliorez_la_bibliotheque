@@ -18,8 +18,10 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import fr.yogj.bibliows.BiblioWS;
 import fr.yogj.bibliows.ObtenirEmpruntUtilisateurFault_Exception;
+import fr.yogj.bibliows.ObtenirReservationUtilisateurFault_Exception;
 import fr.yogj.bibliows.types.CoordonneeUtilisateurType;
 import fr.yogj.bibliows.types.LivreEmpruntType;
+import fr.yogj.bibliows.types.ReservationType;
 import fr.yogj.bibliows.types.UtilisateurType;
 import oc.webApp.nicolas.configurations.BiblioWebAppConfiguration;
 
@@ -40,6 +42,8 @@ public class MonCompte extends ActionSupport implements SessionAware {
 	private Map<LivreEmpruntType, Date> listEmprunt = new HashMap<LivreEmpruntType, Date>();
 	private CoordonneeUtilisateurType coordonneeUtilisateur = new CoordonneeUtilisateurType();
 
+	private Map<ReservationType, Date> listReservation = new HashMap<ReservationType, Date>();
+
 	/**
 	 * Méthode retournant les données nécessaires à la jsp affichant le compte d'un
 	 * {@link UtilisateurType}
@@ -59,6 +63,13 @@ public class MonCompte extends ActionSupport implements SessionAware {
 				cal.add(Calendar.DATE, 28);
 				this.listEmprunt.put(vEmprunts.get(i), cal.getTime());
 			}
+			List<ReservationType> vReservations = biblioWS.obtenirReservationUtilisateur(this.utilisateur.getId());
+			for (int i = 0; i < vReservations.size(); i++) {
+				Calendar cal1 = Calendar.getInstance();
+				cal1.setTime(vReservations.get(i).getDateReservation().toGregorianCalendar().getTime());
+				cal1.add(Calendar.DATE, 28);
+				this.listReservation.put(vReservations.get(i), cal1.getTime());
+			}
 			return ActionSupport.SUCCESS;
 		} catch (ObtenirEmpruntUtilisateurFault_Exception e) {
 			this.addActionMessage(e.getMessage());
@@ -69,6 +80,11 @@ public class MonCompte extends ActionSupport implements SessionAware {
 			logger.debug(e1.getMessage());
 			this.addActionMessage(e1.getMessage());
 			e1.printStackTrace();
+			return ActionSupport.INPUT;
+		} catch (ObtenirReservationUtilisateurFault_Exception e2) {
+			this.addActionMessage(e2.getMessage());
+			e2.printStackTrace();
+			logger.debug(e2.getMessage());
 			return ActionSupport.INPUT;
 		}
 
@@ -110,6 +126,14 @@ public class MonCompte extends ActionSupport implements SessionAware {
 	@Autowired
 	public void setWebAppConfig(BiblioWebAppConfiguration webAppConfig) {
 		this.webAppConfig = webAppConfig;
+	}
+
+	public Map<ReservationType, Date> getListReservation() {
+		return this.listReservation;
+	}
+
+	public void setListReservation(Map<ReservationType, Date> listReservation) {
+		this.listReservation = listReservation;
 	}
 
 }

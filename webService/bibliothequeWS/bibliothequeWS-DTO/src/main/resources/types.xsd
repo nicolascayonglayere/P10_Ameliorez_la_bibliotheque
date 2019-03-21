@@ -78,7 +78,7 @@
     		<element name="id" type="int" minOccurs="1"></element>
     		<element name="utilisateur" type="ybst:UtilisateurType" minOccurs="1"></element>
     		<element name="livre" type="ybst:LivreType" minOccurs="1"></element>
-    		<element name="dateReservaion" type="date" minOccurs="1"></element>
+    		<element name="dateReservation" type="date" minOccurs="1"></element>
     	</sequence>
     </complexType>    
 </schema>

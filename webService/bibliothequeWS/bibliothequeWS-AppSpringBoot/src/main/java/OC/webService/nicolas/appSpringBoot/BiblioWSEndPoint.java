@@ -19,12 +19,14 @@ import fr.yogj.bibliows.ListNouveautesResponse;
 import fr.yogj.bibliows.ListRetardatairesResponse;
 import fr.yogj.bibliows.LoginFault_Exception;
 import fr.yogj.bibliows.ObtenirEmpruntUtilisateurFault_Exception;
+import fr.yogj.bibliows.ObtenirReservationUtilisateurFault_Exception;
 import fr.yogj.bibliows.ProlongationOuvrageFault1_Exception;
 import fr.yogj.bibliows.RechercheOuvrage;
 import fr.yogj.bibliows.RechercheOuvrageResponse;
 import fr.yogj.bibliows.RetourOuvrageFault1_Exception;
 import fr.yogj.bibliows.types.LivreEmpruntType;
 import fr.yogj.bibliows.types.LivreType;
+import fr.yogj.bibliows.types.ReservationType;
 import fr.yogj.bibliows.types.UtilisateurType;
 
 /**
@@ -34,7 +36,7 @@ import fr.yogj.bibliows.types.UtilisateurType;
  *
  */
 
-public class BiblioWSEndPoint implements BiblioWS {
+public class BiblioWSEndPoint implements BiblioWS {// implements BiblioWS {
 
 	static final Logger logger = LogManager.getLogger();
 
@@ -184,6 +186,21 @@ public class BiblioWSEndPoint implements BiblioWS {
 			throw new RetourOuvrageFault1_Exception(e.getMessage());
 		}
 
+	}
+
+	@Override
+	public List<ReservationType> obtenirReservationUtilisateur(int idUtilisateur)
+			throws ObtenirReservationUtilisateurFault_Exception {
+		try {
+			List<ReservationType> reservations = this.manageFacto.getReservationManager()
+					.obtenirReservationsUtilisateur(idUtilisateur);
+			return reservations;
+
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			logger.debug(e.getMessage());
+			throw new ObtenirReservationUtilisateurFault_Exception(e.getMessage());
+		}
 	}
 
 	public ManagerFactory getManageFacto() {

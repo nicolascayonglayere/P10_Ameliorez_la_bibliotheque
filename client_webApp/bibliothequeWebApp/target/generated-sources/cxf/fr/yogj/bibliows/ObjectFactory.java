@@ -228,6 +228,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ObtenirReservationUtilisateur }
+     * 
+     */
+    public ObtenirReservationUtilisateur createObtenirReservationUtilisateur() {
+        return new ObtenirReservationUtilisateur();
+    }
+
+    /**
+     * Create an instance of {@link ObtenirReservationUtilisateurResponse }
+     * 
+     */
+    public ObtenirReservationUtilisateurResponse createObtenirReservationUtilisateurResponse() {
+        return new ObtenirReservationUtilisateurResponse();
+    }
+
+    /**
+     * Create an instance of {@link ObtenirReservationUtilisateurFault }
+     * 
+     */
+    public ObtenirReservationUtilisateurFault createObtenirReservationUtilisateurFault() {
+        return new ObtenirReservationUtilisateurFault();
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */

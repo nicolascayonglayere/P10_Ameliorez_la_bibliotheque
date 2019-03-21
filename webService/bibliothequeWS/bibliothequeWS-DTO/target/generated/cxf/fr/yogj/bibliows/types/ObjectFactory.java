@@ -77,4 +77,12 @@ public class ObjectFactory {
         return new EditeurType();
     }
 
+    /**
+     * Create an instance of {@link ReservationType }
+     * 
+     */
+    public ReservationType createReservationType() {
+        return new ReservationType();
+    }
+
 }

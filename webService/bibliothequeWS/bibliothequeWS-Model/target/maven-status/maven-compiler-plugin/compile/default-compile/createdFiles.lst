@@ -1,4 +1,5 @@
 OC\webService\nicolas\model\entites\Genre.class
+OC\webService\nicolas\model\entites\Reservation.class
 OC\webService\nicolas\model\entites\Utilisateur.class
 OC\webService\nicolas\model\entites\Auteur.class
 OC\webService\nicolas\model\entites\LivreEmprunt.class

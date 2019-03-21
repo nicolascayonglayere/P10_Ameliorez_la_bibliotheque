@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: OC.webService.nicolas.technical.AppTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 s - in OC.webService.nicolas.technical.AppTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 s - in OC.webService.nicolas.technical.AppTest
