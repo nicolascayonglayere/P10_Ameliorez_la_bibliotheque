@@ -146,7 +146,32 @@
         	<result name="success" type="redirectAction">
         		<param name="actionName">go_monCompte</param>
          	</result>
-        </action>              	
+        </action>   
+        
+        <!-- action pour annuler une réservation -->
+        <action name="annuler_reservation" class="oc.webApp.nicolas.actions.GestionReservation" method="annuler">
+       		<interceptor-ref name="store">
+				<param name="operationMode">STORE</param>
+		    </interceptor-ref>
+		    <interceptor-ref name="loginStack" />        
+        	<result name="success" type="redirectAction">
+        		<param name="actionName">go_monCompte</param>
+         	</result>
+        </action>        
+		
+		<!-- action pour réserver un ouvrage -->
+        <action name="reserver" class="oc.webApp.nicolas.actions.GestionReservation" method="reserver">
+       		<interceptor-ref name="store">
+				<param name="operationMode">STORE</param>
+		    </interceptor-ref>
+		    <interceptor-ref name="loginStack" />        
+        	<result name="success" type="redirectAction">
+        		<param name="actionName">go_monCompte</param>
+         	</result>
+        	<result name="input" type="redirectAction">
+        		<param name="actionName">go_monCompte</param>
+         	</result>         	
+        </action>		                   	
 	</package>	
 	
 </struts>

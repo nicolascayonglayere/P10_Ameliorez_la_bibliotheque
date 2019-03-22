@@ -172,4 +172,19 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 		}
 		return empruntsUtilisateur;
 	}
+
+	@Override
+	public List<LivreEmpruntType> obtenirTitreEmprunte(int pIdLivre) throws RuntimeException {
+		System.out.println("Titre emprunte ---------" + pIdLivre);
+		List<LivreEmpruntType> titreEmpruntes = new ArrayList<LivreEmpruntType>();
+		if ((this.getDaoFactory().getLivreEmpruntDao().findByLivreId(pIdLivre).size()) > 0) {
+			for (LivreEmprunt le : this.getDaoFactory().getLivreEmpruntDao().findByLivreId(pIdLivre)) {
+				titreEmpruntes.add(MapperLivreEmprunt.fromLivreEmpruntToLivreEmpruntType(le));
+			}
+
+		} else {
+			throw new RuntimeException("Le titre n'a pas d'emprunt en cours.");
+		}
+		return titreEmpruntes;
+	}
 }

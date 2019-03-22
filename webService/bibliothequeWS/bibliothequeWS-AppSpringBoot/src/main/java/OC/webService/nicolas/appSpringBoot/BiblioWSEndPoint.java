@@ -10,6 +10,7 @@ import OC.webService.nicolas.business.ManagerFactory;
 import OC.webService.nicolas.model.entites.Livre;
 import OC.webService.nicolas.model.entites.LivreEmprunt;
 import OC.webService.nicolas.model.entites.Utilisateur;
+import fr.yogj.bibliows.AnnulerReservationFault_Exception;
 import fr.yogj.bibliows.BiblioWS;
 import fr.yogj.bibliows.Deconnexion;
 import fr.yogj.bibliows.DeconnexionFault_Exception;
@@ -18,11 +19,13 @@ import fr.yogj.bibliows.EmpruntOuvrageFault_Exception;
 import fr.yogj.bibliows.ListNouveautesResponse;
 import fr.yogj.bibliows.ListRetardatairesResponse;
 import fr.yogj.bibliows.LoginFault_Exception;
+import fr.yogj.bibliows.ObtenirEmpruntLivreFault;
 import fr.yogj.bibliows.ObtenirEmpruntUtilisateurFault_Exception;
 import fr.yogj.bibliows.ObtenirReservationUtilisateurFault_Exception;
 import fr.yogj.bibliows.ProlongationOuvrageFault1_Exception;
 import fr.yogj.bibliows.RechercheOuvrage;
 import fr.yogj.bibliows.RechercheOuvrageResponse;
+import fr.yogj.bibliows.ReserverOuvrageFault_Exception;
 import fr.yogj.bibliows.RetourOuvrageFault1_Exception;
 import fr.yogj.bibliows.types.LivreEmpruntType;
 import fr.yogj.bibliows.types.LivreType;
@@ -201,6 +204,29 @@ public class BiblioWSEndPoint implements BiblioWS {// implements BiblioWS {
 			logger.debug(e.getMessage());
 			throw new ObtenirReservationUtilisateurFault_Exception(e.getMessage());
 		}
+	}
+
+	@Override
+	public List<LivreEmpruntType> obtenirEmpruntLivre(int idLivre) throws ObtenirEmpruntLivreFault {
+		List<LivreEmpruntType> titreEmpruntes = this.manageFacto.getLivreEmpruntManager().obtenirTitreEmprunte(idLivre);
+		return titreEmpruntes;
+	}
+
+	@Override
+	public ReservationType reserverOuvrage(int idLivre, int idUtilisateur) throws ReserverOuvrageFault_Exception {
+		try {
+			return this.manageFacto.getReservationManager().reserverOuvrage(idLivre, idUtilisateur);
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			logger.debug(e.getMessage());
+			throw new ReserverOuvrageFault_Exception(e.getMessage());
+		}
+
+	}
+
+	@Override
+	public LivreType annulerReservation(int idReservation) throws AnnulerReservationFault_Exception {
+		return this.manageFacto.getReservationManager().annulerReservation(idReservation);
 	}
 
 	public ManagerFactory getManageFacto() {

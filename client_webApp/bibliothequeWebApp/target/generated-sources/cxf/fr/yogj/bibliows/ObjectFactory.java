@@ -252,6 +252,78 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ObtenirEmpruntLivre }
+     * 
+     */
+    public ObtenirEmpruntLivre createObtenirEmpruntLivre() {
+        return new ObtenirEmpruntLivre();
+    }
+
+    /**
+     * Create an instance of {@link ObtenirEmpruntLivreResponse }
+     * 
+     */
+    public ObtenirEmpruntLivreResponse createObtenirEmpruntLivreResponse() {
+        return new ObtenirEmpruntLivreResponse();
+    }
+
+    /**
+     * Create an instance of {@link ObtenirEmpruntLivreFault1 }
+     * 
+     */
+    public ObtenirEmpruntLivreFault1 createObtenirEmpruntLivreFault1() {
+        return new ObtenirEmpruntLivreFault1();
+    }
+
+    /**
+     * Create an instance of {@link AnnulerReservation }
+     * 
+     */
+    public AnnulerReservation createAnnulerReservation() {
+        return new AnnulerReservation();
+    }
+
+    /**
+     * Create an instance of {@link AnnulerReservationResponse }
+     * 
+     */
+    public AnnulerReservationResponse createAnnulerReservationResponse() {
+        return new AnnulerReservationResponse();
+    }
+
+    /**
+     * Create an instance of {@link AnnulerReservationFault }
+     * 
+     */
+    public AnnulerReservationFault createAnnulerReservationFault() {
+        return new AnnulerReservationFault();
+    }
+
+    /**
+     * Create an instance of {@link ReserverOuvrage }
+     * 
+     */
+    public ReserverOuvrage createReserverOuvrage() {
+        return new ReserverOuvrage();
+    }
+
+    /**
+     * Create an instance of {@link ReserverOuvrageResponse }
+     * 
+     */
+    public ReserverOuvrageResponse createReserverOuvrageResponse() {
+        return new ReserverOuvrageResponse();
+    }
+
+    /**
+     * Create an instance of {@link ReserverOuvrageFault }
+     * 
+     */
+    public ReserverOuvrageFault createReserverOuvrageFault() {
+        return new ReserverOuvrageFault();
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */

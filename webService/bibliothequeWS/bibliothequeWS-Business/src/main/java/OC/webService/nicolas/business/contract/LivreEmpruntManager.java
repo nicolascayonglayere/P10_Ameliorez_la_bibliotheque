@@ -71,4 +71,14 @@ public interface LivreEmpruntManager {
 	 * @throws RuntimeException
 	 */
 	public List<LivreEmpruntType> obtenirEmpruntUtilisateur(int pIdUtilisateur) throws RuntimeException;
+
+	/**
+	 * Méthode pour trouver la liste des {@link LivreEmprunt} d'un {@link Livre}
+	 * d'id donné en paramètre
+	 * 
+	 * @param pIdLivre
+	 * @return la liste des {@link LivreEmprunt}
+	 * @throws RuntimeException
+	 */
+	public List<LivreEmpruntType> obtenirTitreEmprunte(int pIdLivre) throws RuntimeException;
 }

@@ -32,11 +32,17 @@
 						<!--  <p><s:property value="livreType.resume"/></br></p>-->			
 					</div>
 				</div>
-				<!-- un bouton pour emprunter -->
+				<!-- un bouton pour emprunter ou reserver -->
 				<s:if test="#session.utilisateur">
+					<!-- ajouter un if test=taille liste reservation -->
 					<s:a action="emprunt_livre" namespace="/utilisateur">
 						<s:param name="idLivre" value="livreType.id"/>
 						<s:submit class="btn btn-default" value="%{getText('bouton.emprunt')}"/>
+					</s:a>
+					
+					<s:a action="reserver" namespace="/utilisateur">
+						<s:param name="idLivre" value="livreType.id"/>
+						<s:submit class="btn btn-default" value="%{getText('bouton.reserver')}"/>
 					</s:a>
 				</s:if>						
 			</div>
