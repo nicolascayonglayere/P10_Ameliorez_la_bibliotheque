@@ -107,6 +107,11 @@ public class GestionPret extends ActionSupport implements SessionAware {
 			this.addActionMessage(e.getMessage());
 			e.printStackTrace();
 			return ActionSupport.INPUT;
+		} catch (SOAPFaultException e1) {
+			logger.debug(e1.getMessage());
+			this.addActionMessage(e1.getMessage());
+			e1.printStackTrace();
+			return ActionSupport.INPUT;
 		}
 	}
 

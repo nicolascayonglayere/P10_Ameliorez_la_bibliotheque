@@ -6,7 +6,7 @@
 
   <groupId>oc.webApp.nicolas</groupId>
   <artifactId>bibliothequeWebApp</artifactId>
-  <version>1.0-RELEASE</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
 
   <name>bibliothequeWebApp</name>

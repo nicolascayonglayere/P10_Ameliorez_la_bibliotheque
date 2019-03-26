@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Implementation-Title: bibliothequeWebApp
-Implementation-Version: 1.0-RELEASE
+Implementation-Version: 1.0.1-SNAPSHOT
 Built-By: nicolas
 Implementation-Vendor-Id: oc.webApp.nicolas
 Build-Jdk: 1.8.0_144

@@ -4,7 +4,7 @@
 
   <groupId>OC.webService.nicolas</groupId>
   <artifactId>bibliothequeWS</artifactId>
-  <version>1.0-RELEASE</version>
+  <version>1.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>bibliothequeWS</name>
@@ -38,27 +38,27 @@
   		<dependency>
   			<groupId>OC.webService.nicolas</groupId>
   			<artifactId>bibliothequeWS-DTO</artifactId>
-  			<version>1.0-SNAPSHOT</version>
+  			<version>1.0.1-SNAPSHOT</version>
   		</dependency>  	
   		<dependency>
   			<groupId>OC.webService.nicolas</groupId>
   			<artifactId>bibliothequeWS-Technical</artifactId>
-  			<version>1.0-SNAPSHOT</version>
+  			<version>1.0.1-SNAPSHOT</version>
   		</dependency>
   		<dependency>
   			<groupId>OC.webService.nicolas</groupId>
   			<artifactId>bibliothequeWS-Consumer</artifactId>
-  			<version>1.0-SNAPSHOT</version>
+  			<version>1.0.1-SNAPSHOT</version>
   		</dependency>
   		<dependency>
   			<groupId>OC.webService.nicolas</groupId>
   			<artifactId>bibliothequeWS-Business</artifactId>
-  			<version>1.0-SNAPSHOT</version>
+  			<version>1.0.1-SNAPSHOT</version>
   		</dependency>
   		<dependency>
   			<groupId>OC.webService.nicolas</groupId>
   			<artifactId>bibliothequeWS-Model</artifactId>
-  			<version>1.0-SNAPSHOT</version>
+  			<version>1.0.1-SNAPSHOT</version>
   		</dependency>
   		<dependency>
   			<groupId>OC.webService.nicolas</groupId>

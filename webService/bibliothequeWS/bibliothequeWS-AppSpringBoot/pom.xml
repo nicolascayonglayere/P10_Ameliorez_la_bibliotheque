@@ -4,7 +4,7 @@
   <parent>
     <artifactId>bibliothequeWS</artifactId>
     <groupId>OC.webService.nicolas</groupId>
-    <version>1.0-RELEASE</version>
+    <version>1.0.1-SNAPSHOT</version>
   </parent>
 
   <groupId>${project.parent.groupId}</groupId>

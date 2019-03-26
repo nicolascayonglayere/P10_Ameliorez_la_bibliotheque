@@ -146,6 +146,9 @@
         	<result name="success" type="redirectAction">
         		<param name="actionName">go_monCompte</param>
          	</result>
+			<result name="input" type="redirectAction">
+				<param name="actionName">go_monCompte</param>
+			</result>         	
         </action>              	
 	</package>	
 	
