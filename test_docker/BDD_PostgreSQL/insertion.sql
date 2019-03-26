@@ -58,7 +58,8 @@ INSERT INTO livre_manuscrit (id_livre, id_auteur) VALUES (4, 2);
 INSERT INTO livre_manuscrit (id_livre, id_auteur) VALUES (5, 4);
 COMMIT;
 
---tablelivre_emprunt--
+--table livre_emprunt--
 BEGIN TRANSACTION;
-INSERT INTO livre_emprunt (id_emprunt, date_emprunt, prolongation, id_utilisateur, id_livre) VALUES (0, '01/01/2018', true, 1, 1);
+INSERT INTO livre_emprunt (date_emprunt, prolongation, id_utilisateur, id_livre) VALUES ('01/01/2018', true, 1, 1);
+INSERT INTO livre_emprunt (date_emprunt, prolongation, id_utilisateur, id_livre) VALUES ('01/02/2019', false, 1, 2);
 COMMIT;
