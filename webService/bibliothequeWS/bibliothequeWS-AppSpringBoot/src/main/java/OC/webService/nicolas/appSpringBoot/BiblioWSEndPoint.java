@@ -230,6 +230,7 @@ public class BiblioWSEndPoint implements BiblioWS {// implements BiblioWS {
 		return this.manageFacto.getReservationManager().annulerReservation(idReservation);
 	}
 
+	// -- Getter et Setter
 	public ManagerFactory getManageFacto() {
 		return this.manageFacto;
 	}

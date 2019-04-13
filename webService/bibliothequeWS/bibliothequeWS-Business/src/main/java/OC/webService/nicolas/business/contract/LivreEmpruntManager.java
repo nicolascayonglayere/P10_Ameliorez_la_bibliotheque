@@ -1,6 +1,7 @@
 package OC.webService.nicolas.business.contract;
 
 import java.util.List;
+import java.util.Map;
 
 import OC.webService.nicolas.model.entites.Livre;
 import OC.webService.nicolas.model.entites.LivreEmprunt;
@@ -81,4 +82,6 @@ public interface LivreEmpruntManager {
 	 * @throws RuntimeException
 	 */
 	public List<LivreEmpruntType> obtenirTitreEmprunte(int pIdLivre) throws RuntimeException;
+
+	public Map<UtilisateurType, LivreType> obtenirListeAlerteRetour();
 }

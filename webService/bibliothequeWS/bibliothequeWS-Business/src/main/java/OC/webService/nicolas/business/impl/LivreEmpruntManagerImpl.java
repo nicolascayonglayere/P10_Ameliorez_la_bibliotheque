@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -35,6 +36,7 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 
 	static final Logger logger = LogManager.getLogger();
 	private LivreEmprunt livreEmprunt = new LivreEmprunt();
+	private List<Livre> listeLivreRetour = new ArrayList<Livre>();
 
 	/**
 	 * Méthode pour emprunter un {@link Livre}
@@ -103,6 +105,7 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 				.findById((this.livreEmprunt.getLivre()).getId());
 		Livre l = myOptionalLivre.get();
 		if (l.getId() != 0) {
+			this.listeLivreRetour.add(l);// --je remplis la listeAlerteRetour
 			this.getDaoFactory().getLivreEmpruntDao().delete(this.livreEmprunt);
 			return MapperLivre.fromLivreToLivreType(l);
 		} else {
@@ -122,7 +125,7 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 			Calendar dateRetour = Calendar.getInstance();
 			dateRetour.setTime(this.livreEmprunt.getDateEmprunt());
 			dateRetour.add(Calendar.DATE, 28);
-			System.out.println("--------------------------" + dateRetour);
+			logger.debug("--------------------------" + dateRetour);
 
 			if (Calendar.getInstance().after(dateRetour)) {
 				throw new RuntimeException("Vous ne pouvez plus prolonger cet emprunt");
@@ -186,7 +189,7 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 
 	@Override
 	public List<LivreEmpruntType> obtenirTitreEmprunte(int pIdLivre) throws RuntimeException {
-		System.out.println("Titre emprunte ---------" + pIdLivre);
+		logger.debug("Titre emprunte ---------" + pIdLivre);
 		List<LivreEmpruntType> titreEmpruntes = new ArrayList<LivreEmpruntType>();
 		if ((this.getDaoFactory().getLivreEmpruntDao().findByLivreId(pIdLivre).size()) > 0) {
 			for (LivreEmprunt le : this.getDaoFactory().getLivreEmpruntDao().findByLivreId(pIdLivre)) {
@@ -197,5 +200,15 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 			throw new RuntimeException("Le titre n'a pas d'emprunt en cours.");
 		}
 		return titreEmpruntes;
+	}
+
+	@Override
+	public Map<UtilisateurType, LivreType> obtenirListeAlerteRetour() {
+		// --pour chaque livre de la listLivreRetour, je cherche une reservation. Si je
+		// trouve, je convertis le livre et l'utilisateur en type et je les mets dans la
+		// liste alerteRetour.
+		// ATTENTION A BIEN NETTOYER LES LISTES !!!
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
