@@ -121,6 +121,7 @@ public class BiblioWSEndPoint implements BiblioWS {// implements BiblioWS {
 			return livreEmprunte;
 		} catch (RuntimeException e) {
 			logger.debug(e.getMessage());
+			e.printStackTrace();
 			throw new ProlongationOuvrageFault1_Exception(e.getMessage());
 		}
 	}

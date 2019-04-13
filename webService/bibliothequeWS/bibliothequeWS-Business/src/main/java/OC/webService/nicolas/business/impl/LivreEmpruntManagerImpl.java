@@ -119,10 +119,21 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 		if (this.findByIdEmprunt(pIdEmprunt).getId() != 0) {
 			Optional<LivreEmprunt> myOptional = this.getDaoFactory().getLivreEmpruntDao().findById(pIdEmprunt);
 			this.livreEmprunt = myOptional.get();
-			this.livreEmprunt.setProlongation(true);
-			this.livreEmprunt.setDateEmprunt(Calendar.getInstance().getTime());
-			this.getDaoFactory().getLivreEmpruntDao().saveAndFlush(this.livreEmprunt);
-			return MapperLivreEmprunt.fromLivreEmpruntToLivreEmpruntType(this.livreEmprunt);
+			Calendar dateRetour = Calendar.getInstance();
+			dateRetour.setTime(this.livreEmprunt.getDateEmprunt());
+			dateRetour.add(Calendar.DATE, 28);
+			System.out.println("--------------------------" + dateRetour);
+
+			if (Calendar.getInstance().after(dateRetour)) {
+				throw new RuntimeException("Vous ne pouvez plus prolonger cet emprunt");
+			} else {
+				this.livreEmprunt = myOptional.get();
+				this.livreEmprunt.setProlongation(true);
+				this.livreEmprunt.setDateEmprunt(Calendar.getInstance().getTime());
+				this.getDaoFactory().getLivreEmpruntDao().saveAndFlush(this.livreEmprunt);
+				return MapperLivreEmprunt.fromLivreEmpruntToLivreEmpruntType(this.livreEmprunt);
+			}
+
 		} else {
 			throw new RuntimeException("Vous n'avez pas emprunté ce livre.");
 		}
