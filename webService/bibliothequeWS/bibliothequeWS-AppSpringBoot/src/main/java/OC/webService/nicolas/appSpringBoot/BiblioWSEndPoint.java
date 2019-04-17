@@ -1,6 +1,7 @@
 package OC.webService.nicolas.appSpringBoot;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,6 +19,7 @@ import fr.yogj.bibliows.DetailsOuvrageFault_Exception;
 import fr.yogj.bibliows.EmpruntOuvrageFault_Exception;
 import fr.yogj.bibliows.ListNouveautesResponse;
 import fr.yogj.bibliows.ListRetardatairesResponse;
+import fr.yogj.bibliows.ListeAlerteRetourResponse;
 import fr.yogj.bibliows.LoginFault_Exception;
 import fr.yogj.bibliows.ObtenirEmpruntLivreFault;
 import fr.yogj.bibliows.ObtenirEmpruntUtilisateurFault_Exception;
@@ -228,6 +230,17 @@ public class BiblioWSEndPoint implements BiblioWS {// implements BiblioWS {
 	@Override
 	public LivreType annulerReservation(int idReservation) throws AnnulerReservationFault_Exception {
 		return this.manageFacto.getReservationManager().annulerReservation(idReservation);
+	}
+
+	@Override
+	public ListeAlerteRetourResponse listeAlerteRetour(String parameters) {
+		ListeAlerteRetourResponse larr = new ListeAlerteRetourResponse();
+		for (Map.Entry<UtilisateurType, LivreType> entry : this.manageFacto.getLivreEmpruntManager()
+				.obtenirListeAlerteRetour().entrySet()) {
+			larr.getUtilisateur().add(entry.getKey());
+			larr.getLivre().add(entry.getValue());
+		}
+		return larr;
 	}
 
 	// -- Getter et Setter

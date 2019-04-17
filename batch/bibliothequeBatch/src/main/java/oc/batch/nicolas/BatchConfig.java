@@ -42,8 +42,13 @@ public class BatchConfig extends DefaultBatchConfigurer {
 	 * @return {@link Step}
 	 */
 	@Bean
-	public Step step() {
-		return this.stepBuilderFactory.get("step").tasklet(new EnvoiMailRetardataires(this.wsUrl)).build();
+	public Step step1() {
+		return this.stepBuilderFactory.get("step1").tasklet(new EnvoiMailRetardataires(this.wsUrl)).build();
+	}
+
+	@Bean
+	public Step step2() {
+		return this.stepBuilderFactory.get("step2").tasklet(new EnvoiAlerteRetour(this.wsUrl)).build();
 	}
 
 	/**
@@ -53,7 +58,7 @@ public class BatchConfig extends DefaultBatchConfigurer {
 	 */
 	@Bean
 	public Job job() {
-		return this.jobBuilderFactory.get("job").start(this.step()).build();
+		return this.jobBuilderFactory.get("job").start(this.step1()).next(this.step2()).build();
 	}
 
 	/**

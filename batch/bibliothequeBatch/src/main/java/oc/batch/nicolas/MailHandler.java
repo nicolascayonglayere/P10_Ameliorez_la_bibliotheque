@@ -15,6 +15,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import oc.batch.nicolas.model.Livre;
 import oc.batch.nicolas.model.LivreEmprunt;
 import oc.batch.nicolas.model.Utilisateur;
 
@@ -29,6 +30,7 @@ public class MailHandler {
 
 	private Utilisateur retardataire;
 	private LivreEmprunt let;
+	private Livre livre;
 
 	public static String starttls;
 	public static String host;
@@ -36,6 +38,9 @@ public class MailHandler {
 	public static String auth;
 	public static String user;
 	public static String mdp;
+
+	public MailHandler() {
+	}
 
 	/**
 	 * Constructeur avec paramètre
@@ -48,8 +53,13 @@ public class MailHandler {
 		this.let = pLivreEmprunte;
 	}
 
+	public MailHandler(Utilisateur pUserAlerte, Livre pLivreAlerte) {
+		this.retardataire = pUserAlerte;
+		this.livre = pLivreAlerte;
+	}
+
 	/**
-	 * Méthode pour construire et envoyer l'email
+	 * Méthode pour construire et envoyer l'email de retard
 	 */
 	public void sendMail() {
 		// Setting up configurations for the email connection to the Google SMTP server
@@ -97,9 +107,56 @@ public class MailHandler {
 			System.out.println("Mail has been successfully send");
 
 		} catch (MessagingException mex) {
-
 			System.out.println("Unable to send an email" + mex);
+		}
+	}
 
+	public void sendMailAlerte() {
+		// Setting up configurations for the email connection to the Google SMTP server
+		// using TLS
+		Properties props = new Properties();
+		props.put("mail.smtp.starttls.enable", MailHandler.starttls);
+		props.put("mail.smtp.host", MailHandler.host);
+		props.put("mail.smtp.port", MailHandler.port);
+		props.put("mail.smtp.auth", MailHandler.auth);
+
+		// Establishing a session with required user details
+		Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(MailHandler.user, MailHandler.mdp);
+			}
+		});
+
+		try {
+			// Creating a Message object to set the email content
+			MimeMessage msg = new MimeMessage(session);
+			// Storing the comma seperated values to email addresses
+			String to = this.retardataire.getCoordonnee().get(0).getEmail();
+
+			/*
+			 * Parsing the String with defualt delimiter as a comma by marking the boolean
+			 * as true and storing the email
+			 * 
+			 * addresses in an array of InternetAddress objects
+			 */
+			InternetAddress[] address = InternetAddress.parse(to, true);
+			// Setting the recepients from the address variable
+			msg.setRecipients(Message.RecipientType.TO, address);
+			String timeStamp = new SimpleDateFormat("yyyymmdd_hh-mm-ss").format(new Date());
+			msg.setSubject("Ouvrage réservé de retour : " + timeStamp);
+			msg.setSentDate(new Date());
+			msg.setText("Sampel System Generated mail\n Votre ouvrage réservé " + this.livre.getTitre()
+					+ "est de retour." + "\n Vous disposez de 48 heures avant que votre réservation soit annulée. "
+					+ " \n Cordialement \n Bibliotheque OC");
+			msg.setHeader("XPriority", "1");
+
+			Transport.send(msg);
+
+			System.out.println("Mail has been successfully send");
+
+		} catch (MessagingException mex) {
+			System.out.println("Unable to send an email" + mex);
 		}
 	}
 
@@ -172,6 +229,14 @@ public class MailHandler {
 	@Value("${mail.pass}")
 	public void setMdp(String mdp) {
 		MailHandler.mdp = mdp;
+	}
+
+	public Livre getLivre() {
+		return this.livre;
+	}
+
+	public void setLivre(Livre livre) {
+		this.livre = livre;
 	}
 
 }

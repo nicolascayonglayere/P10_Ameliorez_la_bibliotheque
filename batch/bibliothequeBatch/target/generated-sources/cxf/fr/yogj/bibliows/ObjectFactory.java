@@ -27,6 +27,7 @@ public class ObjectFactory {
     private final static QName _DeconnexionResponse_QNAME = new QName("http://yogj.fr/biblioWS/", "deconnexionResponse");
     private final static QName _ListNouveautes_QNAME = new QName("http://yogj.fr/biblioWS/", "listNouveautes");
     private final static QName _ListRetardataires_QNAME = new QName("http://yogj.fr/biblioWS/", "listRetardataires");
+    private final static QName _ListeAlerteRetour_QNAME = new QName("http://yogj.fr/biblioWS/", "listeAlerteRetour");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: fr.yogj.bibliows
@@ -228,6 +229,110 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ObtenirReservationUtilisateur }
+     * 
+     */
+    public ObtenirReservationUtilisateur createObtenirReservationUtilisateur() {
+        return new ObtenirReservationUtilisateur();
+    }
+
+    /**
+     * Create an instance of {@link ObtenirReservationUtilisateurResponse }
+     * 
+     */
+    public ObtenirReservationUtilisateurResponse createObtenirReservationUtilisateurResponse() {
+        return new ObtenirReservationUtilisateurResponse();
+    }
+
+    /**
+     * Create an instance of {@link ObtenirReservationUtilisateurFault }
+     * 
+     */
+    public ObtenirReservationUtilisateurFault createObtenirReservationUtilisateurFault() {
+        return new ObtenirReservationUtilisateurFault();
+    }
+
+    /**
+     * Create an instance of {@link ObtenirEmpruntLivre }
+     * 
+     */
+    public ObtenirEmpruntLivre createObtenirEmpruntLivre() {
+        return new ObtenirEmpruntLivre();
+    }
+
+    /**
+     * Create an instance of {@link ObtenirEmpruntLivreResponse }
+     * 
+     */
+    public ObtenirEmpruntLivreResponse createObtenirEmpruntLivreResponse() {
+        return new ObtenirEmpruntLivreResponse();
+    }
+
+    /**
+     * Create an instance of {@link ObtenirEmpruntLivreFault1 }
+     * 
+     */
+    public ObtenirEmpruntLivreFault1 createObtenirEmpruntLivreFault1() {
+        return new ObtenirEmpruntLivreFault1();
+    }
+
+    /**
+     * Create an instance of {@link AnnulerReservation }
+     * 
+     */
+    public AnnulerReservation createAnnulerReservation() {
+        return new AnnulerReservation();
+    }
+
+    /**
+     * Create an instance of {@link AnnulerReservationResponse }
+     * 
+     */
+    public AnnulerReservationResponse createAnnulerReservationResponse() {
+        return new AnnulerReservationResponse();
+    }
+
+    /**
+     * Create an instance of {@link AnnulerReservationFault }
+     * 
+     */
+    public AnnulerReservationFault createAnnulerReservationFault() {
+        return new AnnulerReservationFault();
+    }
+
+    /**
+     * Create an instance of {@link ReserverOuvrage }
+     * 
+     */
+    public ReserverOuvrage createReserverOuvrage() {
+        return new ReserverOuvrage();
+    }
+
+    /**
+     * Create an instance of {@link ReserverOuvrageResponse }
+     * 
+     */
+    public ReserverOuvrageResponse createReserverOuvrageResponse() {
+        return new ReserverOuvrageResponse();
+    }
+
+    /**
+     * Create an instance of {@link ReserverOuvrageFault }
+     * 
+     */
+    public ReserverOuvrageFault createReserverOuvrageFault() {
+        return new ReserverOuvrageFault();
+    }
+
+    /**
+     * Create an instance of {@link ListeAlerteRetourResponse }
+     * 
+     */
+    public ListeAlerteRetourResponse createListeAlerteRetourResponse() {
+        return new ListeAlerteRetourResponse();
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
@@ -252,6 +357,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://yogj.fr/biblioWS/", name = "listRetardataires")
     public JAXBElement<String> createListRetardataires(String value) {
         return new JAXBElement<String>(_ListRetardataires_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://yogj.fr/biblioWS/", name = "listeAlerteRetour")
+    public JAXBElement<String> createListeAlerteRetour(String value) {
+        return new JAXBElement<String>(_ListeAlerteRetour_QNAME, String.class, null, value);
     }
 
 }

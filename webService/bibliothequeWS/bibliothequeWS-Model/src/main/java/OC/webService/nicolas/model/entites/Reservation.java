@@ -30,6 +30,8 @@ public class Reservation implements Serializable {
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH })
 	@JoinColumn(name = "id_livre")
 	private Livre livre;
+	@Column(name = "date_alerte", nullable = true)
+	private Date dateAlerte;
 
 	/**
 	 * Constructeur sans paramètre
@@ -71,6 +73,14 @@ public class Reservation implements Serializable {
 
 	public void setLivre(Livre livre) {
 		this.livre = livre;
+	}
+
+	public Date getDateAlerte() {
+		return this.dateAlerte;
+	}
+
+	public void setDateAlerte(Date dateAlerte) {
+		this.dateAlerte = dateAlerte;
 	}
 
 }

@@ -3,6 +3,7 @@ package OC.webService.nicolas.business.impl;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -19,6 +20,7 @@ import OC.webService.nicolas.business.mapper.MapperLivreEmprunt;
 import OC.webService.nicolas.business.mapper.MapperUtilisateur;
 import OC.webService.nicolas.model.entites.Livre;
 import OC.webService.nicolas.model.entites.LivreEmprunt;
+import OC.webService.nicolas.model.entites.Reservation;
 import OC.webService.nicolas.model.entites.Utilisateur;
 import fr.yogj.bibliows.types.LivreEmpruntType;
 import fr.yogj.bibliows.types.LivreType;
@@ -209,6 +211,21 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 		// liste alerteRetour.
 		// ATTENTION A BIEN NETTOYER LES LISTES !!!
 		// TODO Auto-generated method stub
-		return null;
+		Map<UtilisateurType, LivreType> listeAlerteRetour = new HashMap<UtilisateurType, LivreType>();
+		for (Livre l : this.listeLivreRetour) {
+			// --chercher la premiere reservation du livre ds la bdd
+			if (this.getDaoFactory().getReservationDAo().findByLivreId(l.getId()).size() > 0) {
+				// --vérifier la date d'alerte : if(dateAlerte != null && dateAlerte+2jour <=
+				// dateDuJour) alors, on supprime cette ligne de la bdd
+				Reservation maReservation = this.getDaoFactory().getReservationDAo().findByLivreId(l.getId()).get(0);
+				listeAlerteRetour.put(
+						MapperUtilisateur.fromUtilisateurToUtilisateurType(maReservation.getUtilisateur()),
+						MapperLivre.fromLivreToLivreType(maReservation.getLivre()));
+				// -- ajouter la date d'alerte dans la table reservation
+				// maReservation.setDateAlerte(Calendar.getTime());
+				// this.getDaoFactory().getReservationDAo().saveAndFlush(maReservation);
+			}
+		}
+		return listeAlerteRetour;
 	}
 }
