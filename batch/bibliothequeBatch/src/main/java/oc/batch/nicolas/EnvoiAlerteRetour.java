@@ -34,17 +34,18 @@ public class EnvoiAlerteRetour implements Tasklet {
 		System.out.println(
 				"MyTaskTwo start.. recuperation des livres retournés dans la journée présents sur liste d'attente");
 		ListeAlerteRetourResponse larr = this.biblioWS.listeAlerteRetour("");
-		List<UtilisateurType> utilisateursAlerte = larr.getUtilisateur();
-		System.out.println("nb d'alerte " + utilisateursAlerte.size());
-		List<LivreType> livreAlerte = larr.getLivre();
+		if (larr.getUtilisateur().size() > 0) {
+			List<UtilisateurType> utilisateursAlerte = larr.getUtilisateur();
+			System.out.println("nb d'alerte " + utilisateursAlerte.size());
+			List<LivreType> livreAlerte = larr.getLivre();
 
-		for (int i = 0; i < utilisateursAlerte.size(); i++) {
-			Utilisateur monUser = MapperUtilisateur.fromUtilisateurTypeToUtilisateur(utilisateursAlerte.get(i));
-			Livre monLivre = MapperLivre.fromLivreTypeToLivre(livreAlerte.get(i));
-			this.mh = new MailHandler(monUser, monLivre);
-			this.mh.sendMailAlerte();
+			for (int i = 0; i < utilisateursAlerte.size(); i++) {
+				Utilisateur monUser = MapperUtilisateur.fromUtilisateurTypeToUtilisateur(utilisateursAlerte.get(i));
+				Livre monLivre = MapperLivre.fromLivreTypeToLivre(livreAlerte.get(i));
+				this.mh = new MailHandler(monUser, monLivre);
+				this.mh.sendMailAlerte();
+			}
 		}
-
 		return RepeatStatus.FINISHED;
 	}
 

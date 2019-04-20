@@ -212,20 +212,39 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 		// ATTENTION A BIEN NETTOYER LES LISTES !!!
 		// TODO Auto-generated method stub
 		Map<UtilisateurType, LivreType> listeAlerteRetour = new HashMap<UtilisateurType, LivreType>();
+		List<Livre> livresASuppr = new ArrayList<Livre>();
 		for (Livre l : this.listeLivreRetour) {
-			// --chercher la premiere reservation du livre ds la bdd
+			// --chercher les reservations du livre ds la bdd
 			if (this.getDaoFactory().getReservationDAo().findByLivreId(l.getId()).size() > 0) {
-				// --vérifier la date d'alerte : if(dateAlerte != null && dateAlerte+2jour <=
-				// dateDuJour) alors, on supprime cette ligne de la bdd
-				Reservation maReservation = this.getDaoFactory().getReservationDAo().findByLivreId(l.getId()).get(0);
-				listeAlerteRetour.put(
-						MapperUtilisateur.fromUtilisateurToUtilisateurType(maReservation.getUtilisateur()),
-						MapperLivre.fromLivreToLivreType(maReservation.getLivre()));
-				// -- ajouter la date d'alerte dans la table reservation
-				// maReservation.setDateAlerte(Calendar.getTime());
-				// this.getDaoFactory().getReservationDAo().saveAndFlush(maReservation);
+				// --vérifier la date d'alerte pour nettoyer la table reservation
+				Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.DATE, -2);
+				List<Reservation> reservations = this.getDaoFactory().getReservationDAo().findByLivreId(l.getId());
+				List<Reservation> temp = new ArrayList<Reservation>();
+				for (Reservation r : reservations) {
+					if (r.getDateAlerte() != null && r.getDateAlerte().before(cal.getTime())) {
+						this.getDaoFactory().getReservationDAo().delete(r);
+					} else if (r.getDateAlerte() == null) {
+						temp.add(r);
+					}
+				}
+
+				if (temp.size() > 0) {
+					Reservation maReservation = temp.get(0);
+					listeAlerteRetour.put(
+							MapperUtilisateur.fromUtilisateurToUtilisateurType(maReservation.getUtilisateur()),
+							MapperLivre.fromLivreToLivreType(maReservation.getLivre()));
+					// -- ajouter la date d'alerte dans la table reservation
+					maReservation.setDateAlerte(Calendar.getInstance().getTime());
+					this.getDaoFactory().getReservationDAo().saveAndFlush(maReservation);
+				}
+
+			} else {
+				livresASuppr.add(l);
 			}
 		}
+		// --j'enlève de la liste des retours tous les livres qui ne sont pas reservés
+		this.listeLivreRetour.removeAll(livresASuppr);
 		return listeAlerteRetour;
 	}
 }
