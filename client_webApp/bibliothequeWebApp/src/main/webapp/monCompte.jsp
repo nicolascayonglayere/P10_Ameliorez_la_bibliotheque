@@ -48,8 +48,34 @@
 						</li>
 				   	</ul>
 				</s:iterator>		
-			</div>	
-		</div>				
+			</div>
+			
+			<div class="col-lg-9">	
+				<h4 id="titre"><s:text name="compteUser.reservation"/></h4>
+				
+				<!-- un tab recapitulatif des reservations en cours-->
+				<s:iterator value="listReservation"> <!--   var="livreEmpruntType" status="stat">-->
+					<ul>
+						<li id="empruntLivre">
+							<div><s:property value="key.livre.titre"/> <!--  "#livreEmpruntType.ouvrage.titre"/>--> </div>
+							<s:iterator value="value">
+								<div>
+									<s:text name="compteUser.empruntPossible"/> <s:property value="key"/> <!--  "#livreEmpruntType.dateEmprunt"/>-->
+									<s:text name="compteUser.rangReservation"/> <s:property value="value"/> <!--  "%{listDate.get(stat.index)}"/>-->
+								</div>	
+				    		</s:iterator>
+							<!-- un bouton pour l'annulation -->
+				    		<s:a action="annuler_reservation" namespace="/utilisateur">
+				    			<s:param name="idResa" value="key.id"/>
+				    			<s:submit class="btn btn-default" value="%{getText('bouton.annuler')}"/>
+				    		</s:a>				    		
+						</li>
+				   	</ul>
+				</s:iterator>		
+			</div>				
+		</div>	
+		
+					
 		<%@include file="_footer.jsp" %>
 	</body>
 </html>

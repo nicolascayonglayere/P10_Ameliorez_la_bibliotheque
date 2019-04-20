@@ -1,6 +1,7 @@
 package oc.webApp.nicolas.actions;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,9 +18,12 @@ import org.springframework.stereotype.Service;
 import com.opensymphony.xwork2.ActionSupport;
 
 import fr.yogj.bibliows.BiblioWS;
+import fr.yogj.bibliows.ObtenirEmpruntLivreFault;
 import fr.yogj.bibliows.ObtenirEmpruntUtilisateurFault_Exception;
+import fr.yogj.bibliows.ObtenirReservationUtilisateurFault_Exception;
 import fr.yogj.bibliows.types.CoordonneeUtilisateurType;
 import fr.yogj.bibliows.types.LivreEmpruntType;
+import fr.yogj.bibliows.types.ReservationType;
 import fr.yogj.bibliows.types.UtilisateurType;
 import oc.webApp.nicolas.configurations.BiblioWebAppConfiguration;
 
@@ -40,6 +44,8 @@ public class MonCompte extends ActionSupport implements SessionAware {
 	private Map<LivreEmpruntType, Date> listEmprunt = new HashMap<LivreEmpruntType, Date>();
 	private CoordonneeUtilisateurType coordonneeUtilisateur = new CoordonneeUtilisateurType();
 
+	private Map<ReservationType, HashMap<Date, Integer>> listReservation = new HashMap<ReservationType, HashMap<Date, Integer>>();
+
 	/**
 	 * Méthode retournant les données nécessaires à la jsp affichant le compte d'un
 	 * {@link UtilisateurType}
@@ -59,6 +65,45 @@ public class MonCompte extends ActionSupport implements SessionAware {
 				cal.add(Calendar.DATE, 28);
 				this.listEmprunt.put(vEmprunts.get(i), cal.getTime());
 			}
+			List<ReservationType> vReservations = biblioWS.obtenirReservationUtilisateur(this.utilisateur.getId());
+			Map<Date, Integer> maMapInt = new HashMap<Date, Integer>();
+			Integer maPosition = 0;
+			for (int i = 0; i < vReservations.size(); i++) {
+				List<LivreEmpruntType> vListInt = biblioWS.obtenirEmpruntLivre(vReservations.get(i).getLivre().getId());
+				Collections.sort(vListInt, (d1, d2) -> d1.getDateEmprunt().compare(d2.getDateEmprunt()));
+				Calendar calTemoin = Calendar.getInstance();
+				calTemoin.setTime(vListInt.get(0).getDateEmprunt().toGregorianCalendar().getTime());
+				calTemoin.add(Calendar.DATE, 28);
+				for (LivreEmpruntType let : vListInt) {// --est-ce qu'il parcours dans l'ordre ?
+					Calendar cal1 = Calendar.getInstance();
+					cal1.setTime(let.getDateEmprunt().toGregorianCalendar().getTime());
+					if (let.isProlongation()) {
+						cal1.add(Calendar.DATE, 28);
+					} else {
+						cal1.add(Calendar.DATE, 28 * 2);
+					}
+
+					if (cal1.before(calTemoin)) {
+						calTemoin = cal1;
+					}
+
+					// --Pour position de utilisateur, besoin d'une operation
+					// obtenirReservationLivre(int idLivre)
+					if (let.getEmprunteur().getId() != this.utilisateur.getId()) {
+						maPosition++;
+					} else {
+						maPosition++;
+						break;
+					}
+					System.out.println("---------liste triee--------" + let.getDateEmprunt() + " -- "
+							+ let.getEmprunteur().getId());
+
+				}
+				System.out.println("Date temoin ---------" + calTemoin.getTime() + "------ maPosition " + maPosition);
+				maMapInt.put(calTemoin.getTime(), maPosition);
+
+				this.listReservation.put(vReservations.get(i), (HashMap<Date, Integer>) maMapInt);
+			}
 			return ActionSupport.SUCCESS;
 		} catch (ObtenirEmpruntUtilisateurFault_Exception e) {
 			this.addActionMessage(e.getMessage());
@@ -69,6 +114,16 @@ public class MonCompte extends ActionSupport implements SessionAware {
 			logger.debug(e1.getMessage());
 			this.addActionMessage(e1.getMessage());
 			e1.printStackTrace();
+			return ActionSupport.INPUT;
+		} catch (ObtenirReservationUtilisateurFault_Exception e2) {
+			this.addActionMessage(e2.getMessage());
+			e2.printStackTrace();
+			logger.debug(e2.getMessage());
+			return ActionSupport.INPUT;
+		} catch (ObtenirEmpruntLivreFault e3) {
+			this.addActionMessage(e3.getMessage());
+			e3.printStackTrace();
+			logger.debug(e3.getMessage());
 			return ActionSupport.INPUT;
 		}
 
@@ -110,6 +165,14 @@ public class MonCompte extends ActionSupport implements SessionAware {
 	@Autowired
 	public void setWebAppConfig(BiblioWebAppConfiguration webAppConfig) {
 		this.webAppConfig = webAppConfig;
+	}
+
+	public Map<ReservationType, HashMap<Date, Integer>> getListReservation() {
+		return this.listReservation;
+	}
+
+	public void setListReservation(Map<ReservationType, HashMap<Date, Integer>> listReservation) {
+		this.listReservation = listReservation;
 	}
 
 }

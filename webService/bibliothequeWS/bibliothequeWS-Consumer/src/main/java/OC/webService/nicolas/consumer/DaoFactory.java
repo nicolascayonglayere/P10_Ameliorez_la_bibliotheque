@@ -2,6 +2,7 @@ package OC.webService.nicolas.consumer;
 
 import OC.webService.nicolas.consumer.contract.ILivreDao;
 import OC.webService.nicolas.consumer.contract.ILivreEmpruntDao;
+import OC.webService.nicolas.consumer.contract.IReservationDao;
 import OC.webService.nicolas.consumer.contract.IUtilisateurDao;
 
 /**
@@ -54,4 +55,19 @@ public interface DaoFactory {
 	 * @param pLivreEmpruntDao
 	 */
 	void setLivreEmpruntDao(ILivreEmpruntDao pLivreEmpruntDao);
+
+	/**
+	 * Méthode d'accès à {@link IReservationDao}
+	 * 
+	 * @return {@link IReservationDao}
+	 */
+	IReservationDao getReservationDAo();
+
+	/**
+	 * Méthode pour définir la {@link IReservationDao}
+	 * 
+	 * @param pReservationDao
+	 */
+	void setReservationDao(IReservationDao pReservationDao);
+
 }

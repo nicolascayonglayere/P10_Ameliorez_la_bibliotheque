@@ -88,6 +88,22 @@
       		</xsd:sequence>
       	</xsd:complexType>
       </xsd:element>
+      <!--  <xsd:element name="recherche">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="in" type="xsd:string"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="rechercheResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="out" type="xsd:string"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>-->
       <xsd:element name="empruntOuvrage">
       	<xsd:complexType>
       		<xsd:sequence>
@@ -191,6 +207,21 @@
       		</xsd:sequence>
       	</xsd:complexType>
       </xsd:element>
+      <!--  <xsd:element name="uneOperation">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="uneOperationResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="out" type="xsd:string"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>-->
       <xsd:element name="obtenirEmpruntUtilisateur">
       	<xsd:complexType>
       		<xsd:sequence>
@@ -209,6 +240,140 @@
       	<xsd:complexType>
       		<xsd:sequence>
       			<xsd:element name="idUtilisateur" type="xsd:int" minOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ObtenirReservationUtilisateur">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="idUtilisateur" type="xsd:int" minOccurs="1" maxOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ObtenirReservationUtilisateurResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="reservations" type="Q1:ReservationType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ObtenirReservationUtilisateurFault">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="idUtilisateur"
+      				type="xsd:int" minOccurs="1" maxOccurs="1">
+      			</xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ObtenirEmpruntLivre">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="idLivre" type="xsd:int" minOccurs="1" maxOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ObtenirEmpruntLivreResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="livreEmprunt" type="Q1:LivreEmpruntType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ObtenirEmpruntLivreFault1">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:choice>
+      				<xsd:element name="idEmprunt" type="xsd:int" minOccurs="1" maxOccurs="1">
+      				</xsd:element>
+      				<xsd:element name="dateEmprunt"
+      					type="xsd:date" minOccurs="1" maxOccurs="1">
+      				</xsd:element>
+      			</xsd:choice>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="annulerReservation">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="idReservation" type="xsd:int" minOccurs="1" maxOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="annulerReservationResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="livre" type="Q1:LivreType" minOccurs="1" maxOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="annulerReservationFault">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="idReservation"
+      				type="xsd:int" minOccurs="0" maxOccurs="1">
+      			</xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="reserverOuvrage">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="idLivre" type="xsd:int"
+      				minOccurs="1" maxOccurs="1">
+      			</xsd:element>
+      			<xsd:element name="idUtilisateur" type="xsd:int" minOccurs="1" maxOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="reserverOuvrageResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="livreReserve" type="Q1:ReservationType" minOccurs="1" maxOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="reserverOuvrageFault">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:choice>
+      				<xsd:element name="idLivre" type="xsd:int"
+      					minOccurs="1" maxOccurs="1">
+      				</xsd:element>
+      				<xsd:element name="titre"
+      					type="Q1:LivreType" minOccurs="1" maxOccurs="1">
+      				</xsd:element>
+      			</xsd:choice>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="listeAlerteRetour" type="xsd:string">
+      </xsd:element>
+      <xsd:element name="listeAlerteRetourResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="livre" type="Q1:LivreType" minOccurs="1" maxOccurs="unbounded"></xsd:element>
+      			<xsd:sequence>
+      				<xsd:element name="utilisateur"
+      					type="Q1:UtilisateurType" minOccurs="1" maxOccurs="unbounded">
+      				</xsd:element>
+      				<xsd:element name="coordonnee"
+      					type="Q1:CoordonneeUtilisateurType" minOccurs="1" maxOccurs="unbounded">
+      				</xsd:element>
+      			</xsd:sequence>
       		</xsd:sequence>
       	</xsd:complexType>
       </xsd:element>
@@ -247,6 +412,12 @@
   <wsdl:message name="detailsOuvrageFault">
   	<wsdl:part name="parameters" element="ybs:detailsOuvrageFault"></wsdl:part>
   </wsdl:message>
+  <!--  <wsdl:message name="rechercheRequest">
+  	<wsdl:part name="parameters" element="ybs:recherche"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="rechercheResponse">
+  	<wsdl:part name="parameters" element="ybs:rechercheResponse"></wsdl:part>
+  </wsdl:message>-->
   <wsdl:message name="empruntOuvrageRequest">
   	<wsdl:part name="parameters" element="ybs:empruntOuvrage"></wsdl:part>
   </wsdl:message>
@@ -286,6 +457,12 @@
   <wsdl:message name="listRetardatairesResponse">
   	<wsdl:part name="parameters" element="ybs:listRetardatairesResponse"></wsdl:part>
   </wsdl:message>
+  <!--  <wsdl:message name="uneOperationRequest">
+  	<wsdl:part name="parameters" element="ybs:uneOperation"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="uneOperationResponse">
+  	<wsdl:part name="parameters" element="ybs:uneOperationResponse"></wsdl:part>
+  </wsdl:message>-->
   <wsdl:message name="obtenirEmpruntUtilisateurRequest">
   	<wsdl:part name="parameters" element="ybs:obtenirEmpruntUtilisateur"></wsdl:part>
   </wsdl:message>
@@ -294,6 +471,48 @@
   </wsdl:message>
   <wsdl:message name="obtenirEmpruntUtilisateurFault">
   	<wsdl:part name="parameters" element="ybs:obtenirEmpruntUtilisateurFault"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ObtenirReservationUtilisateurRequest">
+  	<wsdl:part name="parameters" element="ybs:ObtenirReservationUtilisateur"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ObtenirReservationUtilisateurResponse">
+  	<wsdl:part name="parameters" element="ybs:ObtenirReservationUtilisateurResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ObtenirReservationUtilisateurFault">
+  	<wsdl:part name="parameters" element="ybs:ObtenirReservationUtilisateurFault"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ObtenirEmpruntLivreRequest">
+  	<wsdl:part name="parameters" element="ybs:ObtenirEmpruntLivre"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ObtenirEmpruntLivreResponse">
+  	<wsdl:part name="parameters" element="ybs:ObtenirEmpruntLivreResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ObtenirEmpruntLivreFault">
+  	<wsdl:part name="parameters" element="ybs:ObtenirEmpruntLivreFault1"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="annulerReservationRequest">
+  	<wsdl:part name="parameters" element="ybs:annulerReservation"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="annulerReservationResponse">
+  	<wsdl:part name="parameters" element="ybs:annulerReservationResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="annulerReservationFault">
+  	<wsdl:part name="parameters" element="ybs:annulerReservationFault"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="reserverOuvrageRequest">
+  	<wsdl:part name="parameters" element="ybs:reserverOuvrage"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="reserverOuvrageResponse">
+  	<wsdl:part name="parameters" element="ybs:reserverOuvrageResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="reserverOuvrageFault">
+  	<wsdl:part name="parameters" element="ybs:reserverOuvrageFault"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listeAlerteRetourRequest">
+  	<wsdl:part name="parameters" element="ybs:listeAlerteRetour"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listeAlerteRetourResponse">
+  	<wsdl:part name="parameters" element="ybs:listeAlerteRetourResponse"></wsdl:part>
   </wsdl:message>
   <wsdl:portType name="biblioWS">
     <wsdl:operation name="login">
@@ -340,24 +559,53 @@
     	<wsdl:output message="ybs:obtenirEmpruntUtilisateurResponse"></wsdl:output>
             <wsdl:fault name="UtilisateurNotFoundFault" message="ybs:obtenirEmpruntUtilisateurFault"></wsdl:fault>
         </wsdl:operation>
+    <wsdl:operation name="ObtenirReservationUtilisateur">
+    	<wsdl:input message="ybs:ObtenirReservationUtilisateurRequest"></wsdl:input>
+    	<wsdl:output message="ybs:ObtenirReservationUtilisateurResponse"></wsdl:output>
+            <wsdl:fault name="UtilisateurNotFoundfault" message="ybs:ObtenirReservationUtilisateurFault"></wsdl:fault>
+        </wsdl:operation>
+    <wsdl:operation name="ObtenirEmpruntLivre">
+    	<wsdl:input message="ybs:ObtenirEmpruntLivreRequest"></wsdl:input>
+    	<wsdl:output message="ybs:ObtenirEmpruntLivreResponse"></wsdl:output>
+            <wsdl:fault name="EmpruntLivreNotFoundFault" message="ybs:ObtenirEmpruntLivreFault"></wsdl:fault>
+        </wsdl:operation>
+    <wsdl:operation name="annulerReservation">
+    	<wsdl:input message="ybs:annulerReservationRequest"></wsdl:input>
+    	<wsdl:output message="ybs:annulerReservationResponse"></wsdl:output>
+            <wsdl:fault name="ReservationNotFoundFault" message="ybs:annulerReservationFault"></wsdl:fault>
+        </wsdl:operation>
+    <wsdl:operation name="reserverOuvrage">
+    	<wsdl:input message="ybs:reserverOuvrageRequest"></wsdl:input>
+    	<wsdl:output message="ybs:reserverOuvrageResponse"></wsdl:output>
+            <wsdl:fault name="LivreNotFoundFault" message="ybs:reserverOuvrageFault"></wsdl:fault>
+        </wsdl:operation>
+    <wsdl:operation name="listeAlerteRetour">
+    	<wsdl:input message="ybs:listeAlerteRetourRequest"></wsdl:input>
+    	<wsdl:output message="ybs:listeAlerteRetourResponse"></wsdl:output>
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="biblioWSSOAP" type="ybs:biblioWS">
+  	<!--  <wsp:PolicyReference URI="#BindingPolicy" />-->
   	<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
   	<wsdl:operation name="login">
   		<soap:operation soapAction=""/> 
   		<wsdl:input>
+  			<!--  <wsp:PolicyReference URI="#InputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:input>
   		<wsdl:output>
+  			<!--  <wsp:PolicyReference URI="#OutputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:output>
   	</wsdl:operation>
   	<wsdl:operation name="deconnexion">
   		<soap:operation soapAction=""/> 
   		<wsdl:input>
+  			<!--  <wsp:PolicyReference URI="#InputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:input>
   		<wsdl:output>
+  			<!--  <wsp:PolicyReference URI="#OutputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:output>
   		<wsdl:fault name="UtilisateurNotFoundFault">
@@ -367,18 +615,22 @@
   	<wsdl:operation name="listNouveautes">
   		<soap:operation soapAction=""/> 
   		<wsdl:input>
+  			<!--  <wsp:PolicyReference URI="#InputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:input>
   		<wsdl:output>
+  			<!--  <wsp:PolicyReference URI="#OutputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:output>
   	</wsdl:operation>
   	<wsdl:operation name="rechercheOuvrage">
   		<soap:operation soapAction=""/> 
   		<wsdl:input>
+  			<!--  <wsp:PolicyReference URI="#InputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:input>
   		<wsdl:output>
+  			<!--  <wsp:PolicyReference URI="#OutputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:output>
   		<wsdl:fault name="LivreNotFoundFault">
@@ -388,9 +640,11 @@
   	<wsdl:operation name="empruntOuvrage">
   		<soap:operation soapAction=""/> 
   		<wsdl:input>
+  			<!--  <wsp:PolicyReference URI="#InputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:input>
   		<wsdl:output>
+  			<!--  <wsp:PolicyReference URI="#OutputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:output>
   		<wsdl:fault name="LivreNotFoundFault">
@@ -400,9 +654,11 @@
   	<wsdl:operation name="retourOuvrage">
   		<soap:operation soapAction=""/> 
   		<wsdl:input>
+  			<!--  <wsp:PolicyReference URI="#InputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:input>
   		<wsdl:output>
+  			<!--  <wsp:PolicyReference URI="#OutputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:output>
   		<wsdl:fault name="EmpruntLivreNotFoundFault">
@@ -412,9 +668,11 @@
   	<wsdl:operation name="prolongationOuvrage">
   		<soap:operation soapAction=""/> 
   		<wsdl:input>
+  			<!--  <wsp:PolicyReference URI="#InputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:input>
   		<wsdl:output>
+  			<!--  <wsp:PolicyReference URI="#OutputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:output>
   		<wsdl:fault name="EmpruntLivreNotFoundFault">
@@ -424,18 +682,22 @@
   	<wsdl:operation name="listRetardataires">
   		<soap:operation soapAction=""/> 
   		<wsdl:input>
+  			<!--  <wsp:PolicyReference URI="#InputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:input>
   		<wsdl:output>
+  			<!--  <wsp:PolicyReference URI="#OutputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:output>
   	</wsdl:operation>
   	<wsdl:operation name="obtenirEmpruntUtilisateur">
   		<soap:operation soapAction=""/>
   		<wsdl:input>
+  			<!--  <wsp:PolicyReference URI="#InputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:input>
   		<wsdl:output>
+  			<!--  <wsp:PolicyReference URI="#OutputBindingPolicy"/>-->
   			<soap:body use="literal" />
   		</wsdl:output>
   		<wsdl:fault name="UtilisateurNotFoundFault">
@@ -447,5 +709,79 @@
     <wsdl:port binding="ybs:biblioWSSOAP" name="biblioWSSOAP">
       <soap:address location="http://localhost:8181/biblioWS/biblioWS"/>
     </wsdl:port>
-  </wsdl:service>  
+  </wsdl:service>
+  
+	<!--  <wsp:Policy wsu:Id="BindingPolicy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:AsymmetricBinding>
+					<wsp:Policy>
+						<sp:InitiatorToken>
+							<wsp:Policy>
+								<sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+									<wsp:Policy>
+										<sp:WssX509V3Token11 />
+									</wsp:Policy>
+								</sp:X509Token>
+							</wsp:Policy>
+						</sp:InitiatorToken>
+						<sp:RecipientToken>
+							<wsp:Policy>
+								<sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Never">
+									<wsp:Policy>
+										<sp:WssX509V3Token11 />
+										<sp:RequireIssuerSerialReference />
+									</wsp:Policy>
+								</sp:X509Token>
+							</wsp:Policy>
+						</sp:RecipientToken>
+						<sp:Layout>
+							<wsp:Policy>
+								<sp:Strict />
+							</wsp:Policy>
+						</sp:Layout>
+						<sp:IncludeTimestamp />
+						<sp:OnlySignEntireHeadersAndBody />
+						<sp:AlgorithmSuite>
+							<wsp:Policy>
+								<sp:Basic128 />
+							</wsp:Policy>
+						</sp:AlgorithmSuite>
+						<sp:EncryptSignature />
+					</wsp:Policy>
+				</sp:AsymmetricBinding>
+				<sp:Wss11>
+					<wsp:Policy>
+						<sp:MustSupportRefIssuerSerial />
+					</wsp:Policy>
+				</sp:Wss11>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="InputBindingPolicy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:EncryptedParts>
+					<sp:Body />
+				</sp:EncryptedParts>
+				<sp:SignedParts>
+					<sp:Body />
+					<sp:Header Namespace="http://yogj.fr/biblioWS/"/>
+				</sp:SignedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsp:Policy wsu:Id="OutputBindingPolicy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:EncryptedParts>
+					<sp:Body />
+				</sp:EncryptedParts>
+				<sp:SignedParts>
+					<sp:Body />
+					<sp:Header Namespace="http://yogj.fr/biblioWS/"/>
+				</sp:SignedParts>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>-->  
 </wsdl:definitions>

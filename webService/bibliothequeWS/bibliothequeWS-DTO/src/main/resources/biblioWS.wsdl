@@ -243,6 +243,140 @@
       		</xsd:sequence>
       	</xsd:complexType>
       </xsd:element>
+      <xsd:element name="ObtenirReservationUtilisateur">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="idUtilisateur" type="xsd:int" minOccurs="1" maxOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ObtenirReservationUtilisateurResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="reservations" type="Q1:ReservationType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ObtenirReservationUtilisateurFault">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="idUtilisateur"
+      				type="xsd:int" minOccurs="1" maxOccurs="1">
+      			</xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ObtenirEmpruntLivre">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="idLivre" type="xsd:int" minOccurs="1" maxOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ObtenirEmpruntLivreResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="livreEmprunt" type="Q1:LivreEmpruntType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ObtenirEmpruntLivreFault1">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:choice>
+      				<xsd:element name="idEmprunt" type="xsd:int" minOccurs="1" maxOccurs="1">
+      				</xsd:element>
+      				<xsd:element name="dateEmprunt"
+      					type="xsd:date" minOccurs="1" maxOccurs="1">
+      				</xsd:element>
+      			</xsd:choice>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="annulerReservation">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="idReservation" type="xsd:int" minOccurs="1" maxOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="annulerReservationResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="livre" type="Q1:LivreType" minOccurs="1" maxOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="annulerReservationFault">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="idReservation"
+      				type="xsd:int" minOccurs="0" maxOccurs="1">
+      			</xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="reserverOuvrage">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="idLivre" type="xsd:int"
+      				minOccurs="1" maxOccurs="1">
+      			</xsd:element>
+      			<xsd:element name="idUtilisateur" type="xsd:int" minOccurs="1" maxOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="reserverOuvrageResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="livreReserve" type="Q1:ReservationType" minOccurs="1" maxOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="reserverOuvrageFault">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:choice>
+      				<xsd:element name="idLivre" type="xsd:int"
+      					minOccurs="1" maxOccurs="1">
+      				</xsd:element>
+      				<xsd:element name="titre"
+      					type="Q1:LivreType" minOccurs="1" maxOccurs="1">
+      				</xsd:element>
+      			</xsd:choice>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="listeAlerteRetour" type="xsd:string">
+      </xsd:element>
+      <xsd:element name="listeAlerteRetourResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="livre" type="Q1:LivreType" minOccurs="1" maxOccurs="unbounded"></xsd:element>
+      			<xsd:sequence>
+      				<xsd:element name="utilisateur"
+      					type="Q1:UtilisateurType" minOccurs="1" maxOccurs="unbounded">
+      				</xsd:element>
+      				<xsd:element name="coordonnee"
+      					type="Q1:CoordonneeUtilisateurType" minOccurs="1" maxOccurs="unbounded">
+      				</xsd:element>
+      			</xsd:sequence>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="loginRequest">
@@ -338,6 +472,48 @@
   <wsdl:message name="obtenirEmpruntUtilisateurFault">
   	<wsdl:part name="parameters" element="ybs:obtenirEmpruntUtilisateurFault"></wsdl:part>
   </wsdl:message>
+  <wsdl:message name="ObtenirReservationUtilisateurRequest">
+  	<wsdl:part name="parameters" element="ybs:ObtenirReservationUtilisateur"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ObtenirReservationUtilisateurResponse">
+  	<wsdl:part name="parameters" element="ybs:ObtenirReservationUtilisateurResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ObtenirReservationUtilisateurFault">
+  	<wsdl:part name="parameters" element="ybs:ObtenirReservationUtilisateurFault"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ObtenirEmpruntLivreRequest">
+  	<wsdl:part name="parameters" element="ybs:ObtenirEmpruntLivre"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ObtenirEmpruntLivreResponse">
+  	<wsdl:part name="parameters" element="ybs:ObtenirEmpruntLivreResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ObtenirEmpruntLivreFault">
+  	<wsdl:part name="parameters" element="ybs:ObtenirEmpruntLivreFault1"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="annulerReservationRequest">
+  	<wsdl:part name="parameters" element="ybs:annulerReservation"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="annulerReservationResponse">
+  	<wsdl:part name="parameters" element="ybs:annulerReservationResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="annulerReservationFault">
+  	<wsdl:part name="parameters" element="ybs:annulerReservationFault"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="reserverOuvrageRequest">
+  	<wsdl:part name="parameters" element="ybs:reserverOuvrage"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="reserverOuvrageResponse">
+  	<wsdl:part name="parameters" element="ybs:reserverOuvrageResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="reserverOuvrageFault">
+  	<wsdl:part name="parameters" element="ybs:reserverOuvrageFault"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listeAlerteRetourRequest">
+  	<wsdl:part name="parameters" element="ybs:listeAlerteRetour"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listeAlerteRetourResponse">
+  	<wsdl:part name="parameters" element="ybs:listeAlerteRetourResponse"></wsdl:part>
+  </wsdl:message>
   <wsdl:portType name="biblioWS">
     <wsdl:operation name="login">
       <wsdl:input message="ybs:loginRequest"/>
@@ -383,6 +559,30 @@
     	<wsdl:output message="ybs:obtenirEmpruntUtilisateurResponse"></wsdl:output>
             <wsdl:fault name="UtilisateurNotFoundFault" message="ybs:obtenirEmpruntUtilisateurFault"></wsdl:fault>
         </wsdl:operation>
+    <wsdl:operation name="ObtenirReservationUtilisateur">
+    	<wsdl:input message="ybs:ObtenirReservationUtilisateurRequest"></wsdl:input>
+    	<wsdl:output message="ybs:ObtenirReservationUtilisateurResponse"></wsdl:output>
+            <wsdl:fault name="UtilisateurNotFoundfault" message="ybs:ObtenirReservationUtilisateurFault"></wsdl:fault>
+        </wsdl:operation>
+    <wsdl:operation name="ObtenirEmpruntLivre">
+    	<wsdl:input message="ybs:ObtenirEmpruntLivreRequest"></wsdl:input>
+    	<wsdl:output message="ybs:ObtenirEmpruntLivreResponse"></wsdl:output>
+            <wsdl:fault name="EmpruntLivreNotFoundFault" message="ybs:ObtenirEmpruntLivreFault"></wsdl:fault>
+        </wsdl:operation>
+    <wsdl:operation name="annulerReservation">
+    	<wsdl:input message="ybs:annulerReservationRequest"></wsdl:input>
+    	<wsdl:output message="ybs:annulerReservationResponse"></wsdl:output>
+            <wsdl:fault name="ReservationNotFoundFault" message="ybs:annulerReservationFault"></wsdl:fault>
+        </wsdl:operation>
+    <wsdl:operation name="reserverOuvrage">
+    	<wsdl:input message="ybs:reserverOuvrageRequest"></wsdl:input>
+    	<wsdl:output message="ybs:reserverOuvrageResponse"></wsdl:output>
+            <wsdl:fault name="LivreNotFoundFault" message="ybs:reserverOuvrageFault"></wsdl:fault>
+        </wsdl:operation>
+    <wsdl:operation name="listeAlerteRetour">
+    	<wsdl:input message="ybs:listeAlerteRetourRequest"></wsdl:input>
+    	<wsdl:output message="ybs:listeAlerteRetourResponse"></wsdl:output>
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="biblioWSSOAP" type="ybs:biblioWS">
   	<!--  <wsp:PolicyReference URI="#BindingPolicy" />-->

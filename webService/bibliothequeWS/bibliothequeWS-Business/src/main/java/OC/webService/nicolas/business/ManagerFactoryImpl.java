@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import OC.webService.nicolas.business.contract.LivreEmpruntManager;
 import OC.webService.nicolas.business.contract.LivreManager;
+import OC.webService.nicolas.business.contract.ReservationManager;
 import OC.webService.nicolas.business.contract.UtilisateurManager;
 
 /**
@@ -19,6 +20,7 @@ public class ManagerFactoryImpl implements ManagerFactory {
 	private LivreEmpruntManager lem;
 	private LivreManager lm;
 	private UtilisateurManager um;
+	private ReservationManager rm;
 
 	@Override
 	public LivreEmpruntManager getLivreEmpruntManager() {
@@ -51,6 +53,17 @@ public class ManagerFactoryImpl implements ManagerFactory {
 	@Override
 	public void setUtilisateurManager(UtilisateurManager pUtilisateurManager) {
 		this.um = pUtilisateurManager;
+	}
+
+	@Override
+	public ReservationManager getReservationManager() {
+		return this.rm;
+	}
+
+	@Autowired
+	@Override
+	public void setReservationManager(ReservationManager pReservationManager) {
+		this.rm = pReservationManager;
 	}
 
 }

@@ -52,8 +52,8 @@ public class Livre implements Serializable {
 	private List<Editeur> editeurs;
 	@OneToMany(mappedBy = "livre", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
 	private List<LivreEmprunt> emprunts;
-
-	// private List<Utilisateur> listeAttente;
+	@OneToMany(mappedBy = "livre", fetch = FetchType.LAZY, cascade = { CascadeType.ALL })
+	private List<Reservation> listeAttente;
 
 	/**
 	 * Constructeur sans paramètre
@@ -165,6 +165,22 @@ public class Livre implements Serializable {
 		}
 		this.editeurs.add(pEditeur);
 
+	}
+
+	public List<Reservation> getListeAttente() {
+		return this.listeAttente;
+	}
+
+	public void setListeAttente(List<Reservation> listeAttente) {
+		this.listeAttente = listeAttente;
+	}
+
+	public void addListeAttente(Reservation pReservation) {
+		if (this.listeAttente == null) {
+			this.listeAttente = new ArrayList<Reservation>();
+		}
+		this.listeAttente.add(pReservation);
+		pReservation.setLivre(this);
 	}
 
 }

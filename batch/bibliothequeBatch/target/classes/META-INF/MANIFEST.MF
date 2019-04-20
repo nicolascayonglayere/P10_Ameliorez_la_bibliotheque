@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
 Implementation-Title: bibliothequeBatch
-Implementation-Version: 1.0-RELEASE
+Implementation-Version: 1.1.0-SNAPSHOT
 Built-By: nicolas
 Implementation-Vendor-Id: oc.batch.nicolas
 Build-Jdk: 1.8.0_144

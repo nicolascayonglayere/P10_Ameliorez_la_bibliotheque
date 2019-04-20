@@ -3,7 +3,9 @@ package OC.webService.nicolas.business.impl;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -18,6 +20,7 @@ import OC.webService.nicolas.business.mapper.MapperLivreEmprunt;
 import OC.webService.nicolas.business.mapper.MapperUtilisateur;
 import OC.webService.nicolas.model.entites.Livre;
 import OC.webService.nicolas.model.entites.LivreEmprunt;
+import OC.webService.nicolas.model.entites.Reservation;
 import OC.webService.nicolas.model.entites.Utilisateur;
 import fr.yogj.bibliows.types.LivreEmpruntType;
 import fr.yogj.bibliows.types.LivreType;
@@ -35,6 +38,7 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 
 	static final Logger logger = LogManager.getLogger();
 	private LivreEmprunt livreEmprunt = new LivreEmprunt();
+	private List<Livre> listeLivreRetour = new ArrayList<Livre>();
 
 	/**
 	 * Méthode pour emprunter un {@link Livre}
@@ -103,6 +107,7 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 				.findById((this.livreEmprunt.getLivre()).getId());
 		Livre l = myOptionalLivre.get();
 		if (l.getId() != 0) {
+			this.listeLivreRetour.add(l);// --je remplis la listeAlerteRetour
 			this.getDaoFactory().getLivreEmpruntDao().delete(this.livreEmprunt);
 			return MapperLivre.fromLivreToLivreType(l);
 		} else {
@@ -122,7 +127,7 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 			Calendar dateRetour = Calendar.getInstance();
 			dateRetour.setTime(this.livreEmprunt.getDateEmprunt());
 			dateRetour.add(Calendar.DATE, 28);
-			System.out.println("--------------------------" + dateRetour);
+			logger.debug("--------------------------" + dateRetour);
 
 			if (Calendar.getInstance().after(dateRetour)) {
 				throw new RuntimeException("Vous ne pouvez plus prolonger cet emprunt");
@@ -182,5 +187,64 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 			throw new RuntimeException("L'utilisateur n'a pas d'emprunt en cours.");
 		}
 		return empruntsUtilisateur;
+	}
+
+	@Override
+	public List<LivreEmpruntType> obtenirTitreEmprunte(int pIdLivre) throws RuntimeException {
+		logger.debug("Titre emprunte ---------" + pIdLivre);
+		List<LivreEmpruntType> titreEmpruntes = new ArrayList<LivreEmpruntType>();
+		if ((this.getDaoFactory().getLivreEmpruntDao().findByLivreId(pIdLivre).size()) > 0) {
+			for (LivreEmprunt le : this.getDaoFactory().getLivreEmpruntDao().findByLivreId(pIdLivre)) {
+				titreEmpruntes.add(MapperLivreEmprunt.fromLivreEmpruntToLivreEmpruntType(le));
+			}
+
+		} else {
+			throw new RuntimeException("Le titre n'a pas d'emprunt en cours.");
+		}
+		return titreEmpruntes;
+	}
+
+	@Override
+	public Map<UtilisateurType, LivreType> obtenirListeAlerteRetour() {
+		// --pour chaque livre de la listLivreRetour, je cherche une reservation. Si je
+		// trouve, je convertis le livre et l'utilisateur en type et je les mets dans la
+		// liste alerteRetour.
+		// ATTENTION A BIEN NETTOYER LES LISTES !!!
+		// TODO Auto-generated method stub
+		Map<UtilisateurType, LivreType> listeAlerteRetour = new HashMap<UtilisateurType, LivreType>();
+		List<Livre> livresASuppr = new ArrayList<Livre>();
+		for (Livre l : this.listeLivreRetour) {
+			// --chercher les reservations du livre ds la bdd
+			if (this.getDaoFactory().getReservationDAo().findByLivreId(l.getId()).size() > 0) {
+				// --vérifier la date d'alerte pour nettoyer la table reservation
+				Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.DATE, -2);
+				List<Reservation> reservations = this.getDaoFactory().getReservationDAo().findByLivreId(l.getId());
+				List<Reservation> temp = new ArrayList<Reservation>();
+				for (Reservation r : reservations) {
+					if (r.getDateAlerte() != null && r.getDateAlerte().before(cal.getTime())) {
+						this.getDaoFactory().getReservationDAo().delete(r);
+					} else if (r.getDateAlerte() == null) {
+						temp.add(r);
+					}
+				}
+
+				if (temp.size() > 0) {
+					Reservation maReservation = temp.get(0);
+					listeAlerteRetour.put(
+							MapperUtilisateur.fromUtilisateurToUtilisateurType(maReservation.getUtilisateur()),
+							MapperLivre.fromLivreToLivreType(maReservation.getLivre()));
+					// -- ajouter la date d'alerte dans la table reservation
+					maReservation.setDateAlerte(Calendar.getInstance().getTime());
+					this.getDaoFactory().getReservationDAo().saveAndFlush(maReservation);
+				}
+
+			} else {
+				livresASuppr.add(l);
+			}
+		}
+		// --j'enlève de la liste des retours tous les livres qui ne sont pas reservés
+		this.listeLivreRetour.removeAll(livresASuppr);
+		return listeAlerteRetour;
 	}
 }
