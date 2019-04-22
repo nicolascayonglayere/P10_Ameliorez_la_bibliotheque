@@ -72,4 +72,15 @@ public class ReservationManagerImpl extends AbstractManager implements Reservati
 		return MapperLivre.fromLivreToLivreType(maResaAnnulee);
 	}
 
+	@Override
+	public List<ReservationType> obtenirReservationsLivre(int pId) {
+		List<ReservationType> reservationsLivre = new ArrayList<ReservationType>();
+		if (this.getDaoFactory().getReservationDAo().findByLivreId(pId).size() > 0) {
+			for (Reservation r : this.getDaoFactory().getReservationDAo().findByLivreId(pId)) {
+				reservationsLivre.add(MapperReservation.fromReservationToReservationType(r));
+			}
+		}
+		return reservationsLivre;
+	}
+
 }

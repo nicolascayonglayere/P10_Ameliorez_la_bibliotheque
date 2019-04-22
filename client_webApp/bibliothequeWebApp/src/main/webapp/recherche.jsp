@@ -26,8 +26,10 @@
 				</s:form>	
 				
 				<s:actionmessage/>
-				<s:if test="listResultat">
-					<s:iterator value="listResultat" var="livreType">
+				
+				<!-- Ajouter un cadre résultat disponible -->
+				<s:if test="listResultatDispo">
+					<s:iterator value="listResultatDispo" var="livreType">
 						<s:a action="go_livre" namespace="/">				
 							<p id="listLivreType">
 								<li><s:property value="#livreType.titre"/> <s:property value="#livreType.auteurs.nom"/> <s:property value="#livreType.genre"/></li>	
@@ -36,6 +38,25 @@
 						</s:a>
 					</s:iterator>
 				</s:if>		
+				
+				<!-- Ajouter un cadre résultat reserve -->
+				<s:if test="listResultatResa">
+					<s:iterator value="listResultatResa">
+						<s:a action="go_livre" namespace="/">				
+							<p id="listLivreType">
+								<li><s:property value="key.livreType.titre"/> <s:property value="key.livreType.auteurs.nom"/> <s:property value="key.livreType.genre"/></li>	
+								<s:param name="idLivre" value="key.livreType.id" />										
+							</p>
+							<s:iterator value = "value">
+								<div>
+									<s:text name="compteUser.empruntPossible"/> <s:property value="key"/> <!--  "#livreEmpruntType.dateEmprunt"/>-->
+									<s:text name="compteUser.rangReservation"/> <s:property value="value"/> <!--  "%{listDate.get(stat.index)}"/>-->
+								</div>							
+							</s:iterator>
+						</s:a>
+					</s:iterator>
+				</s:if>				
+				
 			</div>
 		</div>	
 		<%@include file="_footer.jsp" %>	

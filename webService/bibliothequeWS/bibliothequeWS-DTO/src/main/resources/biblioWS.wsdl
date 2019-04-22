@@ -377,6 +377,22 @@
       		</xsd:sequence>
       	</xsd:complexType>
       </xsd:element>
+      <xsd:element name="ObtenirReservationOuvrage">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="idLivre" type="xsd:int" minOccurs="1" maxOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="ObtenirReservationOuvrageResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="ReservationType" type="Q1:ReservationType" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="loginRequest">
@@ -514,6 +530,12 @@
   <wsdl:message name="listeAlerteRetourResponse">
   	<wsdl:part name="parameters" element="ybs:listeAlerteRetourResponse"></wsdl:part>
   </wsdl:message>
+  <wsdl:message name="ObtenirReservationOuvrageRequest">
+  	<wsdl:part name="parameters" element="ybs:ObtenirReservationOuvrage"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ObtenirReservationOuvrageResponse">
+  	<wsdl:part name="parameters" element="ybs:ObtenirReservationOuvrageResponse"></wsdl:part>
+  </wsdl:message>
   <wsdl:portType name="biblioWS">
     <wsdl:operation name="login">
       <wsdl:input message="ybs:loginRequest"/>
@@ -582,6 +604,10 @@
     <wsdl:operation name="listeAlerteRetour">
     	<wsdl:input message="ybs:listeAlerteRetourRequest"></wsdl:input>
     	<wsdl:output message="ybs:listeAlerteRetourResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenirReservationOuvrage">
+    	<wsdl:input message="ybs:ObtenirReservationOuvrageRequest"></wsdl:input>
+    	<wsdl:output message="ybs:ObtenirReservationOuvrageResponse"></wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="biblioWSSOAP" type="ybs:biblioWS">

@@ -243,6 +243,12 @@ public class BiblioWSEndPoint implements BiblioWS {// implements BiblioWS {
 		return larr;
 	}
 
+	@Override
+	public List<ReservationType> obtenirReservationOuvrage(int idLivre) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	// -- Getter et Setter
 	public ManagerFactory getManageFacto() {
 		return this.manageFacto;

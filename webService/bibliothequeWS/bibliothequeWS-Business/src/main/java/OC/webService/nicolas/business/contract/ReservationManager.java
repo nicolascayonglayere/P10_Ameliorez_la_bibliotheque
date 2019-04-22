@@ -21,6 +21,15 @@ public interface ReservationManager {
 	public List<ReservationType> obtenirReservationsUtilisateur(int pId) throws RuntimeException;
 
 	/**
+	 * Méthode pour trouver la liste des {@link Reservation} d'un {@link Livre} d'id
+	 * donné en paramètre
+	 * 
+	 * @param pId
+	 * @return le liste des {@link Reservation}
+	 */
+	public List<ReservationType> obtenirReservationsLivre(int pId);
+
+	/**
 	 * Méthode pour réserver un {@link Livre} d'id donné en paramètre pour un
 	 * {@link Utilisateur} d'id donné en paramètre
 	 * 

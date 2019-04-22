@@ -69,6 +69,13 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 				this.livreEmprunt.setDateEmprunt(Calendar.getInstance().getTime());
 				this.livreEmprunt.setUtilisateur(user);
 				this.getDaoFactory().getLivreEmpruntDao().saveAndFlush(this.livreEmprunt);
+				// --supprimer la reservation si elle existe
+				if (this.getDaoFactory().getReservationDAo().findByLivreIdAndUtilisateurId(l.getId(),
+						user.getId()) != null) {
+					Reservation r = this.getDaoFactory().getReservationDAo().findByLivreIdAndUtilisateurId(l.getId(),
+							user.getId());
+					this.getDaoFactory().getReservationDAo().delete(r);
+				}
 				return MapperLivreEmprunt.fromLivreEmpruntToLivreEmpruntType(this.livreEmprunt);
 			} else {
 				logger.debug("Erreur : Vous avez deja emprunté ce livre ");

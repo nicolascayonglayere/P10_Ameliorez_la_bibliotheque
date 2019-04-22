@@ -62,7 +62,7 @@ public class MonCompte extends ActionSupport implements SessionAware {
 			for (int i = 0; i < vEmprunts.size(); i++) {
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(vEmprunts.get(i).getDateEmprunt().toGregorianCalendar().getTime());
-				cal.add(Calendar.DATE, 28);
+				cal.add(Calendar.DAY_OF_MONTH, 28);
 				this.listEmprunt.put(vEmprunts.get(i), cal.getTime());
 			}
 			List<ReservationType> vReservations = biblioWS.obtenirReservationUtilisateur(this.utilisateur.getId());
@@ -73,14 +73,14 @@ public class MonCompte extends ActionSupport implements SessionAware {
 				Collections.sort(vListInt, (d1, d2) -> d1.getDateEmprunt().compare(d2.getDateEmprunt()));
 				Calendar calTemoin = Calendar.getInstance();
 				calTemoin.setTime(vListInt.get(0).getDateEmprunt().toGregorianCalendar().getTime());
-				calTemoin.add(Calendar.DATE, 28);
+				calTemoin.add(Calendar.DAY_OF_MONTH, 28);
 				for (LivreEmpruntType let : vListInt) {// --est-ce qu'il parcours dans l'ordre ?
 					Calendar cal1 = Calendar.getInstance();
 					cal1.setTime(let.getDateEmprunt().toGregorianCalendar().getTime());
 					if (let.isProlongation()) {
-						cal1.add(Calendar.DATE, 28);
+						cal1.add(Calendar.DAY_OF_MONTH, 28);
 					} else {
-						cal1.add(Calendar.DATE, 28 * 2);
+						cal1.add(Calendar.DAY_OF_MONTH, 28 * 2);
 					}
 
 					if (cal1.before(calTemoin)) {
@@ -89,14 +89,23 @@ public class MonCompte extends ActionSupport implements SessionAware {
 
 					// --Pour position de utilisateur, besoin d'une operation
 					// obtenirReservationLivre(int idLivre)
-					if (let.getEmprunteur().getId() != this.utilisateur.getId()) {
-						maPosition++;
-					} else {
-						maPosition++;
-						break;
+					List<ReservationType> mesUserResa = biblioWS
+							.obtenirReservationOuvrage(vReservations.get(i).getLivre().getId());
+					for (int j = 0; j < mesUserResa.size(); j++) {
+						if (mesUserResa.get(i).getUtilisateur().getId() == this.utilisateur.getId()) {
+							maPosition = i + 1;
+							break;
+						}
 					}
-					System.out.println("---------liste triee--------" + let.getDateEmprunt() + " -- "
-							+ let.getEmprunteur().getId());
+
+					// if (let.getEmprunteur().getId() != this.utilisateur.getId()) {
+					// maPosition++;
+					// } else {
+					// maPosition++;
+					// break;
+					// }
+					// System.out.println("---------liste triee--------" + let.getDateEmprunt() + "
+					// -- "+ let.getEmprunteur().getId());
 
 				}
 				System.out.println("Date temoin ---------" + calTemoin.getTime() + "------ maPosition " + maPosition);
