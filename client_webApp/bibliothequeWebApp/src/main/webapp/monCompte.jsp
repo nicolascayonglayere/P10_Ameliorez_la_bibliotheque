@@ -58,12 +58,14 @@
 					<ul>
 						<li id="empruntLivre">
 							<div><s:property value="key.livre.titre"/> <!--  "#livreEmpruntType.ouvrage.titre"/>--> </div>
-							<s:iterator value="value">
-								<div>
-									<s:text name="compteUser.empruntPossible"/> <s:property value="key"/> <!--  "#livreEmpruntType.dateEmprunt"/>-->
-									<s:text name="compteUser.rangReservation"/> <s:property value="value"/> <!--  "%{listDate.get(stat.index)}"/>-->
-								</div>	
-				    		</s:iterator>
+							<div>
+								<s:iterator value="value">
+									<div>
+										<s:text name="compteUser.empruntPossible"/> <s:property value="key"/> <!--  "#livreEmpruntType.dateEmprunt"/>-->
+										<s:text name="compteUser.rangReservation"/> <s:property value="value"/> <!--  "%{listDate.get(stat.index)}"/>-->
+									</div>	
+					    		</s:iterator>
+				    		</div>
 							<!-- un bouton pour l'annulation -->
 				    		<s:a action="annuler_reservation" namespace="/utilisateur">
 				    			<s:param name="idResa" value="key.id"/>

@@ -229,6 +229,7 @@ public class BiblioWSEndPoint implements BiblioWS {// implements BiblioWS {
 
 	@Override
 	public LivreType annulerReservation(int idReservation) throws AnnulerReservationFault_Exception {
+		System.out.println("CTRL ANNUL RESA ----------" + idReservation);
 		return this.manageFacto.getReservationManager().annulerReservation(idReservation);
 	}
 
@@ -245,8 +246,7 @@ public class BiblioWSEndPoint implements BiblioWS {// implements BiblioWS {
 
 	@Override
 	public List<ReservationType> obtenirReservationOuvrage(int idLivre) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.manageFacto.getReservationManager().obtenirReservationsLivre(idLivre);
 	}
 
 	// -- Getter et Setter

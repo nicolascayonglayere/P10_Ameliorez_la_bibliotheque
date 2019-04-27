@@ -56,15 +56,7 @@ public class MonCompte extends ActionSupport implements SessionAware {
 		this.utilisateur = ((UtilisateurType) this.session.get("utilisateur"));
 		logger.debug("Compte de " + this.utilisateur.getPseudo());
 		try {
-			List<LivreEmpruntType> vEmprunts = biblioWS.obtenirEmpruntUtilisateur(this.utilisateur.getId());
-			this.coordonneeUtilisateur.setAdresse(this.utilisateur.getCoordonnee().get(0).getAdresse());
-			this.coordonneeUtilisateur.setEmail(this.utilisateur.getCoordonnee().get(0).getEmail());
-			for (int i = 0; i < vEmprunts.size(); i++) {
-				Calendar cal = Calendar.getInstance();
-				cal.setTime(vEmprunts.get(i).getDateEmprunt().toGregorianCalendar().getTime());
-				cal.add(Calendar.DAY_OF_MONTH, 28);
-				this.listEmprunt.put(vEmprunts.get(i), cal.getTime());
-			}
+
 			List<ReservationType> vReservations = biblioWS.obtenirReservationUtilisateur(this.utilisateur.getId());
 			Map<Date, Integer> maMapInt = new HashMap<Date, Integer>();
 			Integer maPosition = 0;
@@ -73,7 +65,9 @@ public class MonCompte extends ActionSupport implements SessionAware {
 				Collections.sort(vListInt, (d1, d2) -> d1.getDateEmprunt().compare(d2.getDateEmprunt()));
 				Calendar calTemoin = Calendar.getInstance();
 				calTemoin.setTime(vListInt.get(0).getDateEmprunt().toGregorianCalendar().getTime());
+				System.out.println("CTRL date ---------------" + calTemoin.getTime().toString());
 				calTemoin.add(Calendar.DAY_OF_MONTH, 28);
+				System.out.println("CTRL date ---------------" + calTemoin.getTime().toString());
 				for (LivreEmpruntType let : vListInt) {// --est-ce qu'il parcours dans l'ordre ?
 					Calendar cal1 = Calendar.getInstance();
 					cal1.setTime(let.getDateEmprunt().toGregorianCalendar().getTime());
@@ -87,17 +81,6 @@ public class MonCompte extends ActionSupport implements SessionAware {
 						calTemoin = cal1;
 					}
 
-					// --Pour position de utilisateur, besoin d'une operation
-					// obtenirReservationLivre(int idLivre)
-					List<ReservationType> mesUserResa = biblioWS
-							.obtenirReservationOuvrage(vReservations.get(i).getLivre().getId());
-					for (int j = 0; j < mesUserResa.size(); j++) {
-						if (mesUserResa.get(i).getUtilisateur().getId() == this.utilisateur.getId()) {
-							maPosition = i + 1;
-							break;
-						}
-					}
-
 					// if (let.getEmprunteur().getId() != this.utilisateur.getId()) {
 					// maPosition++;
 					// } else {
@@ -108,10 +91,38 @@ public class MonCompte extends ActionSupport implements SessionAware {
 					// -- "+ let.getEmprunteur().getId());
 
 				}
-				System.out.println("Date temoin ---------" + calTemoin.getTime() + "------ maPosition " + maPosition);
+
+				// --Pour position de utilisateur, besoin d'une operation
+				// obtenirReservationLivre(int idLivre)
+				System.out.println("CTRL ---------- " + vReservations.get(i).getLivre().getId());
+				List<ReservationType> mesUserResa = biblioWS
+						.obtenirReservationOuvrage(vReservations.get(i).getLivre().getId());
+				System.out.println("CTRL ------------" + mesUserResa.size());
+				for (int j = 0; j < mesUserResa.size(); j++) {
+					System.out.println(
+							"ID-----" + mesUserResa.get(j).getUtilisateur().getId() + " - " + this.utilisateur.getId());
+					if (mesUserResa.get(j).getUtilisateur().getId() == this.utilisateur.getId()) {
+
+						maPosition = j + 1;
+						break;
+					}
+				}
+				System.out.println("CTRL---------" + maMapInt.size());
 				maMapInt.put(calTemoin.getTime(), maPosition);
 
 				this.listReservation.put(vReservations.get(i), (HashMap<Date, Integer>) maMapInt);
+
+			}
+
+			List<LivreEmpruntType> vEmprunts = biblioWS.obtenirEmpruntUtilisateur(this.utilisateur.getId());
+			this.coordonneeUtilisateur.setAdresse(this.utilisateur.getCoordonnee().get(0).getAdresse());
+			this.coordonneeUtilisateur.setEmail(this.utilisateur.getCoordonnee().get(0).getEmail());
+
+			for (int i = 0; i < vEmprunts.size(); i++) {
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(vEmprunts.get(i).getDateEmprunt().toGregorianCalendar().getTime());
+				cal.add(Calendar.DAY_OF_MONTH, 28);
+				this.listEmprunt.put(vEmprunts.get(i), cal.getTime());
 			}
 			return ActionSupport.SUCCESS;
 		} catch (ObtenirEmpruntUtilisateurFault_Exception e) {

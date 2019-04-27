@@ -66,8 +66,7 @@ public class ReservationManagerImpl extends AbstractManager implements Reservati
 
 	@Override
 	public LivreType annulerReservation(int pIdReservation) throws RuntimeException {
-		Livre maResaAnnulee = this.getDaoFactory().getLivreDao()
-				.findById(this.getDaoFactory().getReservationDAo().findById(pIdReservation).get().getId()).get();
+		Livre maResaAnnulee = this.getDaoFactory().getReservationDAo().findById(pIdReservation).get().getLivre();
 		this.getDaoFactory().getReservationDAo().deleteById(pIdReservation);
 		return MapperLivre.fromLivreToLivreType(maResaAnnulee);
 	}

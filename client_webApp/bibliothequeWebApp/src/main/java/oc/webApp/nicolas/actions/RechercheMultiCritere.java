@@ -73,7 +73,8 @@ public class RechercheMultiCritere extends ActionSupport {
 			logger.debug(biblioWS.rechercheOuvrage(parameters).getOuvrages().size());
 			listResultat = biblioWS.rechercheOuvrage(parameters).getOuvrages();
 			for (LivreType l : listResultat) {
-				if (biblioWS.obtenirEmpruntLivre(l.getId()).size() > 0) {
+				if (biblioWS.obtenirEmpruntLivre(l.getId()).size() > 0
+						&& biblioWS.obtenirEmpruntLivre(l.getId()).size() >= l.getNbExemplaire()) {
 					// --Obtenir la date de retour la plus proche
 					List<LivreEmpruntType> vListInt = biblioWS.obtenirEmpruntLivre(l.getId());
 					Collections.sort(vListInt, (d1, d2) -> d1.getDateEmprunt().compare(d2.getDateEmprunt()));

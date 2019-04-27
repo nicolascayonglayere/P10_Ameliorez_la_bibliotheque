@@ -44,8 +44,8 @@
 					<s:iterator value="listResultatResa">
 						<s:a action="go_livre" namespace="/">				
 							<p id="listLivreType">
-								<li><s:property value="key.livreType.titre"/> <s:property value="key.livreType.auteurs.nom"/> <s:property value="key.livreType.genre"/></li>	
-								<s:param name="idLivre" value="key.livreType.id" />										
+								<li><s:property value="key.titre"/> <s:property value="key.auteur.nom"/> <s:property value="key.genre"/></li>	
+								<s:param name="idLivre" value="key.id" />										
 							</p>
 							<s:iterator value = "value">
 								<div>
