@@ -27,6 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="coordonnee" type="{http://www.yogj.fr/biblioWS/types}CoordonneeUtilisateurType" maxOccurs="unbounded"/&gt;
  *         &lt;element name="emprunt" type="{http://www.yogj.fr/biblioWS/types}LivreEmpruntType" maxOccurs="unbounded"/&gt;
  *         &lt;element name="reservation" type="{http://www.yogj.fr/biblioWS/types}ReservationType" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="rappelOption" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -44,7 +45,8 @@ import javax.xml.bind.annotation.XmlType;
     "motDePasse",
     "coordonnee",
     "emprunt",
-    "reservation"
+    "reservation",
+    "rappelOption"
 })
 public class UtilisateurType {
 
@@ -63,6 +65,7 @@ public class UtilisateurType {
     protected List<LivreEmpruntType> emprunt;
     @XmlElement(required = true)
     protected List<ReservationType> reservation;
+    protected boolean rappelOption;
 
     /**
      * Obtient la valeur de la propriété id.
@@ -261,6 +264,22 @@ public class UtilisateurType {
             reservation = new ArrayList<ReservationType>();
         }
         return this.reservation;
+    }
+
+    /**
+     * Obtient la valeur de la propriété rappelOption.
+     * 
+     */
+    public boolean isRappelOption() {
+        return rappelOption;
+    }
+
+    /**
+     * Définit la valeur de la propriété rappelOption.
+     * 
+     */
+    public void setRappelOption(boolean value) {
+        this.rappelOption = value;
     }
 
 }

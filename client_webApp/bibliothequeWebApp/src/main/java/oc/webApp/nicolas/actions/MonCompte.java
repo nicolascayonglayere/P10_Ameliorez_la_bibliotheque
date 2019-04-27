@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import com.opensymphony.xwork2.ActionSupport;
 
 import fr.yogj.bibliows.BiblioWS;
+import fr.yogj.bibliows.ModifRappelOption;
 import fr.yogj.bibliows.ObtenirEmpruntLivreFault;
 import fr.yogj.bibliows.ObtenirEmpruntUtilisateurFault_Exception;
 import fr.yogj.bibliows.ObtenirReservationUtilisateurFault_Exception;
@@ -43,6 +44,7 @@ public class MonCompte extends ActionSupport implements SessionAware {
 	private UtilisateurType utilisateur;
 	private Map<LivreEmpruntType, Date> listEmprunt = new HashMap<LivreEmpruntType, Date>();
 	private CoordonneeUtilisateurType coordonneeUtilisateur = new CoordonneeUtilisateurType();
+	private boolean rappelOption;
 
 	private Map<ReservationType, HashMap<Date, Integer>> listReservation = new HashMap<ReservationType, HashMap<Date, Integer>>();
 
@@ -149,6 +151,18 @@ public class MonCompte extends ActionSupport implements SessionAware {
 
 	}
 
+	public String rappelOption() {
+		BiblioWS biblioWS = this.webAppConfig.accesWS();
+		this.utilisateur = ((UtilisateurType) this.session.get("utilisateur"));
+		ModifRappelOption parameters = new ModifRappelOption();
+		parameters.setIdUtilisateur(this.utilisateur.getId());
+		parameters.setOption(this.rappelOption);
+		this.utilisateur.setRappelOption(this.rappelOption);
+		biblioWS.modifRappelOption(parameters);
+		return ActionSupport.SUCCESS;
+
+	}
+
 	@Override
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
@@ -193,6 +207,14 @@ public class MonCompte extends ActionSupport implements SessionAware {
 
 	public void setListReservation(Map<ReservationType, HashMap<Date, Integer>> listReservation) {
 		this.listReservation = listReservation;
+	}
+
+	public boolean isRappelOption() {
+		return this.rappelOption;
+	}
+
+	public void setRappelOption(boolean rappelOption) {
+		this.rappelOption = rappelOption;
 	}
 
 }

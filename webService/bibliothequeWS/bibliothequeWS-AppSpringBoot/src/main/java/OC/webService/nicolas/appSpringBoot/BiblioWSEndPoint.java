@@ -20,7 +20,9 @@ import fr.yogj.bibliows.EmpruntOuvrageFault_Exception;
 import fr.yogj.bibliows.ListNouveautesResponse;
 import fr.yogj.bibliows.ListRetardatairesResponse;
 import fr.yogj.bibliows.ListeAlerteRetourResponse;
+import fr.yogj.bibliows.ListeRappelRetourResponse;
 import fr.yogj.bibliows.LoginFault_Exception;
+import fr.yogj.bibliows.ModifRappelOption;
 import fr.yogj.bibliows.ObtenirEmpruntLivreFault;
 import fr.yogj.bibliows.ObtenirEmpruntUtilisateurFault_Exception;
 import fr.yogj.bibliows.ObtenirReservationUtilisateurFault_Exception;
@@ -242,6 +244,23 @@ public class BiblioWSEndPoint implements BiblioWS {// implements BiblioWS {
 			larr.getLivre().add(entry.getValue());
 		}
 		return larr;
+	}
+
+	@Override
+	public ListeRappelRetourResponse listeRappelRetour(String parameters) {
+		ListeRappelRetourResponse lrrr = new ListeRappelRetourResponse();
+		for (UtilisateurType u : this.manageFacto.getLivreEmpruntManager().obtenirListeRappelRetour()) {
+			lrrr.getUtilisateur().add(u);
+			lrrr.getLivreEmprunt().addAll(u.getEmprunt());
+		}
+		return lrrr;
+	}
+
+	@Override
+	public String modifRappelOption(ModifRappelOption parameters) {
+		this.getManageFacto().getUtilisateurManager().modifRappelOption(parameters.getIdUtilisateur(),
+				parameters.isOption());
+		return "";
 	}
 
 	@Override

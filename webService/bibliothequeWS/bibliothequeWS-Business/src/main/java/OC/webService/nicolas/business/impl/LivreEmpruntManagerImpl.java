@@ -254,4 +254,15 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 		this.listeLivreRetour.removeAll(livresASuppr);
 		return listeAlerteRetour;
 	}
+
+	@Override
+	public List<UtilisateurType> obtenirListeRappelRetour() {
+		List<UtilisateurType> listeRappel = new ArrayList<UtilisateurType>();
+		Calendar dateRetour = Calendar.getInstance();
+		dateRetour.add(Calendar.DATE, -23);
+		for (Utilisateur i : this.getDaoFactory().getLivreEmpruntDao().findRappelRetour(true, dateRetour.getTime())) {
+			listeRappel.add(MapperUtilisateur.fromUtilisateurToUtilisateurType(i));
+		}
+		return listeRappel;
+	}
 }

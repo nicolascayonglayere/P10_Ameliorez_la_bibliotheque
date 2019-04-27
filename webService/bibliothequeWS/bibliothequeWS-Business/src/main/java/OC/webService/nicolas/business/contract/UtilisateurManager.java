@@ -29,4 +29,6 @@ public interface UtilisateurManager {
 	 * @throws RuntimeException
 	 */
 	public UtilisateurType getUtilisateur(int id) throws RuntimeException;
+
+	public void modifRappelOption(int pIdUtilisateurType, boolean pOption);
 }

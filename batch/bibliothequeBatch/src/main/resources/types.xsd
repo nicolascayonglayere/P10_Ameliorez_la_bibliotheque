@@ -8,9 +8,17 @@
     		<element name="prenom" type="string" minOccurs="1"></element>
     		<element name="pseudo" type="string" minOccurs="1"></element>
     		<element name="motDePasse" type="string" minOccurs="1"></element>
-    		<element name="coordonnee" type="ybst:CoordonneeUtilisateurType" minOccurs="1" maxOccurs="unbounded"></element>
-    		<element name="emprunt" type="ybst:LivreEmpruntType" minOccurs="1" maxOccurs="unbounded"></element>
-    		<element name="reservation" type="ybst:ReservationType" minOccurs="1" maxOccurs="unbounded"></element>
+    		<element name="coordonnee"
+    			type="ybst:CoordonneeUtilisateurType" minOccurs="1"
+    			maxOccurs="unbounded">
+    		</element>
+    		<element name="emprunt" type="ybst:LivreEmpruntType"
+    			minOccurs="1" maxOccurs="unbounded">
+    		</element>
+    		<element name="reservation" type="ybst:ReservationType"
+    			minOccurs="1" maxOccurs="unbounded">
+    		</element>
+    		<element name="rappelOption" type="boolean" minOccurs="1" maxOccurs="1"></element>
     	</sequence>
     </complexType>
 

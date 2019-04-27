@@ -171,7 +171,18 @@
         	<result name="input" type="redirectAction">
         		<param name="actionName">go_monCompte</param>
          	</result>         	
-        </action>		                   	
+        </action>	
+        
+        <!-- Action pour cocher/decocher l'option de rappel -->
+        <action name="rappel_option" class="oc.webApp.nicolas.actions.MonCompte" method="rappelOption">
+       		<interceptor-ref name="store">
+				<param name="operationMode">STORE</param>
+		    </interceptor-ref>
+		    <interceptor-ref name="loginStack" />        
+        	<result name="success" type="redirectAction">
+        		<param name="actionName">go_monCompte</param>
+         	</result>        	
+        </action>	                   	
 	</package>	
 	
 </struts>

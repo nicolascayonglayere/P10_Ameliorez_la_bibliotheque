@@ -84,4 +84,6 @@ public interface LivreEmpruntManager {
 	public List<LivreEmpruntType> obtenirTitreEmprunte(int pIdLivre) throws RuntimeException;
 
 	public Map<UtilisateurType, LivreType> obtenirListeAlerteRetour();
+
+	public List<UtilisateurType> obtenirListeRappelRetour();
 }

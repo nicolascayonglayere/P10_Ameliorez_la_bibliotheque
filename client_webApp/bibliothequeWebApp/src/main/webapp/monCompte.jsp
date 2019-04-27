@@ -17,6 +17,13 @@
 				<div class="col-lg-9" id="titreCompteUser">
 					<h1 id="titre"><s:text name="compteUser.titre"/><s:property value="utilisateur.pseudo"/></h1>
 					<h3 id="titre"><s:text name="compteUser.bonjour"/> <s:property value="utilisateur.nom"/> <s:property value="utilisateur.prenom"/></h3>
+					<s:form action="rappel_option" namespace="/utilisateur">
+						<h2>
+							<s:checkbox name="rappelOption" value="utilisateur.rappelOption" label="RAPPEL "/>
+						</h2> 
+						<s:submit value="ENVOYER LES MODIFICATIONS" name="submit" />
+					</s:form>
+					
 					<s:actionmessage/>
 				</div>				
 			</div>

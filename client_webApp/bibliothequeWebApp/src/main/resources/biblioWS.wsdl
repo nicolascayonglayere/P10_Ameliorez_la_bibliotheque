@@ -393,6 +393,40 @@
       		</xsd:sequence>
       	</xsd:complexType>
       </xsd:element>
+      <xsd:element name="modifRappelOption">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="idUtilisateur" type="xsd:int"
+      				minOccurs="1" maxOccurs="1">
+      			</xsd:element>
+      			<xsd:element name="option" type="xsd:boolean" minOccurs="1" maxOccurs="1"></xsd:element>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="modifRappelOptionResponse" type="xsd:string">
+      </xsd:element>
+      <xsd:element name="listeRappelRetour" type="xsd:string">
+      </xsd:element>
+      <xsd:element name="listeRappelRetourResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+
+      			<xsd:element name="livreEmprunt"
+      				type="Q1:LivreEmpruntType" minOccurs="1" maxOccurs="unbounded">
+      			</xsd:element>
+      			<xsd:sequence>
+      				<xsd:element name="utilisateur"
+      					type="Q1:UtilisateurType" minOccurs="1"
+      					maxOccurs="unbounded">
+      				</xsd:element>
+      				<xsd:element name="coordonneeUtilisateur"
+      					type="Q1:CoordonneeUtilisateurType" minOccurs="1" maxOccurs="unbounded">
+      				</xsd:element>
+      			</xsd:sequence>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="loginRequest">
@@ -536,6 +570,18 @@
   <wsdl:message name="ObtenirReservationOuvrageResponse">
   	<wsdl:part name="parameters" element="ybs:ObtenirReservationOuvrageResponse"></wsdl:part>
   </wsdl:message>
+  <wsdl:message name="modifRappelOptionRequest">
+  	<wsdl:part name="parameters" element="ybs:modifRappelOption"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="modifRappelOptionResponse">
+  	<wsdl:part name="parameters" element="ybs:modifRappelOptionResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listeRappelRetourRequest">
+  	<wsdl:part name="parameters" element="ybs:listeRappelRetour"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="listeRappelRetourResponse">
+  	<wsdl:part name="parameters" element="ybs:listeRappelRetourResponse"></wsdl:part>
+  </wsdl:message>
   <wsdl:portType name="biblioWS">
     <wsdl:operation name="login">
       <wsdl:input message="ybs:loginRequest"/>
@@ -608,6 +654,14 @@
     <wsdl:operation name="ObtenirReservationOuvrage">
     	<wsdl:input message="ybs:ObtenirReservationOuvrageRequest"></wsdl:input>
     	<wsdl:output message="ybs:ObtenirReservationOuvrageResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="modifRappelOption">
+    	<wsdl:input message="ybs:modifRappelOptionRequest"></wsdl:input>
+    	<wsdl:output message="ybs:modifRappelOptionResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="listeRappelRetour">
+    	<wsdl:input message="ybs:listeRappelRetourRequest"></wsdl:input>
+    	<wsdl:output message="ybs:listeRappelRetourResponse"></wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="biblioWSSOAP" type="ybs:biblioWS">

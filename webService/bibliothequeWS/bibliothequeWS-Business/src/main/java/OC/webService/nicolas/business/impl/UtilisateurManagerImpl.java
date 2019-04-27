@@ -52,4 +52,13 @@ public class UtilisateurManagerImpl extends AbstractManager implements Utilisate
 		} else
 			return MapperUtilisateur.fromUtilisateurToUtilisateurType(this.user);
 	}
+
+	@Override
+	public void modifRappelOption(int pIdUtilisteurType, boolean pOption) {
+		System.out.println("CTRL -------------" + pIdUtilisteurType);
+		Utilisateur monUser = this.getDaoFactory().getUtilisateurDao().findById(pIdUtilisteurType).get();
+		monUser.setRappelOption(pOption);
+		this.getDaoFactory().getUtilisateurDao().saveAndFlush(monUser);
+
+	}
 }
