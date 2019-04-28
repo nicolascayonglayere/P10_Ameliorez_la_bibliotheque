@@ -15,14 +15,14 @@
 		<div id=blocPge>
 			<s:actionmessage/>
 			<div class="container">
-				<h1 id="titre"><s:text name="login.titre"/></h1>
+				<h1 id="titre"><!--<s:text name="login.titre"/>-->AUTHENTIFICATION</h1>
 				<s:actionerror/>
 				<!-- un if test de la session pour eviter la connexion alors qu'on est deja connecte -->
 				<s:if test="#session.utilisateur==null">
 					<s:form id="idLoginForm" action="loginUser" cssClass="form-vertical" namespace="/" validate="true">
-						<s:textfield name="pseudo" placeholder="pseudo" label="%{getText('form.pseudo')}" requiredLabel="true"/>
-						<s:password name="motDePasse" placeholder="mot de passe" label="%{getText('form.mdp')}" requiredLabel="true"/>
-						<s:submit id="btOK" class="btn btn-default" value="%{getText('login.titre')}">	
+						<s:textfield name="pseudo" placeholder="pseudo" label="Pseudo" requiredLabel="true"/>
+						<s:password name="motDePasse" placeholder="mot de passe" label="Mot de passe" requiredLabel="true"/>
+						<s:submit id="btOK" class="btn btn-default" value="AUTHENTIFICATION">	
 		       				<s:param name="pseudo">${pseudo }</s:param>
 		      				<s:param name="motDePasse">${motDePasse }</s:param>
 		     			 </s:submit>
@@ -30,7 +30,7 @@
 					</s:form>	
 				</s:if>
 				<s:else>
-					<h2 id="titre"><s:text name="login.message"/></h2>
+					<h2 id="titre">Veuillez vous deconnecter si vous souhaitez basculer sur un autre compte. Merci.<!--<s:text name="login.message"/>--></h2>
 				</s:else>
 				<!-- Lien pour créer un utilisateur -->
 				<!--<s:text name="login.inscription"/>

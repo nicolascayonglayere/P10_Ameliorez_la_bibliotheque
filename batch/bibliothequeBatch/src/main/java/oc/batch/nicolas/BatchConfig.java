@@ -51,6 +51,11 @@ public class BatchConfig extends DefaultBatchConfigurer {
 		return this.stepBuilderFactory.get("step2").tasklet(new EnvoiAlerteRetour(this.wsUrl)).build();
 	}
 
+	@Bean
+	public Step step3() {
+		return this.stepBuilderFactory.get("step3").tasklet(new EnvoiRappelRetour(this.wsUrl)).build();
+	}
+
 	/**
 	 * Méthode pour construire le job
 	 * 
@@ -58,7 +63,7 @@ public class BatchConfig extends DefaultBatchConfigurer {
 	 */
 	@Bean
 	public Job job() {
-		return this.jobBuilderFactory.get("job").start(this.step1()).next(this.step2()).build();
+		return this.jobBuilderFactory.get("job").start(this.step1()).next(this.step2()).next(this.step3()).build();
 	}
 
 	/**

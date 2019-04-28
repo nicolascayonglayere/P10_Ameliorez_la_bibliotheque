@@ -1,7 +1,6 @@
 package oc.webApp.nicolas.actions;
 
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -58,45 +57,24 @@ public class MonCompte extends ActionSupport implements SessionAware {
 		this.utilisateur = ((UtilisateurType) this.session.get("utilisateur"));
 		logger.debug("Compte de " + this.utilisateur.getPseudo());
 		try {
-
 			List<ReservationType> vReservations = biblioWS.obtenirReservationUtilisateur(this.utilisateur.getId());
-			Map<Date, Integer> maMapInt = new HashMap<Date, Integer>();
+
 			Integer maPosition = 0;
 			for (int i = 0; i < vReservations.size(); i++) {
-				List<LivreEmpruntType> vListInt = biblioWS.obtenirEmpruntLivre(vReservations.get(i).getLivre().getId());
-				Collections.sort(vListInt, (d1, d2) -> d1.getDateEmprunt().compare(d2.getDateEmprunt()));
-				Calendar calTemoin = Calendar.getInstance();
-				calTemoin.setTime(vListInt.get(0).getDateEmprunt().toGregorianCalendar().getTime());
-				System.out.println("CTRL date ---------------" + calTemoin.getTime().toString());
-				calTemoin.add(Calendar.DAY_OF_MONTH, 28);
-				System.out.println("CTRL date ---------------" + calTemoin.getTime().toString());
-				for (LivreEmpruntType let : vListInt) {// --est-ce qu'il parcours dans l'ordre ?
-					Calendar cal1 = Calendar.getInstance();
-					cal1.setTime(let.getDateEmprunt().toGregorianCalendar().getTime());
-					if (let.isProlongation()) {
-						cal1.add(Calendar.DAY_OF_MONTH, 28);
-					} else {
-						cal1.add(Calendar.DAY_OF_MONTH, 28 * 2);
-					}
+				Map<Date, Integer> maMapInt = new HashMap<Date, Integer>();
+				LivreEmpruntType empruntRetourPlusProche = biblioWS
+						.obtenirEmpruntLivre(vReservations.get(i).getLivre().getId()).get(0);
 
-					if (cal1.before(calTemoin)) {
-						calTemoin = cal1;
-					}
+				Calendar calTemoin = Calendar.getInstance();// --date emprunt
+				calTemoin.setTime(empruntRetourPlusProche.getDateEmprunt().toGregorianCalendar().getTime());
 
-					// if (let.getEmprunteur().getId() != this.utilisateur.getId()) {
-					// maPosition++;
-					// } else {
-					// maPosition++;
-					// break;
-					// }
-					// System.out.println("---------liste triee--------" + let.getDateEmprunt() + "
-					// -- "+ let.getEmprunteur().getId());
-
+				// --Controle prolongation et calcul date retour
+				if (empruntRetourPlusProche.isProlongation()) {
+					calTemoin.add(Calendar.DAY_OF_MONTH, 28 * 2);
+				} else {
+					calTemoin.add(Calendar.DAY_OF_MONTH, 28);
 				}
 
-				// --Pour position de utilisateur, besoin d'une operation
-				// obtenirReservationLivre(int idLivre)
-				System.out.println("CTRL ---------- " + vReservations.get(i).getLivre().getId());
 				List<ReservationType> mesUserResa = biblioWS
 						.obtenirReservationOuvrage(vReservations.get(i).getLivre().getId());
 				System.out.println("CTRL ------------" + mesUserResa.size());
@@ -159,6 +137,7 @@ public class MonCompte extends ActionSupport implements SessionAware {
 		parameters.setOption(this.rappelOption);
 		this.utilisateur.setRappelOption(this.rappelOption);
 		biblioWS.modifRappelOption(parameters);
+		this.addActionMessage("Votre modification a bien été enregistrée.");
 		return ActionSupport.SUCCESS;
 
 	}

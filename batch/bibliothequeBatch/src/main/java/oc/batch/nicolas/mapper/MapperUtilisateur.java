@@ -27,6 +27,7 @@ public class MapperUtilisateur {
 		Utilisateur myUser = new Utilisateur(pUtilisateurType.getId(), pUtilisateurType.getNom(),
 				pUtilisateurType.getPrenom(), pUtilisateurType.getPseudo(), pUtilisateurType.getMotDePasse());
 		myUser.setId(pUtilisateurType.getId());
+		myUser.setRappelOption(pUtilisateurType.isRappelOption());
 		System.out.println(pUtilisateurType.getCoordonnee().size());
 		for (CoordonneeUtilisateurType cut : pUtilisateurType.getCoordonnee()) {
 			myUser.addCoordonnee(MapperCoordonneeUtilisateur.frommCoordonneeTypeToCoordonnee(cut));
@@ -51,6 +52,7 @@ public class MapperUtilisateur {
 		myUt.setPrenom(pUtilisateur.getPrenom());
 		myUt.setPseudo(pUtilisateur.getPseudo());
 		myUt.setMotDePasse(pUtilisateur.getMotDePasse());
+		myUt.setRappelOption(pUtilisateur.isRappelOption());
 		for (CoordonneeUtilisateur cu : pUtilisateur.getCoordonnee()) {
 			myUt.getCoordonnee().add(MapperCoordonneeUtilisateur.fromCoordoonneeToCoordonneeType(cu));
 		}

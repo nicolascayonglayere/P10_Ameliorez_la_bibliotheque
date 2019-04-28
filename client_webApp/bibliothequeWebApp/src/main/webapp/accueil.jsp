@@ -16,14 +16,14 @@
 		<div id=blocPge>
 			<div class = "container">
 
-				<h1 id="titre"><s:text name="index.bienvenue"/></h1>
+				<h1 id="titre">Bienvenue sur cette application de la bibliotheque OC<!--<s:text name="index.bienvenue"/>--></h1>
 				<s:actionmessage/>
 				<s:if test="#session.utilisateur">
-					<p><s:text name="index.bonjour"/> <s:property value="#session.utilisateur.pseudo"/></p>	
+					<p><!--<s:text name="index.bonjour"/>-->Bonjour <s:property value="#session.utilisateur.pseudo"/></p>	
 				</s:if>
 				<s:else>
 					<p>
-						<s:a action="go_login" namespace="/"><s:text name="index.connexion"/></s:a>					
+						<s:a action="go_login" namespace="/"><!--<s:text name="index.connexion"/>-->AUTHENTIFICATION</s:a>					
 					</p>
 				</s:else>	
 					

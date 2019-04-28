@@ -14,13 +14,13 @@
 		<div id=blocPge>
 			<div class = "container">
 	  			<!-- un formulaire de recherche de livre a partir de auteur, genre, titre -->	
-				<h2 id="titre"><s:text name="index.recherche"/></h2>
-				<h3><s:text name="index.explication"></s:text></h3>
+				<h2 id="titre"><!--<s:text name="index.recherche"/>-->RECHERCHE D'UN OUVRAGE</h2>
+				<h3><!--<s:text name="index.explication"></s:text>-->Saisissez le titre et l'auteur du livre ainsi que son genre</h3>
 				<s:form action="rechMulti" cssClass="form-vertical" namespace="/" validate="true">
-					<s:textfield name="titre" placeholder="titre" label="%{getText('form.titre')}" requiredLabel="true"/>
-					<s:textfield name="nomAuteur" placeholder="nomAuteur" label="%{getText('form.auteur')}" requiredLabel="true"/>
-					<s:select name="selectedGenre" label="%{getText('livre.genre')}" list="listGenre" size="1" />
-					<s:submit class="btn btn-default" value="%{getText('bouton.valider')}">
+					<s:textfield name="titre" placeholder="titre" label="Titre" requiredLabel="true"/>
+					<s:textfield name="nomAuteur" placeholder="nomAuteur" label="Nom de l'auteur" requiredLabel="true"/>
+					<s:select name="selectedGenre" label="GENRE" list="listGenre" size="1" />
+					<s:submit class="btn btn-default" value="VALIDER">
 						<!--<s:param name="nom" value="topo.nomTopo"/>-->
 					</s:submit>					
 				</s:form>	
@@ -49,8 +49,8 @@
 							</p>
 							<s:iterator value = "value">
 								<div>
-									<s:text name="compteUser.empruntPossible"/> <s:property value="key"/> <!--  "#livreEmpruntType.dateEmprunt"/>-->
-									<s:text name="compteUser.rangReservation"/> <s:property value="value"/> <!--  "%{listDate.get(stat.index)}"/>-->
+									<!--<s:text name="compteUser.empruntPossible"/>-->Date de disponibilite de l'ouvrage :  <s:property value="key"/> <!--  "#livreEmpruntType.dateEmprunt"/>-->
+									<!--<s:text name="compteUser.rangReservation"/>-->Position sur la liste d'attente : <s:property value="value"/> <!--  "%{listDate.get(stat.index)}"/>-->
 								</div>							
 							</s:iterator>
 						</s:a>

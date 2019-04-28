@@ -32,10 +32,7 @@ public class ReservationManagerImpl extends AbstractManager implements Reservati
 				reservationsUtilisateur.add(MapperReservation.fromReservationToReservationType(r));
 			}
 
-		} else {
-			throw new RuntimeException("L'utilisateur n'a pas de reservations en cours.");
 		}
-
 		return reservationsUtilisateur;
 	}
 

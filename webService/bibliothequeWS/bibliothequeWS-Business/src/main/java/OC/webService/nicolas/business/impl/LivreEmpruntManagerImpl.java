@@ -190,8 +190,6 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 				empruntsUtilisateur.add(MapperLivreEmprunt.fromLivreEmpruntToLivreEmpruntType(le));
 			}
 
-		} else {
-			throw new RuntimeException("L'utilisateur n'a pas d'emprunt en cours.");
 		}
 		return empruntsUtilisateur;
 	}
@@ -205,9 +203,9 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 				titreEmpruntes.add(MapperLivreEmprunt.fromLivreEmpruntToLivreEmpruntType(le));
 			}
 
-		} else {
-			throw new RuntimeException("Le titre n'a pas d'emprunt en cours.");
-		}
+		} // else {
+			// throw new RuntimeException("Le titre n'a pas d'emprunt en cours.");
+			// }
 		return titreEmpruntes;
 	}
 
