@@ -11,6 +11,7 @@ Dans chacun de ces dossiers, vous trouverez le code source et sa compilation, la
 De plus, vous trouverez dans le dossier test_docker les fichiers nécessaires aux 3 scénarios de déploiement avec Docker for Windows : 
 - les dossiers WS, batch et webApp contiennent leur dockerfile respectif 
 - les dossier deploiement_docker-[] contiennent chacun leur docker-compose.yml
+----
 Pour obtenir les artefacts de déploiement (fichier .jar et .war) : 
 - vous pouvez les telecharger à l'url indiquée dans le dockerfile ou laisser Docker le soin de le faire (cela peut échouer, ne pas hésiter à insister)
 - vous pouvez compiler les sources avec la commandes : 
