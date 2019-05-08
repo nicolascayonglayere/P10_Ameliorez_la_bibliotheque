@@ -28,6 +28,8 @@ public class ObjectFactory {
     private final static QName _ListNouveautes_QNAME = new QName("http://yogj.fr/biblioWS/", "listNouveautes");
     private final static QName _ListRetardataires_QNAME = new QName("http://yogj.fr/biblioWS/", "listRetardataires");
     private final static QName _ListeAlerteRetour_QNAME = new QName("http://yogj.fr/biblioWS/", "listeAlerteRetour");
+    private final static QName _ModifRappelOptionResponse_QNAME = new QName("http://yogj.fr/biblioWS/", "modifRappelOptionResponse");
+    private final static QName _ListeRappelRetour_QNAME = new QName("http://yogj.fr/biblioWS/", "listeRappelRetour");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: fr.yogj.bibliows
@@ -333,6 +335,38 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ObtenirReservationOuvrage }
+     * 
+     */
+    public ObtenirReservationOuvrage createObtenirReservationOuvrage() {
+        return new ObtenirReservationOuvrage();
+    }
+
+    /**
+     * Create an instance of {@link ObtenirReservationOuvrageResponse }
+     * 
+     */
+    public ObtenirReservationOuvrageResponse createObtenirReservationOuvrageResponse() {
+        return new ObtenirReservationOuvrageResponse();
+    }
+
+    /**
+     * Create an instance of {@link ModifRappelOption }
+     * 
+     */
+    public ModifRappelOption createModifRappelOption() {
+        return new ModifRappelOption();
+    }
+
+    /**
+     * Create an instance of {@link ListeRappelRetourResponse }
+     * 
+     */
+    public ListeRappelRetourResponse createListeRappelRetourResponse() {
+        return new ListeRappelRetourResponse();
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
      * 
      */
@@ -366,6 +400,24 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://yogj.fr/biblioWS/", name = "listeAlerteRetour")
     public JAXBElement<String> createListeAlerteRetour(String value) {
         return new JAXBElement<String>(_ListeAlerteRetour_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://yogj.fr/biblioWS/", name = "modifRappelOptionResponse")
+    public JAXBElement<String> createModifRappelOptionResponse(String value) {
+        return new JAXBElement<String>(_ModifRappelOptionResponse_QNAME, String.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link String }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://yogj.fr/biblioWS/", name = "listeRappelRetour")
+    public JAXBElement<String> createListeRappelRetour(String value) {
+        return new JAXBElement<String>(_ListeRappelRetour_QNAME, String.class, null, value);
     }
 
 }

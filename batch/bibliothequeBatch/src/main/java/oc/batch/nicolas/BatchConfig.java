@@ -37,7 +37,7 @@ public class BatchConfig extends DefaultBatchConfigurer {
 	private StepBuilderFactory stepBuilderFactory;
 
 	/**
-	 * Méthode pour construire la tache du job
+	 * Méthode pour construire la tache du job 1 (Envoi de mail aux retardataires)
 	 * 
 	 * @return {@link Step}
 	 */
@@ -46,9 +46,26 @@ public class BatchConfig extends DefaultBatchConfigurer {
 		return this.stepBuilderFactory.get("step1").tasklet(new EnvoiMailRetardataires(this.wsUrl)).build();
 	}
 
+	/**
+	 * Méthode pour construire la tache du job 2 (Envoi de mail d'alerte de retour
+	 * d'un ouvrage réservé)
+	 * 
+	 * @return {@link Step}
+	 */
 	@Bean
 	public Step step2() {
 		return this.stepBuilderFactory.get("step2").tasklet(new EnvoiAlerteRetour(this.wsUrl)).build();
+	}
+
+	/**
+	 * Méthode pour construire la tache du job 3 (Envoi de mail de rappel pour le
+	 * retour imminent d'un ouvrage
+	 * 
+	 * @return {@link Step}
+	 */
+	@Bean
+	public Step step3() {
+		return this.stepBuilderFactory.get("step3").tasklet(new EnvoiRappelRetour(this.wsUrl)).build();
 	}
 
 	/**
@@ -58,7 +75,7 @@ public class BatchConfig extends DefaultBatchConfigurer {
 	 */
 	@Bean
 	public Job job() {
-		return this.jobBuilderFactory.get("job").start(this.step1()).next(this.step2()).build();
+		return this.jobBuilderFactory.get("job").start(this.step1()).next(this.step2()).next(this.step3()).build();
 	}
 
 	/**

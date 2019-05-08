@@ -58,4 +58,15 @@ public interface ILivreEmpruntDao extends JpaRepository<LivreEmprunt, Integer> {
 	 */
 	public List<LivreEmprunt> findByUtilisateurId(int pIdUtilisateur);
 
+	/**
+	 * Méthode pour obtenir la liste des {@link Utilisateur} qui ont coche l'option
+	 * de rappel automatique
+	 * 
+	 * @param pOption
+	 * @param pDate
+	 * @return
+	 */
+	@Query("SELECT u FROM Utilisateur u JOIN FETCH u.coordonnee c JOIN u.emprunts e WHERE e.dateEmprunt <=:date AND u.rappelOption = :option")
+	public List<Utilisateur> findRappelRetour(@Param("option") boolean pOption, @Param("date") Date pDate);
+
 }

@@ -13,6 +13,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+/**
+ * Entité Hibernate correspondant a la table reservation
+ * 
+ * @author nicolas
+ *
+ */
 @Entity
 @Table(name = "reservation")
 public class Reservation implements Serializable {

@@ -10,24 +10,25 @@
 					<div class="col-lg-3">
 						<s:url var="goCompteURL" action="go_monCompte" namespace="/utilisateur"/>				
 						<s:a href="%{goCompteURL}">
-							<s:text name="footer.utilisateur"/><s:property value="#session.utilisateur.pseudo"/>
+							Utilisateur connecte : 
+							<!--<s:text name="footer.utilisateur"/>--><s:property value="#session.utilisateur.pseudo"/>
 						</s:a>
 					</div>
 					<div class="col-lg-2">
 						<s:url var="decoURL" action="logOut" namespace="/utilisateur"/>
 						<s:a href="%{decoURL}" class="btn btn-default btn-sm ">
-							<s:text name="bouton.deconnexion" />
+							DECONNEXION<!--<s:text name="bouton.deconnexion" />-->
 						</s:a>
 					</div>
 				</s:if>
 				<s:else>
 					<div class="col-lg-3">
-						<s:text name="footer.inconnu"/>
+						Utilisateur inconnu<!--<s:text name="footer.inconnu"/>-->
 					</div>
 					<div class="col-lg-2">					
 						<!-- un bouton pour ouvrir l'authentification -->
 						<s:a action="go_login" namespace="/">
-							<s:submit class="btn btn-default" value="%{getText('login.titre')}"/>
+							<s:submit class="btn btn-default" value="AUTHENTIFICATION"/>
 						</s:a>
 						
 					</div>
@@ -43,7 +44,8 @@
 			</div>	
 				</hr>	
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-2 mt-sm-5 text-center text-white">
-					<p><s:text name="footer.moi"/><s:a href="https://www.openclassrooms.com/fr/"><s:text name="footer.oc"/> </s:a></p>
+					<!--  <p><s:text name="footer.moi"/><s:a href="https://www.openclassrooms.com/fr/"><s:text name="footer.oc"/> </s:a></p>-->
+					<p>Site realise par Nicolas Cayon-Glayere etudiant chez <s:a href="https://www.openclassrooms.com/fr/">Openclassrooms </s:a></p>
 				</div>
 				</hr>
 		

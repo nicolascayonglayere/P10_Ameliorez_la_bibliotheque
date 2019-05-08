@@ -6,6 +6,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/.apt_generated"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-sources/cxf"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources/oc.webApp.nicolas.actions"/>
         <property name="context-root" value="bibliothequeWebApp"/>
         <property name="java-output-path" value="/bibliothequeWebApp/target/classes"/>
     </wb-module>

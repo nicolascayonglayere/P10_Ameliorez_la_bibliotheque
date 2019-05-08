@@ -15,9 +15,16 @@ import com.opensymphony.xwork2.ActionSupport;
 import fr.yogj.bibliows.AnnulerReservationFault_Exception;
 import fr.yogj.bibliows.BiblioWS;
 import fr.yogj.bibliows.ReserverOuvrageFault_Exception;
+import fr.yogj.bibliows.types.ReservationType;
 import fr.yogj.bibliows.types.UtilisateurType;
 import oc.webApp.nicolas.configurations.BiblioWebAppConfiguration;
 
+/**
+ * Classe action qui gère les {@link ReservationType}
+ * 
+ * @author nicolas
+ *
+ */
 @Service
 public class GestionReservation extends ActionSupport implements SessionAware {
 
@@ -30,6 +37,11 @@ public class GestionReservation extends ActionSupport implements SessionAware {
 	private String id;
 	private String idLivre;
 
+	/**
+	 * Méthode pour annuler une {@link ReservationType}
+	 * 
+	 * @return
+	 */
 	public String annuler() {
 		BiblioWS biblioWS = this.webAppConfig.accesWS();
 		this.utilisateur = ((UtilisateurType) this.session.get("utilisateur"));
@@ -47,6 +59,11 @@ public class GestionReservation extends ActionSupport implements SessionAware {
 
 	}
 
+	/**
+	 * Méthode pour reserver
+	 * 
+	 * @return
+	 */
 	public String reserver() {
 		BiblioWS biblioWS = this.webAppConfig.accesWS();
 		this.utilisateur = ((UtilisateurType) this.session.get("utilisateur"));
@@ -89,14 +106,6 @@ public class GestionReservation extends ActionSupport implements SessionAware {
 	public void setWebAppConfig(BiblioWebAppConfiguration webAppConfig) {
 		this.webAppConfig = webAppConfig;
 	}
-
-	// public String getIdReservation() {
-	// return this.idReservation;
-	// }
-	//
-	// public void setIdReservation(String idReservation) {
-	// this.idReservation = idReservation;
-	// }
 
 	public String getIdLivre() {
 		return this.idLivre;

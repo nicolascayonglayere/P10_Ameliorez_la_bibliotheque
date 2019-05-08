@@ -1,7 +1,6 @@
 package OC.webService.nicolas.business.contract;
 
 import java.util.List;
-import java.util.Map;
 
 import OC.webService.nicolas.model.entites.Livre;
 import OC.webService.nicolas.model.entites.LivreEmprunt;
@@ -69,9 +68,8 @@ public interface LivreEmpruntManager {
 	 * 
 	 * @param pIdUtilisateur
 	 * @return la liste de {@link LivreEmprunt}
-	 * @throws RuntimeException
 	 */
-	public List<LivreEmpruntType> obtenirEmpruntUtilisateur(int pIdUtilisateur) throws RuntimeException;
+	public List<LivreEmpruntType> obtenirEmpruntUtilisateur(int pIdUtilisateur);
 
 	/**
 	 * Méthode pour trouver la liste des {@link LivreEmprunt} d'un {@link Livre}
@@ -79,9 +77,15 @@ public interface LivreEmpruntManager {
 	 * 
 	 * @param pIdLivre
 	 * @return la liste des {@link LivreEmprunt}
-	 * @throws RuntimeException
 	 */
-	public List<LivreEmpruntType> obtenirTitreEmprunte(int pIdLivre) throws RuntimeException;
+	public List<LivreEmpruntType> obtenirTitreEmprunte(int pIdLivre);
 
-	public Map<UtilisateurType, LivreType> obtenirListeAlerteRetour();
+	/**
+	 * Méthode pour obtenir la liste des {@link Utilisateur} qui ont coché l'option
+	 * de rappel automatique
+	 * 
+	 * @return la liste des {@link Utilisateur}
+	 * 
+	 */
+	public List<UtilisateurType> obtenirListeRappelRetour();
 }
