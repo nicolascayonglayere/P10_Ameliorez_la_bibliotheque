@@ -6,7 +6,7 @@
 
   <groupId>oc.batch.nicolas</groupId>
   <artifactId>bibliothequeBatch</artifactId>
-  <version>1.1.0-SNAPSHOT</version>
+  <version>1.1.0-RELEASE</version>
 
   <name>bibliothequeBatch</name>
   <!-- FIXME change it to the project's website -->
