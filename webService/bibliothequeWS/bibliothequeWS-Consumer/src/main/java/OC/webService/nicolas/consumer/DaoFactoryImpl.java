@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import OC.webService.nicolas.consumer.contract.ILivreDao;
 import OC.webService.nicolas.consumer.contract.ILivreEmpruntDao;
+import OC.webService.nicolas.consumer.contract.IReservationDao;
 import OC.webService.nicolas.consumer.contract.IUtilisateurDao;
 
 /**
@@ -19,6 +20,7 @@ public class DaoFactoryImpl implements DaoFactory {
 	private ILivreDao livreDao;
 	private IUtilisateurDao userDao;
 	private ILivreEmpruntDao livreEmpruntDao;
+	private IReservationDao reservationDao;
 
 	@Override
 	public ILivreDao getLivreDao() {
@@ -52,5 +54,17 @@ public class DaoFactoryImpl implements DaoFactory {
 	@Override
 	public void setLivreEmpruntDao(ILivreEmpruntDao pLivreEmpruntDao) {
 		this.livreEmpruntDao = pLivreEmpruntDao;
+	}
+
+	@Override
+	public IReservationDao getReservationDAo() {
+		return this.reservationDao;
+	}
+
+	@Override
+	@Autowired
+	public void setReservationDao(IReservationDao pReservationDao) {
+		this.reservationDao = pReservationDao;
+
 	}
 }

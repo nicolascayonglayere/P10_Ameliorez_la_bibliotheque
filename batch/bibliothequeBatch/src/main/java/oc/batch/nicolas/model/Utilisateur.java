@@ -21,6 +21,7 @@ public class Utilisateur {
 	private String motDePasse;
 	private List<CoordonneeUtilisateur> coordonnee;
 	private List<LivreEmprunt> emprunt;
+	private boolean rappelOption;
 
 	/**
 	 * Constructeur sans paramètre
@@ -117,6 +118,14 @@ public class Utilisateur {
 		}
 		this.emprunt.add(pLivreEmprunt);
 		pLivreEmprunt.setEmprunteur(this);
+	}
+
+	public boolean isRappelOption() {
+		return this.rappelOption;
+	}
+
+	public void setRappelOption(boolean rappelOption) {
+		this.rappelOption = rappelOption;
 	}
 
 }

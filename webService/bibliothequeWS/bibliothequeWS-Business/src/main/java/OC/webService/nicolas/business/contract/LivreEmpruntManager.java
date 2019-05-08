@@ -68,7 +68,24 @@ public interface LivreEmpruntManager {
 	 * 
 	 * @param pIdUtilisateur
 	 * @return la liste de {@link LivreEmprunt}
-	 * @throws RuntimeException
 	 */
-	public List<LivreEmpruntType> obtenirEmpruntUtilisateur(int pIdUtilisateur) throws RuntimeException;
+	public List<LivreEmpruntType> obtenirEmpruntUtilisateur(int pIdUtilisateur);
+
+	/**
+	 * Méthode pour trouver la liste des {@link LivreEmprunt} d'un {@link Livre}
+	 * d'id donné en paramètre
+	 * 
+	 * @param pIdLivre
+	 * @return la liste des {@link LivreEmprunt}
+	 */
+	public List<LivreEmpruntType> obtenirTitreEmprunte(int pIdLivre);
+
+	/**
+	 * Méthode pour obtenir la liste des {@link Utilisateur} qui ont coché l'option
+	 * de rappel automatique
+	 * 
+	 * @return la liste des {@link Utilisateur}
+	 * 
+	 */
+	public List<UtilisateurType> obtenirListeRappelRetour();
 }

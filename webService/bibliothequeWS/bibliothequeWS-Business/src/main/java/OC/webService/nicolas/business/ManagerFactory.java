@@ -2,6 +2,7 @@ package OC.webService.nicolas.business;
 
 import OC.webService.nicolas.business.contract.LivreEmpruntManager;
 import OC.webService.nicolas.business.contract.LivreManager;
+import OC.webService.nicolas.business.contract.ReservationManager;
 import OC.webService.nicolas.business.contract.UtilisateurManager;
 
 /**
@@ -54,4 +55,18 @@ public interface ManagerFactory {
 	 * @param pUtilisateurManager
 	 */
 	void setUtilisateurManager(UtilisateurManager pUtilisateurManager);
+
+	/**
+	 * Méthode d'accès à {@link ReservationManager}
+	 * 
+	 * @return {@link ReservationManager}
+	 */
+	ReservationManager getReservationManager();
+
+	/**
+	 * Méthode pour définir la {@link ReservationManager}
+	 * 
+	 * @param pReservationManager
+	 */
+	void setReservationManager(ReservationManager pReservationManager);
 }

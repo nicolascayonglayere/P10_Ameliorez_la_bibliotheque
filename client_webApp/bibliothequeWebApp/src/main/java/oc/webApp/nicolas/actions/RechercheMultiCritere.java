@@ -1,7 +1,12 @@
 package oc.webApp.nicolas.actions;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.ws.soap.SOAPFaultException;
 
@@ -15,7 +20,9 @@ import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 
 import fr.yogj.bibliows.BiblioWS;
 import fr.yogj.bibliows.DetailsOuvrageFault_Exception;
+import fr.yogj.bibliows.ObtenirEmpruntLivreFault;
 import fr.yogj.bibliows.RechercheOuvrage;
+import fr.yogj.bibliows.types.LivreEmpruntType;
 import fr.yogj.bibliows.types.LivreType;
 import oc.webApp.nicolas.configurations.BiblioWebAppConfiguration;
 
@@ -35,7 +42,8 @@ public class RechercheMultiCritere extends ActionSupport {
 	private String nomAuteur;
 	private String selectedGenre;
 	private List<String> listGenre = new ArrayList<String>();
-	private List<LivreType> listResultat = new ArrayList<LivreType>();
+	private List<LivreType> listResultatDispo = new ArrayList<LivreType>();
+	private Map<LivreType, Map<Date, String>> listResultatResa = new HashMap<LivreType, Map<Date, String>>();
 
 	/**
 	 * Méthode qui construit et envoie les donnees a la jsp
@@ -44,6 +52,7 @@ public class RechercheMultiCritere extends ActionSupport {
 	 */
 	@Override
 	public String execute() {
+		List<LivreType> listResultat = new ArrayList<LivreType>();
 		BiblioWS biblioWS = this.webAppConfig.accesWS();
 		logger.debug("recherche multi : titre = " + this.titre + " - auteur = " + this.nomAuteur + " - genre = "
 				+ this.selectedGenre);
@@ -62,7 +71,45 @@ public class RechercheMultiCritere extends ActionSupport {
 		}
 		try {
 			logger.debug(biblioWS.rechercheOuvrage(parameters).getOuvrages().size());
-			this.listResultat = biblioWS.rechercheOuvrage(parameters).getOuvrages();
+			listResultat = biblioWS.rechercheOuvrage(parameters).getOuvrages();
+			for (LivreType l : listResultat) {
+				if (biblioWS.obtenirEmpruntLivre(l.getId()).size() > 0
+						&& biblioWS.obtenirEmpruntLivre(l.getId()).size() >= l.getNbExemplaire()) {
+					// --Obtenir la date de retour la plus proche
+					List<LivreEmpruntType> vListInt = biblioWS.obtenirEmpruntLivre(l.getId());
+					Collections.sort(vListInt, (d1, d2) -> d1.getDateEmprunt().compare(d2.getDateEmprunt()));
+					Calendar calTemoin = Calendar.getInstance();
+					calTemoin.setTime(vListInt.get(0).getDateEmprunt().toGregorianCalendar().getTime());
+					calTemoin.add(Calendar.DAY_OF_MONTH, 28);
+					for (LivreEmpruntType let : vListInt) {// --est-ce qu'il parcours dans l'ordre ?
+						Calendar cal1 = Calendar.getInstance();
+						cal1.setTime(let.getDateEmprunt().toGregorianCalendar().getTime());
+						if (let.isProlongation()) {
+							cal1.add(Calendar.DAY_OF_MONTH, 28);
+						} else {
+							cal1.add(Calendar.DAY_OF_MONTH, 28 * 2);
+						}
+
+						if (cal1.before(calTemoin)) {
+							calTemoin = cal1;
+						}
+					}
+
+					int nbResa = biblioWS.obtenirReservationOuvrage(l.getId()).size();
+					String monStrResa = "";
+					if (nbResa > 2 * l.getNbExemplaire()) {
+						monStrResa += "A";
+					} else {
+						monStrResa = String.valueOf(nbResa);
+					}
+					Map<Date, String> maMapInt = new HashMap<Date, String>();
+					maMapInt.put(calTemoin.getTime(), monStrResa);
+					this.listResultatResa.put(l, maMapInt);
+				} else {
+					this.listResultatDispo.add(l);
+				}
+			}
+
 		} catch (DetailsOuvrageFault_Exception e) {
 			logger.debug(e.getMessage());
 			this.addActionMessage(e.getMessage());
@@ -73,6 +120,9 @@ public class RechercheMultiCritere extends ActionSupport {
 			e.printStackTrace();
 			logger.debug(e.getMessage());
 			return ActionSupport.INPUT;
+		} catch (ObtenirEmpruntLivreFault e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return ActionSupport.SUCCESS;
 	}
@@ -111,14 +161,6 @@ public class RechercheMultiCritere extends ActionSupport {
 		this.selectedGenre = selectedGenre;
 	}
 
-	public List<LivreType> getListResultat() {
-		return this.listResultat;
-	}
-
-	public void setListResultat(List<LivreType> listResultat) {
-		this.listResultat = listResultat;
-	}
-
 	public List<String> getListGenre() {
 		return this.listGenre;
 	}
@@ -134,6 +176,22 @@ public class RechercheMultiCritere extends ActionSupport {
 	@Autowired
 	public void setWebAppConfig(BiblioWebAppConfiguration webAppConfig) {
 		this.webAppConfig = webAppConfig;
+	}
+
+	public List<LivreType> getListResultatDispo() {
+		return this.listResultatDispo;
+	}
+
+	public void setListResultatDispo(List<LivreType> listResultatDispo) {
+		this.listResultatDispo = listResultatDispo;
+	}
+
+	public Map<LivreType, Map<Date, String>> getListResultatResa() {
+		return this.listResultatResa;
+	}
+
+	public void setListResultatResa(Map<LivreType, Map<Date, String>> listResultatResa) {
+		this.listResultatResa = listResultatResa;
 	}
 
 }

@@ -1,6 +1,7 @@
 package OC.webService.nicolas.appSpringBoot;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import OC.webService.nicolas.business.ManagerFactory;
 import OC.webService.nicolas.model.entites.Livre;
 import OC.webService.nicolas.model.entites.LivreEmprunt;
+import OC.webService.nicolas.model.entites.Reservation;
 import OC.webService.nicolas.model.entites.Utilisateur;
+import fr.yogj.bibliows.AnnulerReservationFault_Exception;
 import fr.yogj.bibliows.BiblioWS;
 import fr.yogj.bibliows.Deconnexion;
 import fr.yogj.bibliows.DeconnexionFault_Exception;
@@ -17,14 +20,21 @@ import fr.yogj.bibliows.DetailsOuvrageFault_Exception;
 import fr.yogj.bibliows.EmpruntOuvrageFault_Exception;
 import fr.yogj.bibliows.ListNouveautesResponse;
 import fr.yogj.bibliows.ListRetardatairesResponse;
+import fr.yogj.bibliows.ListeAlerteRetourResponse;
+import fr.yogj.bibliows.ListeRappelRetourResponse;
 import fr.yogj.bibliows.LoginFault_Exception;
+import fr.yogj.bibliows.ModifRappelOption;
+import fr.yogj.bibliows.ObtenirEmpruntLivreFault;
 import fr.yogj.bibliows.ObtenirEmpruntUtilisateurFault_Exception;
+import fr.yogj.bibliows.ObtenirReservationUtilisateurFault_Exception;
 import fr.yogj.bibliows.ProlongationOuvrageFault1_Exception;
 import fr.yogj.bibliows.RechercheOuvrage;
 import fr.yogj.bibliows.RechercheOuvrageResponse;
+import fr.yogj.bibliows.ReserverOuvrageFault_Exception;
 import fr.yogj.bibliows.RetourOuvrageFault1_Exception;
 import fr.yogj.bibliows.types.LivreEmpruntType;
 import fr.yogj.bibliows.types.LivreType;
+import fr.yogj.bibliows.types.ReservationType;
 import fr.yogj.bibliows.types.UtilisateurType;
 
 /**
@@ -34,7 +44,7 @@ import fr.yogj.bibliows.types.UtilisateurType;
  *
  */
 
-public class BiblioWSEndPoint implements BiblioWS {
+public class BiblioWSEndPoint implements BiblioWS {// implements BiblioWS {
 
 	static final Logger logger = LogManager.getLogger();
 
@@ -187,6 +197,109 @@ public class BiblioWSEndPoint implements BiblioWS {
 
 	}
 
+	/**
+	 * Méthode pour obtenir la liste des {@link Reservation} de l {@link Utilsateur}
+	 * d'id donné en paramètre
+	 */
+	@Override
+	public List<ReservationType> obtenirReservationUtilisateur(int idUtilisateur)
+			throws ObtenirReservationUtilisateurFault_Exception {
+		try {
+			List<ReservationType> reservations = this.manageFacto.getReservationManager()
+					.obtenirReservationsUtilisateur(idUtilisateur);
+			return reservations;
+
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			logger.debug(e.getMessage());
+			throw new ObtenirReservationUtilisateurFault_Exception(e.getMessage());
+		}
+	}
+
+	/**
+	 * Méthode pour obtenir la liste des {@link LivreEmprunt} pour le {@link Livre}
+	 * d'id donné en paramètre
+	 */
+	@Override
+	public List<LivreEmpruntType> obtenirEmpruntLivre(int idLivre) throws ObtenirEmpruntLivreFault {
+		List<LivreEmpruntType> titreEmpruntes = this.manageFacto.getLivreEmpruntManager().obtenirTitreEmprunte(idLivre);
+		return titreEmpruntes;
+	}
+
+	/**
+	 * Méthode pour réserver un {@link Livre}
+	 */
+	@Override
+	public ReservationType reserverOuvrage(int idLivre, int idUtilisateur) throws ReserverOuvrageFault_Exception {
+		try {
+			return this.manageFacto.getReservationManager().reserverOuvrage(idLivre, idUtilisateur);
+		} catch (RuntimeException e) {
+			e.printStackTrace();
+			logger.debug(e.getMessage());
+			throw new ReserverOuvrageFault_Exception(e.getMessage());
+		}
+
+	}
+
+	/**
+	 * Méthode pour annuler une {@link Reservation}
+	 */
+	@Override
+	public LivreType annulerReservation(int idReservation) throws AnnulerReservationFault_Exception {
+		System.out.println("CTRL ANNUL RESA ----------" + idReservation);
+		return this.manageFacto.getReservationManager().annulerReservation(idReservation);
+	}
+
+	/**
+	 * Méthode pour obtenir la liste des {@link Utilisateur} à prevenir du retour
+	 * d'une de leur {@link Reservation}
+	 */
+	@Override
+	public ListeAlerteRetourResponse listeAlerteRetour(String parameters) {
+		ListeAlerteRetourResponse larr = new ListeAlerteRetourResponse();
+		for (Map.Entry<UtilisateurType, LivreType> entry : this.manageFacto.getReservationManager()
+				.obtenirListeAlerteRetour().entrySet()) {
+			larr.getUtilisateur().add(entry.getKey());
+			larr.getLivre().add(entry.getValue());
+		}
+		return larr;
+	}
+
+	/**
+	 * Méthode pour obtenir la liste des {@link Utilisateur} qui ont coche l'option
+	 * de rappel automatique et qui doivent être alerte par mail de l'expiration
+	 * d'un de leur {@link LivreEmprunt}
+	 */
+	@Override
+	public ListeRappelRetourResponse listeRappelRetour(String parameters) {
+		ListeRappelRetourResponse lrrr = new ListeRappelRetourResponse();
+		for (UtilisateurType u : this.manageFacto.getLivreEmpruntManager().obtenirListeRappelRetour()) {
+			lrrr.getUtilisateur().add(u);
+			lrrr.getLivreEmprunt().addAll(u.getEmprunt());
+		}
+		return lrrr;
+	}
+
+	/**
+	 * Méthode pour modifier l'option de rappel automatique
+	 */
+	@Override
+	public String modifRappelOption(ModifRappelOption parameters) {
+		this.getManageFacto().getUtilisateurManager().modifRappelOption(parameters.getIdUtilisateur(),
+				parameters.isOption());
+		return "";
+	}
+
+	/**
+	 * Méthode pour obtenir la liste des {@link Reservation} d'un {@link Livre} d'id
+	 * donné en paramètre
+	 */
+	@Override
+	public List<ReservationType> obtenirReservationOuvrage(int idLivre) {
+		return this.manageFacto.getReservationManager().obtenirReservationsLivre(idLivre);
+	}
+
+	// -- Getter et Setter
 	public ManagerFactory getManageFacto() {
 		return this.manageFacto;
 	}

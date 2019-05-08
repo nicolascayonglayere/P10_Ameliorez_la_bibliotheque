@@ -43,6 +43,11 @@ public class Utilisateur implements Serializable {
 	@OneToMany(mappedBy = "utilisateur", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.DETACH,
 			CascadeType.MERGE, CascadeType.REFRESH })
 	private List<LivreEmprunt> emprunts;
+	@OneToMany(mappedBy = "utilisateur", fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.DETACH,
+			CascadeType.MERGE, CascadeType.REFRESH })
+	private List<Reservation> listeAttente;
+	@Column(name = "rappel_option", nullable = false, columnDefinition = "true")
+	private boolean rappelOption;
 
 	/**
 	 * Constructeur sans paramètre
@@ -139,5 +144,29 @@ public class Utilisateur implements Serializable {
 		}
 		this.emprunts.add(pLivreEmprunt);
 		pLivreEmprunt.setUtilisateur(this);
+	}
+
+	public List<Reservation> getListeAttente() {
+		return this.listeAttente;
+	}
+
+	public void setListeAttente(List<Reservation> listeAttente) {
+		this.listeAttente = listeAttente;
+	}
+
+	public void addListeAttente(Reservation pReservation) {
+		if (this.listeAttente == null) {
+			this.listeAttente = new ArrayList<Reservation>();
+		}
+		this.listeAttente.add(pReservation);
+		pReservation.setUtilisateur(this);
+	}
+
+	public boolean isRappelOption() {
+		return this.rappelOption;
+	}
+
+	public void setRappelOption(boolean rappelOption) {
+		this.rappelOption = rappelOption;
 	}
 }

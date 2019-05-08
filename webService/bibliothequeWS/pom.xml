@@ -4,7 +4,7 @@
 
   <groupId>OC.webService.nicolas</groupId>
   <artifactId>bibliothequeWS</artifactId>
-  <version>1.0.1-RELEASE</version>
+  <version>1.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>bibliothequeWS</name>
@@ -38,32 +38,32 @@
   		<dependency>
   			<groupId>OC.webService.nicolas</groupId>
   			<artifactId>bibliothequeWS-DTO</artifactId>
-  			<version>1.0.1-RELEASE</version>
+  			<version>1.1.0-SNAPSHOT</version>
   		</dependency>  	
   		<dependency>
   			<groupId>OC.webService.nicolas</groupId>
   			<artifactId>bibliothequeWS-Technical</artifactId>
-  			<version>1.0.1-RELEASE</version>
+  			<version>1.1.0-SNAPSHOT</version>
   		</dependency>
   		<dependency>
   			<groupId>OC.webService.nicolas</groupId>
   			<artifactId>bibliothequeWS-Consumer</artifactId>
-  			<version>1.0.1-RELEASE</version>
+  			<version>1.1.0-SNAPSHOT</version>
   		</dependency>
   		<dependency>
   			<groupId>OC.webService.nicolas</groupId>
   			<artifactId>bibliothequeWS-Business</artifactId>
-  			<version>1.0.1-RELEASE</version>
+  			<version>1.1.0-SNAPSHOT</version>
   		</dependency>
   		<dependency>
   			<groupId>OC.webService.nicolas</groupId>
   			<artifactId>bibliothequeWS-Model</artifactId>
-  			<version>1.0.1-RELEASE</version>
+  			<version>1.1.0-SNAPSHOT</version>
   		</dependency>
   		<dependency>
   			<groupId>OC.webService.nicolas</groupId>
   			<artifactId>bibliothequeWS-AppSpringBoot</artifactId>
-  			<version>1.0.1.RELEASE</version>
+  			<version>1.1.0-SNAPSHOT</version>
   		</dependency>
   		  		  		
   		<!-- logger log4j -->  		
@@ -115,6 +115,17 @@
 		            <artifactId>commons-logging</artifactId>
 		        </exclusion>
 		    </exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>2.27.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		    <groupId>javax.interceptor</groupId>
+		    <artifactId>javax.interceptor-api</artifactId>
+		    <version>1.2</version>
 		</dependency>
   	</dependencies>
   </dependencyManagement>

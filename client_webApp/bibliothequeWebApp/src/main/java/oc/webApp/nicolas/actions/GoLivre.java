@@ -2,11 +2,13 @@ package oc.webApp.nicolas.actions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.ws.soap.SOAPFaultException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +29,7 @@ import oc.webApp.nicolas.configurations.BiblioWebAppConfiguration;
  *
  */
 @Service
-public class GoLivre extends ActionSupport {
+public class GoLivre extends ActionSupport implements SessionAware {
 
 	private static final long serialVersionUID = 1L;
 	static final Logger logger = LogManager.getLogger();
@@ -35,6 +37,7 @@ public class GoLivre extends ActionSupport {
 	private String idLivre;
 	private LivreType livreType = new LivreType();
 	private List<AuteurType> auteurs = new ArrayList<AuteurType>();
+	// private boolean afficheResa;
 
 	/**
 	 * Méthode qui construit et envoie les données à la jsp
@@ -43,8 +46,7 @@ public class GoLivre extends ActionSupport {
 	public String execute() {
 		BiblioWS biblioWS = this.webAppConfig.accesWS();
 		RechercheOuvrage param = new RechercheOuvrage();
-		logger.debug(this.livreType.getId());
-		System.out.println(this.idLivre);
+		logger.debug(this.idLivre);
 		if (Integer.valueOf(this.idLivre) != 0) {
 			param.setIdLivre(Integer.valueOf(this.idLivre));
 		} else {
@@ -57,7 +59,47 @@ public class GoLivre extends ActionSupport {
 			RechercheOuvrageResponse rop = biblioWS.rechercheOuvrage(param);
 			this.livreType = rop.getOuvrages().get(0);
 			this.auteurs = this.livreType.getAuteurs();
-			System.out.println("auteur : " + this.livreType.getAuteurs().get(0).getNom());
+
+			// --affichage bouton reservation
+			System.out.println("CTRL ---------- " + biblioWS.obtenirReservationOuvrage(this.livreType.getId()).size());
+			System.out.println("CTRL ---------- " + this.livreType.getNbExemplaire() * 2);
+			// --si la liste de reservation est pleine
+			// if (biblioWS.obtenirReservationOuvrage(this.livreType.getId()).size() ==
+			// this.livreType.getNbExemplaire()
+			// * 2) {
+			// this.afficheResa = false;
+			// }
+			//
+			// else {
+			// this.afficheResa = true;
+			// }
+
+			// try {
+			// // -- si le livre n'est pas emprunté
+			// biblioWS.obtenirEmpruntLivre(this.livreType.getId());
+			// this.afficheResa = true;
+			// // --si le livre n'est pas deja reserve par l'utilisateur
+			// for (ReservationType rt : biblioWS
+			// .obtenirReservationUtilisateur(((UtilisateurType)
+			// this.session.get("utilisateur")).getId())) {
+			// if (rt.getId() == this.livreType.getId()) {
+			// this.afficheResa = false;
+			// break;
+			// }
+			// }
+			//
+			// } catch (ObtenirEmpruntLivreFault e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// this.afficheResa = false;
+			// } catch (SOAPFaultException ee1) {
+			// ee1.printStackTrace();
+			// this.afficheResa = false;
+			// } catch (ObtenirReservationUtilisateurFault_Exception e) {
+			// this.afficheResa = false;
+			// e.printStackTrace();
+			// }
+
 			return ActionSupport.SUCCESS;
 		} catch (DetailsOuvrageFault_Exception e) {
 			this.addActionMessage(e.getMessage());
@@ -104,5 +146,17 @@ public class GoLivre extends ActionSupport {
 	@Autowired
 	public void setWebAppConfig(BiblioWebAppConfiguration webAppConfig) {
 		this.webAppConfig = webAppConfig;
+	}
+
+	// public boolean isAfficheResa() {
+	// return this.afficheResa;
+	// }
+	//
+	// public void setAfficheResa(boolean afficheResa) {
+	// this.afficheResa = afficheResa;
+	// }
+
+	@Override
+	public void setSession(Map<String, Object> session) {
 	}
 }

@@ -10,17 +10,17 @@
       					
 						<!--  <div class="navbar-header">-->
 							
-	      					<s:a class="navbar-brand" action="index" namespace="/"><s:text name="entete.titre"/></s:a>	
+	      					<s:a class="navbar-brand" action="index" namespace="/"> BIBLIOTHEQUE OC <!--<s:text name="entete.titre"/>--></s:a>	
 	      				<!--  </div>--> 
 	      			
 			      		<div class="collapse navbar-collapse" id="maBarreMenuTop" >
 				      		<ul class="navbar-nav mr-auto nav-fill">
 					     	   <li class="hidden"><a href="#page-top"></a></li>
 					     	   <li class="nav-item active">
-					     	   		<s:a action="go_recherche" namespace="/" cssClass="nav-link"><s:text name="entete.recherche"/></s:a>
+					     	   		<s:a action="go_recherche" namespace="/" cssClass="nav-link"> CHERCHER UN OUVRAGE <!--<s:text name="entete.recherche"/>--></s:a>
 					     	   </li>
 					     	   <li class="nav-item active">
-					     	   		<s:a action="go_login" namespace="/" cssClass="nav-link"><s:text name="login.titre"/></s:a>
+					     	   		<s:a action="go_login" namespace="/" cssClass="nav-link"> AUTHENTIFICATION <!--<s:text name="login.titre"/>--></s:a>
 					     	   </li>					     	   
 				      		</ul>
 			      		</div>

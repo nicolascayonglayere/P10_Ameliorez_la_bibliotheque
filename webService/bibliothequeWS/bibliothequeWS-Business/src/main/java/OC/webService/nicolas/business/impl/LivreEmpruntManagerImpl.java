@@ -18,6 +18,7 @@ import OC.webService.nicolas.business.mapper.MapperLivreEmprunt;
 import OC.webService.nicolas.business.mapper.MapperUtilisateur;
 import OC.webService.nicolas.model.entites.Livre;
 import OC.webService.nicolas.model.entites.LivreEmprunt;
+import OC.webService.nicolas.model.entites.Reservation;
 import OC.webService.nicolas.model.entites.Utilisateur;
 import fr.yogj.bibliows.types.LivreEmpruntType;
 import fr.yogj.bibliows.types.LivreType;
@@ -35,6 +36,7 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 
 	static final Logger logger = LogManager.getLogger();
 	private LivreEmprunt livreEmprunt = new LivreEmprunt();
+	private List<Livre> listeLivreRetour = new ArrayList<Livre>();
 
 	/**
 	 * Méthode pour emprunter un {@link Livre}
@@ -65,6 +67,13 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 				this.livreEmprunt.setDateEmprunt(Calendar.getInstance().getTime());
 				this.livreEmprunt.setUtilisateur(user);
 				this.getDaoFactory().getLivreEmpruntDao().saveAndFlush(this.livreEmprunt);
+				// --supprimer la reservation si elle existe
+				if (this.getDaoFactory().getReservationDAo().findByLivreIdAndUtilisateurId(l.getId(),
+						user.getId()) != null) {
+					Reservation r = this.getDaoFactory().getReservationDAo().findByLivreIdAndUtilisateurId(l.getId(),
+							user.getId());
+					this.getDaoFactory().getReservationDAo().delete(r);
+				}
 				return MapperLivreEmprunt.fromLivreEmpruntToLivreEmpruntType(this.livreEmprunt);
 			} else {
 				logger.debug("Erreur : Vous avez deja emprunté ce livre ");
@@ -72,9 +81,7 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 						.getLivreEmpruntDao().findByLivreIdAndUtilisateurId(pIdLivre, pIdEmprunteur).getId());
 			}
 
-		} else
-
-		{
+		} else {
 			logger.debug("TRACE");
 			// recupérer la date de retour la plus proche
 			Calendar cal = Calendar.getInstance();
@@ -103,6 +110,7 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 				.findById((this.livreEmprunt.getLivre()).getId());
 		Livre l = myOptionalLivre.get();
 		if (l.getId() != 0) {
+			this.listeLivreRetour.add(l);// --je remplis la listeAlerteRetour
 			this.getDaoFactory().getLivreEmpruntDao().delete(this.livreEmprunt);
 			return MapperLivre.fromLivreToLivreType(l);
 		} else {
@@ -122,7 +130,7 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 			Calendar dateRetour = Calendar.getInstance();
 			dateRetour.setTime(this.livreEmprunt.getDateEmprunt());
 			dateRetour.add(Calendar.DATE, 28);
-			System.out.println("--------------------------" + dateRetour);
+			logger.debug("--------------------------" + dateRetour);
 
 			if (Calendar.getInstance().after(dateRetour)) {
 				throw new RuntimeException("Vous ne pouvez plus prolonger cet emprunt");
@@ -171,16 +179,45 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 	 * {@link Utilisateur} d'id donné en paramètre
 	 */
 	@Override
-	public List<LivreEmpruntType> obtenirEmpruntUtilisateur(int pIdUtilisateur) throws RuntimeException {
+	public List<LivreEmpruntType> obtenirEmpruntUtilisateur(int pIdUtilisateur) {
 		List<LivreEmpruntType> empruntsUtilisateur = new ArrayList<LivreEmpruntType>();
 		if ((this.getDaoFactory().getLivreEmpruntDao().findByUtilisateurId(pIdUtilisateur)).size() > 0) {
 			for (LivreEmprunt le : this.getDaoFactory().getLivreEmpruntDao().findByUtilisateurId(pIdUtilisateur)) {
 				empruntsUtilisateur.add(MapperLivreEmprunt.fromLivreEmpruntToLivreEmpruntType(le));
 			}
 
-		} else {
-			throw new RuntimeException("L'utilisateur n'a pas d'emprunt en cours.");
 		}
 		return empruntsUtilisateur;
+	}
+
+	/**
+	 * Méthode pour obtenir la liste des {@link LivreEmprunt} d'un {@link Livre}
+	 * d'id donné en paramètre
+	 */
+	@Override
+	public List<LivreEmpruntType> obtenirTitreEmprunte(int pIdLivre) {
+		logger.debug("Titre emprunte ---------" + pIdLivre);
+		List<LivreEmpruntType> titreEmpruntes = new ArrayList<LivreEmpruntType>();
+		if ((this.getDaoFactory().getLivreEmpruntDao().findByLivreId(pIdLivre).size()) > 0) {
+			for (LivreEmprunt le : this.getDaoFactory().getLivreEmpruntDao().findByLivreId(pIdLivre)) {
+				titreEmpruntes.add(MapperLivreEmprunt.fromLivreEmpruntToLivreEmpruntType(le));
+			}
+		}
+		return titreEmpruntes;
+	}
+
+	/**
+	 * Méthode pour obtenir la liste des {@link Utilisateur} qui ont coché l'option
+	 * rappel automatique
+	 */
+	@Override
+	public List<UtilisateurType> obtenirListeRappelRetour() {
+		List<UtilisateurType> listeRappel = new ArrayList<UtilisateurType>();
+		Calendar dateRetour = Calendar.getInstance();
+		dateRetour.add(Calendar.DATE, -23);
+		for (Utilisateur i : this.getDaoFactory().getLivreEmpruntDao().findRappelRetour(true, dateRetour.getTime())) {
+			listeRappel.add(MapperUtilisateur.fromUtilisateurToUtilisateurType(i));
+		}
+		return listeRappel;
 	}
 }

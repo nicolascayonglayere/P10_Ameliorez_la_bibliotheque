@@ -77,6 +77,15 @@ public class BiblioWebAppConfiguration {
 		return registration;
 	}
 
+	// @Bean
+	// public MessageSource messageSource() {
+	// ReloadableResourceBundleMessageSource messageSource = new
+	// ReloadableResourceBundleMessageSource();
+	// messageSource.setBasename("classpath:messages");
+	// // messageSource.setCacheSeconds(10); //reload messages every 10 seconds
+	// return messageSource;
+	// }
+
 	// --Getter et Setter
 	public String getUrl() {
 		return this.url;

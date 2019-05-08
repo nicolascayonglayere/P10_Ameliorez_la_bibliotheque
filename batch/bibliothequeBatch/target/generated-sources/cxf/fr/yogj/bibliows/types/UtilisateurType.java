@@ -26,6 +26,8 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="motDePasse" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="coordonnee" type="{http://www.yogj.fr/biblioWS/types}CoordonneeUtilisateurType" maxOccurs="unbounded"/&gt;
  *         &lt;element name="emprunt" type="{http://www.yogj.fr/biblioWS/types}LivreEmpruntType" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="reservation" type="{http://www.yogj.fr/biblioWS/types}ReservationType" maxOccurs="unbounded"/&gt;
+ *         &lt;element name="rappelOption" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -42,7 +44,9 @@ import javax.xml.bind.annotation.XmlType;
     "pseudo",
     "motDePasse",
     "coordonnee",
-    "emprunt"
+    "emprunt",
+    "reservation",
+    "rappelOption"
 })
 public class UtilisateurType {
 
@@ -59,6 +63,9 @@ public class UtilisateurType {
     protected List<CoordonneeUtilisateurType> coordonnee;
     @XmlElement(required = true)
     protected List<LivreEmpruntType> emprunt;
+    @XmlElement(required = true)
+    protected List<ReservationType> reservation;
+    protected boolean rappelOption;
 
     /**
      * Obtient la valeur de la propriété id.
@@ -228,6 +235,51 @@ public class UtilisateurType {
             emprunt = new ArrayList<LivreEmpruntType>();
         }
         return this.emprunt;
+    }
+
+    /**
+     * Gets the value of the reservation property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the reservation property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getReservation().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link ReservationType }
+     * 
+     * 
+     */
+    public List<ReservationType> getReservation() {
+        if (reservation == null) {
+            reservation = new ArrayList<ReservationType>();
+        }
+        return this.reservation;
+    }
+
+    /**
+     * Obtient la valeur de la propriété rappelOption.
+     * 
+     */
+    public boolean isRappelOption() {
+        return rappelOption;
+    }
+
+    /**
+     * Définit la valeur de la propriété rappelOption.
+     * 
+     */
+    public void setRappelOption(boolean value) {
+        this.rappelOption = value;
     }
 
 }

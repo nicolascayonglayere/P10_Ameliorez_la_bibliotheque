@@ -9,13 +9,15 @@
   </parent>
   
   <groupId>${project.parent.groupId}</groupId>
-  <artifactId>bibliothequeWS-Consumer</artifactId>
+  <artifactId>bibliothequeWS-Business</artifactId>
   <version>${project.parent.version}</version>
-  <name>bibliothequeWS-Consumer</name>
-  <url>http://maven.apache.org</url>
+  <name>bibliothequeWS-Business</name>
+  <url>http://yogj.fr</url>
   
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>    
   </properties>
   
   <dependencies>
@@ -24,45 +26,45 @@
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
-    <!--<dependency>-->
-    	<!--<groupId>OC.webService.nicolas</groupId>-->
-    	<!--<artifactId>bibliothequeWS-Technical</artifactId>-->
-    <!--</dependency>-->
+    <dependency>
+    	<groupId>OC.webService.nicolas</groupId>
+    	<artifactId>bibliothequeWS-Consumer</artifactId>
+    </dependency>
+    <dependency>
+    	<groupId>OC.webService.nicolas</groupId>
+    	<artifactId>bibliothequeWS-Technical</artifactId>
+    </dependency>
     <dependency>
     	<groupId>OC.webService.nicolas</groupId>
     	<artifactId>bibliothequeWS-Model</artifactId>
     </dependency>
     <dependency>
-    	<groupId>org.postgresql</groupId>
-    	<artifactId>postgresql</artifactId>
-    </dependency>
-    <!--<dependency>-->
-    	<!--<groupId>org.hibernate.javax.persistence</groupId>-->
-    	<!--<artifactId>hibernate-jpa-2.1-api</artifactId>-->
-    <!--</dependency>-->
-    <!--<dependency>-->
-    	<!--<groupId>javax.transaction</groupId>-->
-    	<!--<artifactId>javax.transaction-api</artifactId>-->
-    <!--</dependency>-->
-    <!--<dependency>-->
-    	<!--<groupId>org.springframework.data</groupId>-->
-    	<!--<artifactId>spring-data-jpa</artifactId>-->
-    <!--</dependency>-->
+    	<groupId>OC.webService.nicolas</groupId>
+    	<artifactId>bibliothequeWS-DTO</artifactId>
+    </dependency>     
     <!--<dependency>-->
     	<!--<groupId>org.springframework.boot</groupId>-->
     	<!--<artifactId>spring-boot</artifactId>-->
     <!--</dependency>-->
     <!--<dependency>-->
     	<!--<groupId>org.springframework.boot</groupId>-->
-    	<!--<artifactId>spring-boot-starter</artifactId>-->
+    	<!--<artifactId>spring-boot-autoconfigure</artifactId>-->
     <!--</dependency>-->
     <!--<dependency>-->
-    	<!--<groupId>org.springframework.boot</groupId>-->
-    	<!--<artifactId>spring-boot-autoconfigure</artifactId>-->
+    	<!--<groupId>org.hibernate.javax.persistence</groupId>-->
+    	<!--<artifactId>hibernate-jpa-2.1-api</artifactId>-->
     <!--</dependency>-->
     <!--<dependency>-->
     	<!--<groupId>org.springframework.boot</groupId>-->
     	<!--<artifactId>spring-boot-starter-data-jpa</artifactId>-->
     <!--</dependency>-->
+    <dependency>
+    	<groupId>org.springframework</groupId>
+    	<artifactId>spring-context</artifactId>
+    </dependency>
+    <dependency>
+    	<groupId>org.springframework.security</groupId>
+    	<artifactId>spring-security-crypto</artifactId>
+    </dependency>
   </dependencies>
 </project>
