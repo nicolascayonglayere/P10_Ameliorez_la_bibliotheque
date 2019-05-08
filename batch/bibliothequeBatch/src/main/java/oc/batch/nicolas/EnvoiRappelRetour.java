@@ -17,17 +17,31 @@ import oc.batch.nicolas.mapper.MapperUtilisateur;
 import oc.batch.nicolas.model.LivreEmprunt;
 import oc.batch.nicolas.model.Utilisateur;
 
+/**
+ * Classe qui envoie des mails de rappel de retour imminent d'un ouvrage
+ * 
+ * @author nicolas
+ *
+ */
 public class EnvoiRappelRetour implements Tasklet {
 
 	private BiblioWS biblioWS;
 	private MailHandler mh;
 
+	/**
+	 * Constructeur avec paramètre
+	 * 
+	 * @param wsUrl
+	 */
 	public EnvoiRappelRetour(String wsUrl) {
 		final JaxWsProxyFactoryBean proxyFactory = new JaxWsProxyFactoryBean();
 		proxyFactory.setAddress(wsUrl);
 		this.setBiblioWS(proxyFactory.create(BiblioWS.class));
 	}
 
+	/**
+	 * Méthode qui récupère les retardataires et leur envoie des mails de rappel
+	 */
 	@Override
 	public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
 		// TODO Auto-generated method stub
@@ -46,6 +60,7 @@ public class EnvoiRappelRetour implements Tasklet {
 		return null;
 	}
 
+	// -- Getter et Setter
 	public BiblioWS getBiblioWS() {
 		return this.biblioWS;
 	}

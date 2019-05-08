@@ -30,5 +30,11 @@ public interface UtilisateurManager {
 	 */
 	public UtilisateurType getUtilisateur(int id) throws RuntimeException;
 
+	/**
+	 * Méthode pour modifier l'option de rappel
+	 * 
+	 * @param pIdUtilisateurType
+	 * @param pOption
+	 */
 	public void modifRappelOption(int pIdUtilisateurType, boolean pOption);
 }

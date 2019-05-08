@@ -30,5 +30,13 @@ public interface IReservationDao extends JpaRepository<Reservation, Integer> {
 	 */
 	public List<Reservation> findByLivreId(int pIdLivre);
 
+	/**
+	 * Méthode pour trouver la {@link Reservation} de l {@link Utilisateur} dont
+	 * l'id est donne en paramètre et de {@link Livre} d'id donne en parametre
+	 * 
+	 * @param pIdLivre
+	 * @param pIdUtilisateur
+	 * @return {@link Reservation}
+	 */
 	public Reservation findByLivreIdAndUtilisateurId(int pIdLivre, int pIdUtilisateur);
 }

@@ -1,12 +1,14 @@
 package OC.webService.nicolas.business.contract;
 
 import java.util.List;
+import java.util.Map;
 
 import OC.webService.nicolas.model.entites.Livre;
 import OC.webService.nicolas.model.entites.Reservation;
 import OC.webService.nicolas.model.entites.Utilisateur;
 import fr.yogj.bibliows.types.LivreType;
 import fr.yogj.bibliows.types.ReservationType;
+import fr.yogj.bibliows.types.UtilisateurType;
 
 public interface ReservationManager {
 
@@ -16,9 +18,8 @@ public interface ReservationManager {
 	 * 
 	 * @param pId
 	 * @return le liste des {@link Reservation}
-	 * @throws RuntimeException
 	 */
-	public List<ReservationType> obtenirReservationsUtilisateur(int pId) throws RuntimeException;
+	public List<ReservationType> obtenirReservationsUtilisateur(int pId);
 
 	/**
 	 * Méthode pour trouver la liste des {@link Reservation} d'un {@link Livre} d'id
@@ -45,7 +46,14 @@ public interface ReservationManager {
 	 * 
 	 * @param pIdReservation
 	 * @return le {@link Livre} dont la réservation vient d'etre annulee
-	 * @throws RuntimeException
 	 */
-	public LivreType annulerReservation(int pIdReservation) throws RuntimeException;
+	public LivreType annulerReservation(int pIdReservation);
+
+	/**
+	 * Méthode pour obtenir la map des {@link Utilisateur} qui ont reservé le
+	 * {@link Livre} qui a été retourné (et est donc pret à être emprunte)
+	 * 
+	 * @returnLa map des {@link Utilisateur} - {@link Livre}
+	 */
+	public Map<UtilisateurType, LivreType> obtenirListeAlerteRetour();
 }

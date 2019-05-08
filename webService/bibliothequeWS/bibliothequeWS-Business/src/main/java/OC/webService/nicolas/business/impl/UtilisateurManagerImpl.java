@@ -53,6 +53,9 @@ public class UtilisateurManagerImpl extends AbstractManager implements Utilisate
 			return MapperUtilisateur.fromUtilisateurToUtilisateurType(this.user);
 	}
 
+	/**
+	 * Méthode pour modifier l'option de rappel automatique
+	 */
 	@Override
 	public void modifRappelOption(int pIdUtilisteurType, boolean pOption) {
 		System.out.println("CTRL -------------" + pIdUtilisteurType);

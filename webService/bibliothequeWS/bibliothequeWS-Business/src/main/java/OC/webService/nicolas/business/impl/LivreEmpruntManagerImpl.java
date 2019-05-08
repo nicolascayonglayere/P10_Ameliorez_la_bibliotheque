@@ -3,9 +3,7 @@ package OC.webService.nicolas.business.impl;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -83,9 +81,7 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 						.getLivreEmpruntDao().findByLivreIdAndUtilisateurId(pIdLivre, pIdEmprunteur).getId());
 			}
 
-		} else
-
-		{
+		} else {
 			logger.debug("TRACE");
 			// recupérer la date de retour la plus proche
 			Calendar cal = Calendar.getInstance();
@@ -183,7 +179,7 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 	 * {@link Utilisateur} d'id donné en paramètre
 	 */
 	@Override
-	public List<LivreEmpruntType> obtenirEmpruntUtilisateur(int pIdUtilisateur) throws RuntimeException {
+	public List<LivreEmpruntType> obtenirEmpruntUtilisateur(int pIdUtilisateur) {
 		List<LivreEmpruntType> empruntsUtilisateur = new ArrayList<LivreEmpruntType>();
 		if ((this.getDaoFactory().getLivreEmpruntDao().findByUtilisateurId(pIdUtilisateur)).size() > 0) {
 			for (LivreEmprunt le : this.getDaoFactory().getLivreEmpruntDao().findByUtilisateurId(pIdUtilisateur)) {
@@ -194,65 +190,26 @@ public class LivreEmpruntManagerImpl extends AbstractManager implements LivreEmp
 		return empruntsUtilisateur;
 	}
 
+	/**
+	 * Méthode pour obtenir la liste des {@link LivreEmprunt} d'un {@link Livre}
+	 * d'id donné en paramètre
+	 */
 	@Override
-	public List<LivreEmpruntType> obtenirTitreEmprunte(int pIdLivre) throws RuntimeException {
+	public List<LivreEmpruntType> obtenirTitreEmprunte(int pIdLivre) {
 		logger.debug("Titre emprunte ---------" + pIdLivre);
 		List<LivreEmpruntType> titreEmpruntes = new ArrayList<LivreEmpruntType>();
 		if ((this.getDaoFactory().getLivreEmpruntDao().findByLivreId(pIdLivre).size()) > 0) {
 			for (LivreEmprunt le : this.getDaoFactory().getLivreEmpruntDao().findByLivreId(pIdLivre)) {
 				titreEmpruntes.add(MapperLivreEmprunt.fromLivreEmpruntToLivreEmpruntType(le));
 			}
-
-		} // else {
-			// throw new RuntimeException("Le titre n'a pas d'emprunt en cours.");
-			// }
+		}
 		return titreEmpruntes;
 	}
 
-	@Override
-	public Map<UtilisateurType, LivreType> obtenirListeAlerteRetour() {
-		// --pour chaque livre de la listLivreRetour, je cherche une reservation. Si je
-		// trouve, je convertis le livre et l'utilisateur en type et je les mets dans la
-		// liste alerteRetour.
-		// ATTENTION A BIEN NETTOYER LES LISTES !!!
-		// TODO Auto-generated method stub
-		Map<UtilisateurType, LivreType> listeAlerteRetour = new HashMap<UtilisateurType, LivreType>();
-		List<Livre> livresASuppr = new ArrayList<Livre>();
-		for (Livre l : this.listeLivreRetour) {
-			// --chercher les reservations du livre ds la bdd
-			if (this.getDaoFactory().getReservationDAo().findByLivreId(l.getId()).size() > 0) {
-				// --vérifier la date d'alerte pour nettoyer la table reservation
-				Calendar cal = Calendar.getInstance();
-				cal.add(Calendar.DATE, -2);
-				List<Reservation> reservations = this.getDaoFactory().getReservationDAo().findByLivreId(l.getId());
-				List<Reservation> temp = new ArrayList<Reservation>();
-				for (Reservation r : reservations) {
-					if (r.getDateAlerte() != null && r.getDateAlerte().before(cal.getTime())) {
-						this.getDaoFactory().getReservationDAo().delete(r);
-					} else if (r.getDateAlerte() == null) {
-						temp.add(r);
-					}
-				}
-
-				if (temp.size() > 0) {
-					Reservation maReservation = temp.get(0);
-					listeAlerteRetour.put(
-							MapperUtilisateur.fromUtilisateurToUtilisateurType(maReservation.getUtilisateur()),
-							MapperLivre.fromLivreToLivreType(maReservation.getLivre()));
-					// -- ajouter la date d'alerte dans la table reservation
-					maReservation.setDateAlerte(Calendar.getInstance().getTime());
-					this.getDaoFactory().getReservationDAo().saveAndFlush(maReservation);
-				}
-
-			} else {
-				livresASuppr.add(l);
-			}
-		}
-		// --j'enlève de la liste des retours tous les livres qui ne sont pas reservés
-		this.listeLivreRetour.removeAll(livresASuppr);
-		return listeAlerteRetour;
-	}
-
+	/**
+	 * Méthode pour obtenir la liste des {@link Utilisateur} qui ont coché l'option
+	 * rappel automatique
+	 */
 	@Override
 	public List<UtilisateurType> obtenirListeRappelRetour() {
 		List<UtilisateurType> listeRappel = new ArrayList<UtilisateurType>();

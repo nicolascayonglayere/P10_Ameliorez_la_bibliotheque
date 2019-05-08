@@ -16,14 +16,10 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import fr.yogj.bibliows.BiblioWS;
 import fr.yogj.bibliows.DetailsOuvrageFault_Exception;
-import fr.yogj.bibliows.ObtenirEmpruntLivreFault;
-import fr.yogj.bibliows.ObtenirReservationUtilisateurFault_Exception;
 import fr.yogj.bibliows.RechercheOuvrage;
 import fr.yogj.bibliows.RechercheOuvrageResponse;
 import fr.yogj.bibliows.types.AuteurType;
 import fr.yogj.bibliows.types.LivreType;
-import fr.yogj.bibliows.types.ReservationType;
-import fr.yogj.bibliows.types.UtilisateurType;
 import oc.webApp.nicolas.configurations.BiblioWebAppConfiguration;
 
 /**
@@ -38,11 +34,10 @@ public class GoLivre extends ActionSupport implements SessionAware {
 	private static final long serialVersionUID = 1L;
 	static final Logger logger = LogManager.getLogger();
 	private BiblioWebAppConfiguration webAppConfig;
-	private Map<String, Object> session;
 	private String idLivre;
 	private LivreType livreType = new LivreType();
 	private List<AuteurType> auteurs = new ArrayList<AuteurType>();
-	private boolean afficheResa;
+	// private boolean afficheResa;
 
 	/**
 	 * Méthode qui construit et envoie les données à la jsp
@@ -69,39 +64,41 @@ public class GoLivre extends ActionSupport implements SessionAware {
 			System.out.println("CTRL ---------- " + biblioWS.obtenirReservationOuvrage(this.livreType.getId()).size());
 			System.out.println("CTRL ---------- " + this.livreType.getNbExemplaire() * 2);
 			// --si la liste de reservation est pleine
-			if (biblioWS.obtenirReservationOuvrage(this.livreType.getId()).size() == this.livreType.getNbExemplaire()
-					* 2) {
-				this.afficheResa = false;
-			}
+			// if (biblioWS.obtenirReservationOuvrage(this.livreType.getId()).size() ==
+			// this.livreType.getNbExemplaire()
+			// * 2) {
+			// this.afficheResa = false;
+			// }
+			//
+			// else {
+			// this.afficheResa = true;
+			// }
 
-			else {
-				this.afficheResa = true;
-			}
-
-			try {
-				// -- si le livre n'est pas emprunté
-				biblioWS.obtenirEmpruntLivre(this.livreType.getId());
-				this.afficheResa = true;
-				// --si le livre n'est pas deja reserve par l'utilisateur
-				for (ReservationType rt : biblioWS
-						.obtenirReservationUtilisateur(((UtilisateurType) this.session.get("utilisateur")).getId())) {
-					if (rt.getId() == this.livreType.getId()) {
-						this.afficheResa = false;
-						break;
-					}
-				}
-
-			} catch (ObtenirEmpruntLivreFault e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				this.afficheResa = false;
-			} catch (SOAPFaultException ee1) {
-				ee1.printStackTrace();
-				this.afficheResa = false;
-			} catch (ObtenirReservationUtilisateurFault_Exception e) {
-				this.afficheResa = false;
-				e.printStackTrace();
-			}
+			// try {
+			// // -- si le livre n'est pas emprunté
+			// biblioWS.obtenirEmpruntLivre(this.livreType.getId());
+			// this.afficheResa = true;
+			// // --si le livre n'est pas deja reserve par l'utilisateur
+			// for (ReservationType rt : biblioWS
+			// .obtenirReservationUtilisateur(((UtilisateurType)
+			// this.session.get("utilisateur")).getId())) {
+			// if (rt.getId() == this.livreType.getId()) {
+			// this.afficheResa = false;
+			// break;
+			// }
+			// }
+			//
+			// } catch (ObtenirEmpruntLivreFault e) {
+			// // TODO Auto-generated catch block
+			// e.printStackTrace();
+			// this.afficheResa = false;
+			// } catch (SOAPFaultException ee1) {
+			// ee1.printStackTrace();
+			// this.afficheResa = false;
+			// } catch (ObtenirReservationUtilisateurFault_Exception e) {
+			// this.afficheResa = false;
+			// e.printStackTrace();
+			// }
 
 			return ActionSupport.SUCCESS;
 		} catch (DetailsOuvrageFault_Exception e) {
@@ -151,16 +148,15 @@ public class GoLivre extends ActionSupport implements SessionAware {
 		this.webAppConfig = webAppConfig;
 	}
 
-	public boolean isAfficheResa() {
-		return this.afficheResa;
-	}
-
-	public void setAfficheResa(boolean afficheResa) {
-		this.afficheResa = afficheResa;
-	}
+	// public boolean isAfficheResa() {
+	// return this.afficheResa;
+	// }
+	//
+	// public void setAfficheResa(boolean afficheResa) {
+	// this.afficheResa = afficheResa;
+	// }
 
 	@Override
 	public void setSession(Map<String, Object> session) {
-		this.session = session;
 	}
 }

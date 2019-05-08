@@ -47,7 +47,7 @@ public class MailHandler {
 	}
 
 	/**
-	 * Constructeur avec paramètre
+	 * Constructeur avec paramètres
 	 * 
 	 * @param pRetardataire
 	 * @param pLivreEmprunte
@@ -59,6 +59,12 @@ public class MailHandler {
 		this.listeRappel = new ArrayList<LivreEmprunt>();
 	}
 
+	/**
+	 * Constructeur avec paramètres
+	 * 
+	 * @param pUserAlerte
+	 * @param pLivreAlerte
+	 */
 	public MailHandler(Utilisateur pUserAlerte, Livre pLivreAlerte) {
 		this.retardataire = pUserAlerte;
 		this.livre = pLivreAlerte;
@@ -66,6 +72,12 @@ public class MailHandler {
 		this.listeRappel = new ArrayList<LivreEmprunt>();
 	}
 
+	/**
+	 * Constructeur avec paramètres
+	 * 
+	 * @param pUserRappel
+	 * @param pListeRappel
+	 */
 	public MailHandler(Utilisateur pUserRappel, List<LivreEmprunt> pListeRappel) {
 		this.retardataire = pUserRappel;
 		this.listeRappel = pListeRappel;
@@ -126,6 +138,9 @@ public class MailHandler {
 		}
 	}
 
+	/**
+	 * Méthode pour construire et envoyer le mail d'alerte
+	 */
 	public void sendMailAlerte() {
 		// Setting up configurations for the email connection to the Google SMTP server
 		// using TLS
@@ -175,6 +190,9 @@ public class MailHandler {
 		}
 	}
 
+	/**
+	 * Méthode pour construire et envoyer le mail de rappel
+	 */
 	public void sendMailRappel() {
 		// Setting up configurations for the email connection to the Google SMTP server
 		// using TLS

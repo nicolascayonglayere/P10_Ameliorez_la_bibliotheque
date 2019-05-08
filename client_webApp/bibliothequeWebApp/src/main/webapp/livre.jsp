@@ -40,12 +40,12 @@
 						<s:submit class="btn btn-default" value="EMPRUNTER"/>
 					</s:a>
 					
-					<s:if test="afficheResa">
-						<s:a action="reserver" namespace="/utilisateur">
-							<s:param name="idLivre" value="livreType.id"/>
-							<s:submit class="btn btn-default" value="RESERVER"/>
-						</s:a>
-					</s:if>
+
+					<s:a action="reserver" namespace="/utilisateur">
+						<s:param name="idLivre" value="livreType.id"/>
+						<s:submit class="btn btn-default" value="RESERVER"/>
+					</s:a>
+
 				</s:if>						
 			</div>
 		</div>
