@@ -3,20 +3,20 @@ services:
  
  db:
          build: ../BDD_PostgreSQL
-         container_name: db_P7
+         container_name: db_P10
          restart: always
          ports: 
           - "5496:5432"
          expose: 
           - "5496"
          environment: 
-          POSTGRES_DB: P7_bibliothequeWS
+          POSTGRES_DB: P10_bibliothequeWS
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password
 
  web-service:
          build: ../WS
-         container_name: ws_P7
+         container_name: ws_P10
          ports:
           - "8181:8181"
          expose:
@@ -24,13 +24,13 @@ services:
          depends_on: 
           - db
          environment: 
-          SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/P7_bibliothequeWS
+          SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/P10_bibliothequeWS
           SPRING_DATASOURCE_USERNAME: postgres
           SPRING_DATASOURCE_PASSWORD: password          
 
  batch:
          build: ../batch
-         container_name: batch_P7
+         container_name: batch_P10
          restart: always
          depends_on:
           - web-service

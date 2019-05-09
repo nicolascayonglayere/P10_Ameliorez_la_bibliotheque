@@ -1,5 +1,7 @@
 FROM java:8
 
-COPY bibliothequeWS-AppSpringBoot-1.0.1-SNAPSHOT.jar bibliothequeWS-AppSpringBoot-1.0.1-SNAPSHOT.jar
+ADD https://drive.google.com/uc?id=1lrRu4ltnSEInx39PfbGgykNd4z9lSPlS&export=download WS.zip
 
-ENTRYPOINT ["java","-jar","bibliothequeWS-AppSpringBoot-1.0.1-SNAPSHOT.jar"]
+RUN unzip WS.zip
+
+ENTRYPOINT ["java","-jar","bibliothequeWS-AppSpringBoot-1.1.0-RELEASE.jar"]

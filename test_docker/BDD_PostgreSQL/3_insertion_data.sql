@@ -1,19 +1,19 @@
 
 --table auteur--
 BEGIN TRANSACTION;
-INSERT INTO auteur (nom, prenom, naissance, nationalite) VALUES ('Camus', 'Albert', '1913-10-07', 'fr' );
-INSERT INTO auteur (nom, prenom, naissance, nationalite) VALUES ('Tournier', 'Michel', '1924-12-19', 'fr' );
-INSERT INTO auteur (nom, prenom, naissance, nationalite) VALUES ('Jaworski', 'Jean-Philippe', '1969-04-21', 'fr' );
-INSERT INTO auteur (nom, prenom, naissance, nationalite) VALUES ('Damasio', 'Alain', '1969-08-01', 'fr' );
+INSERT INTO auteur (nom, prenom, naissance, nationalite) VALUES ('Camus', 'Albert', '07/10/1913', 'fran�ais' );
+INSERT INTO auteur (nom, prenom, naissance, nationalite) VALUES ('Tournier', 'Michel', '19/12/1924', 'fran�ais' );
+INSERT INTO auteur (nom, prenom, naissance, nationalite) VALUES ('Jaworski', 'Jean-Philippe', '21/04/1969', 'fran�ais' );
+INSERT INTO auteur (nom, prenom, naissance, nationalite) VALUES ('Damasio', 'Alain', '01/08/1969', 'fran�ais' );
 
 COMMIT;
 
 --table utilisateur--
 BEGIN TRANSACTION;
-INSERT INTO utilisateur (nom, prenom, pseudo, mot_de_passe) VALUES ('ncg', 'nicolas', 'yogj', '$2a$10$vT0yVNyzdsD7pd8AkffGs.d7qYouFog5X2WYu5GV7JnVZGbn4ODRW');--'yogj');--
-INSERT INTO utilisateur (nom, prenom, pseudo, mot_de_passe) VALUES ('abdsc', 'nicole', 'nico', '$2a$10$k0PSZOmw9i1uwVXP7NU6SOzt/zdsKK3bYjAtCNsbd3FmyTkff44M.');--'nico');--
-INSERT INTO utilisateur (nom, prenom, pseudo, mot_de_passe) VALUES ('qsdfg', 'benoit', 'ben', '$2a$10$eKSM8qNOl5hm0pCEdQV9xuAEqFWY1DRv/isj/adra43fWwqJG/Sea');--'ben');--
-INSERT INTO utilisateur (nom, prenom, pseudo, mot_de_passe) VALUES ('wxcvb', 'andre', 'dede', '$2a$10$SH/.My9UumGA3LMpQ5U69eMp..30dJ5l1H.UQd2sD6ruSJBrJLL1C');--'dede');--
+INSERT INTO utilisateur (nom, prenom, pseudo, mot_de_passe, rappel_option) VALUES ('ncg', 'nicolas', 'yogj', '$2a$10$vT0yVNyzdsD7pd8AkffGs.d7qYouFog5X2WYu5GV7JnVZGbn4ODRW', true);--'yogj');--
+INSERT INTO utilisateur (nom, prenom, pseudo, mot_de_passe, rappel_option) VALUES ('abdsc', 'nicole', 'nico', '$2a$10$k0PSZOmw9i1uwVXP7NU6SOzt/zdsKK3bYjAtCNsbd3FmyTkff44M.', true);--'nico');--
+INSERT INTO utilisateur (nom, prenom, pseudo, mot_de_passe, rappel_option) VALUES ('qsdfg', 'benoit', 'ben', '$2a$10$eKSM8qNOl5hm0pCEdQV9xuAEqFWY1DRv/isj/adra43fWwqJG/Sea', false);--'ben');--
+INSERT INTO utilisateur (nom, prenom, pseudo, mot_de_passe, rappel_option) VALUES ('wxcvb', 'andre', 'dede', '$2a$10$SH/.My9UumGA3LMpQ5U69eMp..30dJ5l1H.UQd2sD6ruSJBrJLL1C', false);--'dede');--
 COMMIT;
 
 --table coordonnee_utilisateur--
@@ -60,6 +60,12 @@ COMMIT;
 
 --table livre_emprunt--
 BEGIN TRANSACTION;
-INSERT INTO livre_emprunt (date_emprunt, prolongation, id_utilisateur, id_livre) VALUES ('01/01/2018', true, 1, 1);
-INSERT INTO livre_emprunt (date_emprunt, prolongation, id_utilisateur, id_livre) VALUES ('01/02/2019', false, 1, 2);
+INSERT INTO livre_emprunt (date_emprunt, prolongation, id_utilisateur, id_livre) VALUES ('01/01/2019', true, 1, 1);
+INSERT INTO livre_emprunt (date_emprunt, prolongation, id_utilisateur, id_livre) VALUES ('01/01/2019', true, 2, 5);
+INSERT INTO livre_emprunt (date_emprunt, prolongation, id_utilisateur, id_livre) VALUES ('01/01/2019', false, 3, 5);
+COMMIT;
+
+--table reservation--
+BEGIN TRANSACTION;
+INSERT INTO reservation (date_reservation, id_livre, id_utilisateur, date_alerte) VALUES ('31/01/2019', 5, 1, null);
 COMMIT;
