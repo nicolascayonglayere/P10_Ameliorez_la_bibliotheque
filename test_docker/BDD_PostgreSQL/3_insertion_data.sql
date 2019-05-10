@@ -1,10 +1,10 @@
 
 --table auteur--
 BEGIN TRANSACTION;
-INSERT INTO auteur (nom, prenom, naissance, nationalite) VALUES ('Camus', 'Albert', '07/10/1913', 'fran�ais' );
-INSERT INTO auteur (nom, prenom, naissance, nationalite) VALUES ('Tournier', 'Michel', '19/12/1924', 'fran�ais' );
-INSERT INTO auteur (nom, prenom, naissance, nationalite) VALUES ('Jaworski', 'Jean-Philippe', '21/04/1969', 'fran�ais' );
-INSERT INTO auteur (nom, prenom, naissance, nationalite) VALUES ('Damasio', 'Alain', '01/08/1969', 'fran�ais' );
+INSERT INTO auteur (nom, prenom, naissance, nationalite) VALUES ('Camus', 'Albert', '1913/10/07', 'fran�ais' );
+INSERT INTO auteur (nom, prenom, naissance, nationalite) VALUES ('Tournier', 'Michel', '1924/12/19', 'fran�ais' );
+INSERT INTO auteur (nom, prenom, naissance, nationalite) VALUES ('Jaworski', 'Jean-Philippe', '1969/04/21', 'fran�ais' );
+INSERT INTO auteur (nom, prenom, naissance, nationalite) VALUES ('Damasio', 'Alain', '1969/08/01', 'fran�ais' );
 
 COMMIT;
 
@@ -33,11 +33,11 @@ COMMIT;
 
 --table livre--
 BEGIN TRANSACTION;
-INSERT INTO livre (titre, genre, date_parution, nb_exemplaire) VALUES ('La peste', 'roman', '1/1/1947', 5);
-INSERT INTO livre (titre, genre, date_parution, nb_exemplaire) VALUES ('L''etranger', 'roman', '1/1/1942', 8);
-INSERT INTO livre (titre, genre, date_parution, nb_exemplaire) VALUES ('Gagner la guerre', 'heroic-fantasy', '1/1/2009', 3);
-INSERT INTO livre (titre, genre, date_parution, nb_exemplaire) VALUES ('Vendredi ou les limbes du pacifique', 'roman','1/1/1967', 5);
-INSERT INTO livre (titre, genre, date_parution, nb_exemplaire) VALUES ('La zone du dehors', 'sciences-fiction', '1/1/2007', 2);
+INSERT INTO livre (titre, genre, date_parution, nb_exemplaire) VALUES ('La peste', 'roman', '1947/01/01', 5);
+INSERT INTO livre (titre, genre, date_parution, nb_exemplaire) VALUES ('L''etranger', 'roman', '1942/01/01', 8);
+INSERT INTO livre (titre, genre, date_parution, nb_exemplaire) VALUES ('Gagner la guerre', 'heroic-fantasy', '2009/01/01', 3);
+INSERT INTO livre (titre, genre, date_parution, nb_exemplaire) VALUES ('Vendredi ou les limbes du pacifique', 'roman','1967/01/01', 5);
+INSERT INTO livre (titre, genre, date_parution, nb_exemplaire) VALUES ('La zone du dehors', 'sciences-fiction', '2007/01/01', 2);
 COMMIT;
 
 --table livre_edition--
@@ -60,12 +60,12 @@ COMMIT;
 
 --table livre_emprunt--
 BEGIN TRANSACTION;
-INSERT INTO livre_emprunt (date_emprunt, prolongation, id_utilisateur, id_livre) VALUES ('01/01/2019', true, 1, 1);
-INSERT INTO livre_emprunt (date_emprunt, prolongation, id_utilisateur, id_livre) VALUES ('01/01/2019', true, 2, 5);
-INSERT INTO livre_emprunt (date_emprunt, prolongation, id_utilisateur, id_livre) VALUES ('01/01/2019', false, 3, 5);
+INSERT INTO livre_emprunt (date_emprunt, prolongation, id_utilisateur, id_livre) VALUES ('2019/01/01', true, 1, 1);
+INSERT INTO livre_emprunt (date_emprunt, prolongation, id_utilisateur, id_livre) VALUES ('2019/01/01', true, 2, 5);
+INSERT INTO livre_emprunt (date_emprunt, prolongation, id_utilisateur, id_livre) VALUES ('2019/01/01', false, 3, 5);
 COMMIT;
 
 --table reservation--
 BEGIN TRANSACTION;
-INSERT INTO reservation (date_reservation, id_livre, id_utilisateur, date_alerte) VALUES ('31/01/2019', 5, 1, null);
+INSERT INTO reservation (date_reservation, id_livre, id_utilisateur, date_alerte) VALUES ('2019/01/31', 5, 1, null);
 COMMIT;
